@@ -1,0 +1,69 @@
+---
+permalink: monitor/logs-for-third-party-software.html 
+sidebar: sidebar 
+keywords: troubleshooting, logs 
+summary: サードパーティソフトウェアのログを問題のトラブルシューティングに使用できます。 
+---
+= サードパーティソフトウェアのログ
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+サードパーティソフトウェアのログを問題のトラブルシューティングに使用できます。
+
+[cols="1a,2a,3a,1a"]
+|===
+| カテゴリ | ファイル名 | 注： | にあります 
+
+
+ a| 
+アーカイブ
+| /var/local/log/dsierror.log  a| 
+TSM クライアント API のエラー情報。
+ a| 
+アーカイブノード
+
+
+
+ a| 
+MySQL
+| /var/local/log/mysql.err
+
+/var/local/log/mysql-slow.log  a| 
+MySQL によって生成されるログファイルです。
+
+`mysql.err` データベースのエラーや、起動やシャットダウンなどのイベントをキャプチャします。
+
+`mysql-slow.log` （スロークエリログ）には、実行に10秒以上かかったSQLステートメントが記録されます。
+ a| 
+管理ノード
+
+
+
+ a| 
+オペレーティングシステム
+| /var/local/log/messages  a| 
+このディレクトリには、オペレーティングシステムのログファイルが格納されます。これらのログに記録されたエラーは、 Grid Manager にも表示されます。サポート * > * ツール * > * グリッドトポロジ * を選択します。次に、 * Topology * > * _Site_* > * _Node_* > * SSM * > * Events * を選択します。
+ a| 
+すべてのノード
+
+
+
+ a| 
+NTP
+| /var/local/log/ntp.log
+
+/var/lib/ntp/var/log/ntpstats/  a| 
+`/var/local/log/ntp.log` NTPのエラーメッセージのログファイルが格納されます。
+
+`/var/lib/ntp/var/log/ntpstats/` Directoryには、NTPタイミング統計情報が格納されます
+
+`loopstats` ループフィルタの統計情報を記録します。
+
+`peerstats` には、ピア統計情報が記録されます
+ a| 
+すべてのノード
+
+|===

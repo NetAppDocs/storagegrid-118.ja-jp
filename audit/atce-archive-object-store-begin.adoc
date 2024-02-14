@@ -1,0 +1,54 @@
+---
+permalink: audit/atce-archive-object-store-begin.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ATCE, Archive Object Store Begin 
+summary: このメッセージは、外部アーカイブストレージへのコンテンツブロックの書き込みが開始されたことを示します。 
+---
+= ATCE ：アーカイブオブジェクトストアが開始されました
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+このメッセージは、外部アーカイブストレージへのコンテンツブロックの書き込みが開始されたことを示します。
+
+[cols="1a,1a,4a"]
+|===
+| コード | フィールド | 説明 
+
+
+ a| 
+CBID
+ a| 
+コンテンツブロック ID
+ a| 
+アーカイブされるコンテンツブロックの一意の識別子。
+
+
+
+ a| 
+VLID
+ a| 
+ボリューム識別子
+ a| 
+コンテンツブロックの書き込み先のボリュームの一意の識別子。処理に失敗した場合は 0 が返されます。
+
+
+
+ a| 
+RSLT
+ a| 
+結果
+ a| 
+コンテンツブロックの転送結果を示します。現在定義されている値は次のとおり
+
+* SUCS ：成功（コンテンツブロックは正常に格納されました）
+* EXIS ：無視（コンテンツブロックはすでに格納されています）
+* ISFD ：失敗（ディスクスペースが足りません）
+* STER ：失敗（ CBID の格納エラー）
+* OFFL ：失敗（アーカイブがオフライン）
+* GERR ：失敗（一般的なエラー）
+
+
+|===

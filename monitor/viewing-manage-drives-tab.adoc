@@ -1,0 +1,28 @@
+---
+permalink: monitor/viewing-manage-drives-tab.html 
+sidebar: sidebar 
+keywords: Manage drives tab, hardware diagnostics, fail drive, logically replace drive 
+summary: '[Manage Drives]タブでは、SGF6112アプライアンス内のドライブの詳細にアクセスし、トラブルシューティングとメンテナンスのタスクを実行できます。' 
+---
+= [Manage Drives]タブを表示（SGF6112のみ）
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+[Manage Drives]タブでは、SGF6112アプライアンス内のドライブの詳細にアクセスし、トラブルシューティングとメンテナンスのタスクを実行できます。
+
+
+NOTE: [Manage Drives]タブは、SGF6112ストレージアプライアンスノードに対してのみ表示されます。
+
+[ドライブの管理]タブでは、次の操作を実行できます。
+
+* アプライアンス内のデータストレージドライブのレイアウトを表示する
+* ドライブの場所、タイプ、ステータス、ファームウェアバージョン、シリアル番号が一覧表示された表を表示する
+* 各ドライブでトラブルシューティング機能とメンテナンス機能を実行する
+
+
+[Manage Drives]タブにアクセスするには、 link:../admin/admin-group-permissions.html["ストレージアプライアンス管理者またはRoot Access権限"]。
+
+[ドライブの管理]タブの使用方法については、を参照してください。 https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/manage-drives-tab.html["[ドライブの管理]タブを使用する"^]。

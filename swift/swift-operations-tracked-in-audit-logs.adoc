@@ -1,0 +1,48 @@
+---
+permalink: swift/swift-operations-tracked-in-audit-logs.html 
+sidebar: sidebar 
+keywords: swift options request 
+summary: ストレージに対する成功した DELETE 、 GET 、 HEAD 、 POST 、 PUT の各処理は、 StorageGRID 監査ログで追跡されます。失敗およびinfo、auth、OPTIONSの各要求はログに記録されません。 
+---
+= 監査ログで追跡される Swift 処理
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ストレージに対する成功した DELETE 、 GET 、 HEAD 、 POST 、 PUT の各処理は、 StorageGRID 監査ログで追跡されます。失敗およびinfo、auth、OPTIONSの各要求はログに記録されません。
+
+
+
+== アカウントの処理
+
+* link:account-operations.html["GETアカウント"]
+* link:account-operations.html["HEADアカウント"]
+
+
+
+
+== コンテナの処理
+
+* link:container-operations.html["コンテナを削除します"]
+* link:container-operations.html["GET コンテナ"]
+* link:container-operations.html["HEAD（コンテナ）"]
+* link:container-operations.html["PUT（コンテナ）"]
+
+
+
+
+== オブジェクトの処理
+
+* link:object-operations.html["オブジェクトを削除します"]
+* link:object-operations.html["GET（オブジェクト）"]
+* link:object-operations.html["HEADオブジェクト"]
+* link:object-operations.html["PUT（オブジェクト）"]
+
+
+.関連情報
+* link:../audit/accessing-audit-log-file.html["監査ログファイルにアクセスします"]
+* link:../audit/client-write-audit-messages.html["クライアント書き込み監査メッセージ"]
+* link:../audit/client-read-audit-messages.html["クライアント読み取り監査メッセージ"]
+

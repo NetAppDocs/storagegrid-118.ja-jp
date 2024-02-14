@@ -1,0 +1,40 @@
+---
+permalink: admin/modifying-connection-settings-for-s3-api.html 
+sidebar: sidebar 
+keywords: archive node, cloud tiering 
+summary: S3 API を使用して外部のアーカイブストレージシステムに接続するようにアーカイブノードを設定したあとで接続が変更された場合、一部の設定を変更できます。 
+---
+= S3 API の接続設定を変更します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+S3 API を使用して外部のアーカイブストレージシステムに接続するようにアーカイブノードを設定したあとで接続が変更された場合、一部の設定を変更できます。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* これで完了です link:admin-group-permissions.html["特定のアクセス権限"]。
+
+
+.このタスクについて
+クラウドの階層化（ S3 ）アカウントを変更した場合は、アーカイブノードによって以前にバケットに取り込まれたすべてのオブジェクトを含む、バケットへの読み取り / 書き込みアクセスがユーザアクセスクレデンシャルに割り当てられている必要があります。
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. 「 * _ アーカイブノード _ * > * ARC * > * ターゲット * 」を選択します。
+. * Configuration * > * Main * を選択します。
++
+image::../media/archive_node_s3_middleware.gif[アーカイブノードの設定ページを変更します]
+
+. 必要に応じて、アカウント情報を変更します。
++
+ストレージクラスを変更すると、新しいオブジェクトデータは新しいストレージクラスで格納されます。既存のオブジェクトは、引き続き取り込み時に設定したストレージクラスで格納されます。
+
++
+
+NOTE: [Bucket Name]、[Region]、および[Endpoint]にはAWSの値が使用され、変更することはできません。
+
+. 「 * 変更を適用する * 」を選択します。
+

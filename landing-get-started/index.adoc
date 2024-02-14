@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-get-started/index.html 
+summary: StorageGRIDシステムを設置して使用する前に、StorageGRIDとは何かを確認してください。 
+---
+= StorageGRIDシステムの使用を開始する
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

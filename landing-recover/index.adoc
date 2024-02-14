@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-recover/index.html 
+summary: グリッドノードで障害が発生した場合は、障害が発生した物理または仮想サーバを交換し、 StorageGRID ソフトウェアを再インストールし、リカバリ可能なデータをリストアすることでリカバリできます。 
+---
+= ノードをリカバリまたは交換
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

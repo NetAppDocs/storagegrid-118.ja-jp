@@ -1,0 +1,110 @@
+---
+permalink: admin/what-storage-volume-watermarks-are.html 
+sidebar: sidebar 
+keywords: what are storage volume watermarks, storage volume soft read-only watermark, storage volume hard read-only watermark, storage volume read-write watermark 
+summary: StorageGRID では、ストレージボリュームのウォーターマークを 3 つ使用して、スペースの深刻な低下を発生させる前にストレージノードを読み取り専用状態に安全に移行し、読み取り専用状態に移行して再び読み取り / 書き込み可能にすることができます。 
+---
+= ストレージボリュームのウォーターマークとは何ですか？
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID では、ストレージボリュームのウォーターマークを 3 つ使用して、スペースの深刻な低下を発生させる前にストレージノードを読み取り専用状態に安全に移行し、読み取り専用状態に移行して再び読み取り / 書き込み可能にすることができます。
+
+image::../media/storage_volume_watermarks.png[ストレージボリュームのウォーターマーク]
+
+
+NOTE: ストレージボリュームのウォーターマークは、レプリケートオブジェクトデータとイレイジャーコーディングオブジェクトデータに使用されるスペースにのみ適用されます。ボリューム 0 でオブジェクトメタデータ用にリザーブされているスペースについては、を参照してください
+link:managing-object-metadata-storage.html["オブジェクトメタデータストレージを管理する"]。
+
+
+
+== Soft Read-Only Watermark とは何ですか？
+
+Storage Volume Soft Read-Only Watermark * は、オブジェクトデータに使用可能なストレージノードのスペースがフルに近づいていることを示す最初のウォーターマークです。
+
+ストレージノード内の各ボリュームの空きスペースがそのボリュームの Soft Read ‐ Only Watermark より少ない場合、ストレージノードは _read-only mode_に 移行します。読み取り専用モードでは、ストレージノードは StorageGRID システムの他の要素にサービスが読み取り専用であることをアドバタイズしますが、保留中の書き込み要求はすべて実行します。
+
+たとえば、ストレージノード内の各ボリュームにソフト読み取り専用の Watermark が 10GB の場合、各ボリュームの空きスペースが 10GB 未満になると、ストレージノードはソフト読み取り専用モードに移行します。
+
+
+
+== Hard Read-Only Watermark とは何ですか？
+
+Storage Volume Hard Read-Only Watermark * は、オブジェクトデータに使用可能なノードのスペースがフルに近づいていることを示す 2 つ目のウォーターマークです。
+
+ボリュームの空きスペースがそのボリュームのハード読み取り専用ウォーターマークよりも小さい場合、ボリュームへの書き込みは失敗します。ただし、他のボリュームへの書き込みは、それらのボリュームの空きスペースがハード読み取り専用のウォーターマークよりも少なくなるまで続行できます。
+
+たとえば、ストレージノード内の各ボリュームに Hard Read-Only Watermark が 5GB の状態であるとします。各ボリュームの空きスペースが 5GB 未満になると、ストレージノードは書き込み要求を受け付けなくなります。
+
+Hard Read-Only Watermark は、常に Soft Read-Only Watermark より小さくなります。
+
+
+
+== Read-Write Watermark とは何ですか
+
+読み取り専用モードに移行した * Storage Volume Read-Write Watermark * 専用環境 ストレージノード。また、ノードが再度読み取り / 書き込み可能になるタイミングを決定します。ストレージノード内のいずれかのストレージボリュームの空きスペースがそのボリュームの Read-Write Watermark より大きい場合、ノードは自動的に読み取り / 書き込み状態に戻ります。
+
+たとえば、ストレージノードが読み取り専用モードに移行したとします。また、各ボリュームの Read-Write Watermark が 30GB であるとします。ボリュームの空きスペースが 30GB に増えると、そのノードは再び読み取り / 書き込み可能になります。
+
+Read-Write Watermark は、 Soft Read-Only Watermark および Hard Read-Only Watermark より常に大きくなります。
+
+
+
+== ストレージボリュームのウォーターマークを表示する
+
+現在のウォーターマーク設定とシステムに最適化された値を表示できます。最適化された透かしが使用されていない場合は、設定を調整できるかどうかを判断できます。
+
+.作業を開始する前に
+* StorageGRID 11.6以降へのアップグレードが完了している。
+* を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* を使用することができます link:admin-group-permissions.html["rootアクセス権限"]。
+
+
+
+
+=== 現在の透かし設定を表示します
+
+Grid Manager で、現在のストレージのウォーターマーク設定を表示できます。
+
+.手順
+. * support *>* other *>* Storage watermark *を選択します。
+. [Storage Watermarks]ページで、[Use optimized values]チェックボックスを確認します。
++
+** このチェックボックスをオンにすると、ストレージノードのサイズとボリュームの相対容量に基づいて、すべてのストレージノードのすべてのストレージボリュームに対して3つのウォーターマークがすべて最適化されます。
++
+これがデフォルトで推奨される設定です。これらの値は更新しないでください。必要に応じて、を実行できます <<view-optimized-storage-watermarks,最適化されたストレージウォーターマークを表示する>>。
+
+** [最適化された値を使用]チェックボックスがオフの場合、カスタム（最適化されていない）ウォーターマークが使用されます。カスタム透かし設定の使用はお勧めしません。の手順を使用します link:../troubleshoot/troubleshoot-low-watermark-alert.html["ロー読み取り専用のウォーターマーク上書きアラートのトラブルシューティング"] 設定を調整できるかどうかを判断するには、次の手順に従います。
++
+カスタムウォーターマーク設定を指定する場合は、0より大きい値を入力する必要があります。
+
+
+
+
+
+
+
+=== [[view-optimized-storage-watermarks]]最適化されたストレージウォーターマークの表示
+
+StorageGRID は、 2 つの Prometheus 指標を使用して、 * Storage Volume Soft Read-Only Watermark * に対して計算された最適値を表示します。グリッド内の各ストレージノードの最適化された最小値と最大値を表示できます。
+
+. [*support*>] 、 [*Tools] 、 [*Metrics] の順に選択します。
+. Prometheus セクションで、 Prometheus ユーザインターフェイスへのリンクを選択します。
+. 推奨されるソフト読み取り専用の最小ウォーターマークを確認するには、次の Prometheus 指標を入力し、 * Execute * を選択します。
++
+`storagegrid_storage_volume_minimum_optimized_soft_readonly_watermark`
+
++
+最後の列には、各ストレージノード上のすべてのストレージボリュームに対して Soft Read-Only Watermark の最小最適値が表示されます。この値が * Storage Volume Soft Read ‐ Only Watermark * のカスタム設定より大きい場合、ストレージノードに対して * Low read-only watermark override * アラートがトリガーされます。
+
+. 推奨されるソフト読み取り専用の最大ウォーターマークを確認するには、次の Prometheus 指標を入力し、 * Execute * を選択します。
++
+`storagegrid_storage_volume_maximum_optimized_soft_readonly_watermark`
+
++
+最後の列には、各ストレージノード上のすべてのストレージボリュームに対して Soft Read-Only Watermark の最大最適値が表示されます。
+
+

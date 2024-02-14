@@ -1,0 +1,237 @@
+---
+permalink: s3/put-object.html 
+sidebar: sidebar 
+keywords: object, add object, put, PutObject request 
+summary: S3 PutObject要求を使用して、バケットにオブジェクトを追加できます。 
+---
+= PutObject
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+S3 PutObject要求を使用して、バケットにオブジェクトを追加できます。
+
+
+
+== 競合を解決します
+
+同じキーに書き込む 2 つのクライアントなど、競合するクライアント要求は、「 latest-wins 」ベースで解決されます。「 latest-wins 」評価は、 S3 クライアントが処理を開始するタイミングではなく、 StorageGRID システムが特定の要求を完了したタイミングで行われます。
+
+
+
+== オブジェクトのサイズ
+
+1回のPutObject処理の最大推奨サイズは5GiB（5、368、709、120バイト）です。5GiBを超えるオブジェクトがある場合は、 link:operations-for-multipart-uploads.html["マルチパートアップロード"] 代わりに、
+
+1回のPutObject処理のmaximum_supported_sizeは5TiB（5、497、558、138、880バイト）です。
+
+
+NOTE: StorageGRID 11.6以前からアップグレードした場合、5GiBを超えるオブジェクトをアップロードしようとすると、S3 PUT Object size too largeアラートがトリガーされます。StorageGRID 11.7または11.8を新規にインストールした場合、この場合アラートはトリガーされません。ただし、AWS S3標準に準拠するため、StorageGRIDの今後のリリースでは5GiBを超えるオブジェクトのアップロードはサポートされません。
+
+
+
+== ユーザメタデータのサイズ
+
+Amazon S3 では、各 PUT 要求ヘッダー内のユーザ定義メタデータのサイズが 2KB に制限されます。StorageGRID では、ユーザメタデータが 24KiB に制限されます。ユーザ定義のメタデータのサイズは、各キーと値の UTF-8 エンコードでのバイト数の合計で測定されます。
+
+
+
+== ユーザメタデータ内の UTF-8 文字
+
+要求のユーザ定義メタデータのキー名または値に（エスケープされていない） UTF-8 文字が含まれている場合、 StorageGRID の動作は定義されていません。
+
+ユーザ定義メタデータのキー名または値に含まれているエスケープされた UTF-8 文字は、 StorageGRID で解析も解釈もされません。エスケープされた UTF-8 文字は ASCII 文字として扱われます。
+
+* ユーザ定義メタデータにエスケープされたUTF-8文字が含まれている場合、PutObject、CopyObject、GetObject、およびHeadObjectの各要求は成功します。
+* StorageGRID からが返されない `x-amz-missing-meta` キーの名前または値の解釈後の値に印刷不能文字が含まれている場合は、ヘッダー。
+
+
+
+
+== オブジェクトタグの制限
+
+タグは、新しいオブジェクトをアップロードするときに追加することも、既存のオブジェクトに追加することもできます。StorageGRID と Amazon S3 はどちらも、オブジェクトごとに最大 10 個のタグをサポートします。オブジェクトに関連付けられたタグには、一意のタグキーが必要です。タグキーには Unicode 文字を 128 文字まで、タグ値には Unicode 文字を 256 文字まで使用できます。キーと値では大文字と小文字が区別されます。
+
+
+
+== オブジェクトの所有権
+
+StorageGRID では、非所有者アカウントまたは匿名ユーザによって作成されたオブジェクトを含むすべてのオブジェクトが、バケット所有者アカウントによって所有されます。
+
+
+
+== サポートされる要求ヘッダー
+
+次の要求ヘッダーがサポートされています。
+
+* `Cache-Control`
+* `Content-Disposition`
+* `Content-Encoding`
++
+を指定する場合 `aws-chunked` の場合 ``Content-Encoding``StorageGRID では、次の項目は検証されません。
+
++
+** StorageGRID ではが検証されません `chunk-signature` チャンクデータに対して。
+** StorageGRID は、ユーザが指定した値を検証しません `x-amz-decoded-content-length` をクリックします。
+
+
+* `Content-Language`
+* `Content-Length`
+* `Content-MD5`
+* `Content-Type`
+* `Expires`
+* `Transfer-Encoding`
++
+チャンク転送エンコードは、の場合にサポートされます `aws-chunked` ペイロード署名も使用されます。
+
+* `x-amz-meta-`をクリックし、続けてユーザ定義のメタデータを含む名前と値のペアを作成します。
++
+ユーザ定義メタデータの名前と値のペアを指定する場合、一般的な形式は次のとおりです。
+
++
+[listing, subs="specialcharacters,quotes"]
+----
+x-amz-meta-_name_: _value_
+----
++
+ILMルールの参照時間に*[ユーザ定義の作成時間]*オプションを使用する場合は、を使用する必要があります `creation-time` を、オブジェクトの作成時に記録されたメタデータの名前として指定します。例：
+
++
+[listing]
+----
+x-amz-meta-creation-time: 1443399726
+----
++
+の値 `creation-time` は、1970年1月1日からの秒数として評価されます。
+
++
+
+NOTE: ILMルールでは、参照時間に*ユーザ定義の作成時間*を使用し、取り込みオプションをBalancedまたはStrictの両方にすることはできません。ILM ルールの作成時にエラーが返されます。
+
+* `x-amz-tagging`
+* S3 Object Lock 要求のヘッダー
++
+** `x-amz-object-lock-mode`
+** `x-amz-object-lock-retain-until-date`
+** `x-amz-object-lock-legal-hold`
++
+これらのヘッダーを指定せずに要求を行うと、バケットのデフォルトの保持設定を使用してオブジェクトバージョンモードとretain-until-dateが計算されます。を参照してください link:../s3/use-s3-api-for-s3-object-lock.html["S3 REST APIを使用してS3オブジェクトロックを設定します"]。
+
+
+
+* SSE 要求ヘッダー：
++
+** `x-amz-server-side-encryption`
+** `x-amz-server-side-encryption-customer-key-MD5`
+** `x-amz-server-side-encryption-customer-key`
+** `x-amz-server-side-encryption-customer-algorithm`
++
+を参照してください <<サーバ側の暗号化を行うための要求ヘッダー>>
+
+
+
+
+
+
+
+== サポートされない要求ヘッダーです
+
+次の要求ヘッダーはサポートされていません。
+
+* 。 `x-amz-acl` 要求ヘッダーはサポートされていません。
+* 。 `x-amz-website-redirect-location` 要求ヘッダーはサポートされておらず、返されます `XNotImplemented`。
+
+
+
+
+== ストレージクラスのオプション
+
+。 `x-amz-storage-class` 要求ヘッダーがサポートされています。に送信された値 `x-amz-storage-class` StorageGRID が取り込み中にオブジェクトデータを保護する方法に影響し、StorageGRID システム（ILMで決定）に格納されるオブジェクトの永続的コピーの数には影響しません。
+
+取り込まれたオブジェクトに一致するILMルールでStrict取り込みオプションが使用されている場合は、 `x-amz-storage-class` ヘッダーに影響はありません。
+
+には次の値を使用できます `x-amz-storage-class`：
+
+* `STANDARD` （デフォルト）
++
+** * Dual commit * ： ILM ルールの取り込み動作が Dual commit オプションに指定されている場合は、オブジェクトの取り込み直後にオブジェクトの 2 つ目のコピーが作成されて別のストレージノードに配置されます（デュアルコミット）。ILMが評価されると、StorageGRID はこれらの初期中間コピーがルールの配置手順を満たしているかどうかを判断します。作成されていない場合は、新しいオブジェクトコピーを別の場所に作成し、最初の中間コピーを削除しなければならないことがあります。
+** * Balanced *：ILMルールでBalancedオプションが指定されていて、ルールで指定されたすべてのコピーをStorageGRID がすぐに作成できない場合、StorageGRID は2つの中間コピーを別 々 のストレージノードに作成します。
++
+StorageGRID がILMルールに指定されたすべてのオブジェクトコピーをただちに作成できる場合（同期配置）は、を参照してください `x-amz-storage-class` ヘッダーに影響はありません。
+
+
+
+* `REDUCED_REDUNDANCY`
++
+** * Dual commit * ： ILM ルールの取り込み動作が Dual commit オプションに指定されている場合は、オブジェクトの取り込み時に StorageGRID が中間コピーを 1 つ作成します（シングルコミット）。
+** * Balanced *：ILMルールでBalancedオプションが指定されている場合、StorageGRID は、ルールで指定されたすべてのコピーをただちに作成できない場合にのみ中間コピーを1つ作成します。StorageGRID で同期配置を実行できる場合、このヘッダーは効果がありません。
+。 `REDUCED_REDUNDANCY` オプションは、オブジェクトに一致するILMルールで単一のレプリケートコピーが作成される場合に最適です。この場合は、を使用します `REDUCED_REDUNDANCY` 取り込み処理のたびに追加のオブジェクトコピーを不要に作成および削除する必要がなくなります。
+
+
++
+を使用する `REDUCED_REDUNDANCY` それ以外の場合は、このオプションは推奨されません。 `REDUCED_REDUNDANCY` 取り込み中にオブジェクトデータが失われるリスクが高まります。たとえば、 ILM 評価の前にコピーが 1 つだけ格納されていたストレージノードに障害が発生すると、データが失われる可能性があります。
+
+
+
+
+CAUTION: レプリケートコピーを一定期間に 1 つだけ作成すると、データが永続的に失われるリスクがあります。オブジェクトのレプリケートコピーが 1 つしかない場合、ストレージノードに障害が発生したり、重大なエラーが発生すると、そのオブジェクトは失われます。また、アップグレードなどのメンテナンス作業中は、オブジェクトへのアクセスが一時的に失われます。
+
+を指定します `REDUCED_REDUNDANCY` オブジェクトの初回取り込み時に作成されるコピー数のみに影響します。オブジェクトがアクティブなILMポリシーで評価される際に作成されるオブジェクトのコピー数には影響せず、StorageGRIDシステムでデータが格納される際の冗長性レベルが低下することもありません。
+
+
+NOTE: S3オブジェクトロックを有効にしてオブジェクトをバケットに取り込む場合は、を使用します `REDUCED_REDUNDANCY` オプションは無視されます。古い準拠バケットにオブジェクトを取り込む場合は、を参照してください `REDUCED_REDUNDANCY` オプションを指定するとエラーが返されます。StorageGRID では、常にデュアルコミットの取り込みが実行され、コンプライアンス要件が満たされます。
+
+
+
+== サーバ側の暗号化を行うための要求ヘッダー
+
+オブジェクトをサーバ側の暗号化で暗号化するには、次の要求ヘッダーを使用します。SSE オプションと SSE-C オプションを同時に指定することはできません。
+
+* * SSE * ： StorageGRID で管理される一意のキーでオブジェクトを暗号化するには、次のヘッダーを使用します。
++
+** `x-amz-server-side-encryption`
+
+
+* * SSE-C * ：ユーザが指定および管理する一意のキーでオブジェクトを暗号化する場合は、次の 3 つのヘッダーをすべて使用します。
++
+** `x-amz-server-side-encryption-customer-algorithm`:指定します `AES256`。
+** `x-amz-server-side-encryption-customer-key`:新しいオブジェクトの暗号化キーを指定します。
+** `x-amz-server-side-encryption-customer-key-MD5`:新しいオブジェクトの暗号化キーのMD5ダイジェストを指定します。
+
+
+
+
+
+CAUTION: 指定した暗号化キーが格納されることはありません。暗号化キーを紛失すると、対応するオブジェクトが失われます。ユーザ指定のキーを使用してオブジェクトデータを保護する前に、の考慮事項を確認してください link:using-server-side-encryption.html["サーバ側の暗号化を使用する"]。
+
+
+NOTE: SSE または SSE-C で暗号化されたオブジェクトは、バケットレベルまたはグリッドレベルの暗号化設定が無視されます。
+
+
+
+== バージョン管理
+
+バケットでバージョン管理が有効になっている場合は、一意です `versionId` は、格納されているオブジェクトのバージョンに対して自動的に生成されます。これ `versionId` は、を使用して応答としても返されます `x-amz-version-id` 応答ヘッダー。
+
+バージョン管理が一時停止中の場合は、オブジェクトバージョンはnullで格納されます `versionId` また、nullバージョンがすでに存在する場合は上書きされます。
+
+
+
+== Authorizationヘッダーのシグニチャ計算
+
+を使用する場合 `Authorization` 要求を認証するためのヘッダー。StorageGRID はAWSと次の点で異なります。
+
+* StorageGRID は必要ありません `host` に含めるヘッダー `CanonicalHeaders`。
+* StorageGRID は必要ありません `Content-Type` に含まれています `CanonicalHeaders`。
+* StorageGRID は必要ありません `x-amz-*` に含めるヘッダー `CanonicalHeaders`。
+
+
+
+NOTE: 一般的なベストプラクティスとして、には常にこれらのヘッダーを含めてください `CanonicalHeaders` これらのヘッダーが検証されるようにするためですが、これらのヘッダーを除外しても、StorageGRID はエラーを返しません。
+
+詳細については、を参照してください https://docs.aws.amazon.com/AmazonS3/latest/API/sig-v4-header-based-auth.html["Authorizationヘッダーのシグニチャ計算：単一チャンクでのペイロードの転送（AWS Signature Version 4）"^]。
+
+.関連情報
+link:../ilm/index.html["ILM を使用してオブジェクトを管理する"]

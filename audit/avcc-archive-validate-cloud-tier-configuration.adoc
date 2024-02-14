@@ -1,0 +1,37 @@
+---
+permalink: audit/avcc-archive-validate-cloud-tier-configuration.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, AVCC, Archive Validate Cloud-Tier Configuration 
+summary: このメッセージは、クラウド階層 - Simple Storage Service （ S3 \ ）ターゲットタイプの構成設定が検証されたときに生成されます。 
+---
+= AVCC ：アーカイブによってクラウド階層の構成を検証
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+このメッセージは、クラウド階層 - Simple Storage Service （ S3 ）ターゲットタイプの構成設定が検証されたときに生成されます。
+
+[cols="1a,1a,4a"]
+|===
+| コード | フィールド | 説明 
+
+
+ a| 
+RSLT
+ a| 
+結果コード
+ a| 
+成功（ SUCS ）、またはバックエンドによって報告されたエラーが返されます。
+
+
+
+ a| 
+SUID
+ a| 
+Storage Unique Identifier の略
+ a| 
+検証対象の外部アーカイブストレージシステムに関連付けられている UUID 。
+
+|===

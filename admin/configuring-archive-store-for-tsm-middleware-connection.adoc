@@ -1,0 +1,44 @@
+---
+permalink: admin/configuring-archive-store-for-tsm-middleware-connection.html 
+sidebar: sidebar 
+keywords: archive node, tsm server, tivoli storage manager, archive store 
+summary: アーカイブノードが TSM ミドルウェアサーバに接続している場合は、アーカイブノードのアーカイブストアの状態をオンラインまたはオフラインに設定できます。また、アーカイブノードの初回起動時にアーカイブストアを無効にしたり、関連するアラーム用に追跡されているエラー数をリセットしたりすることもできます。 
+---
+= TSM のアーカイブ状態とカウンタを設定します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードが TSM ミドルウェアサーバに接続している場合は、アーカイブノードのアーカイブストアの状態をオンラインまたはオフラインに設定できます。また、アーカイブノードの初回起動時にアーカイブストアを無効にしたり、関連するアラーム用に追跡されているエラー数をリセットしたりすることもできます。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* これで完了です link:admin-group-permissions.html["特定のアクセス権限"]。
+
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. 「 * _ アーカイブノード _ * > * ARC * > * Store * 」を選択します。
+. * Configuration * > * Main * を選択します。
++
+image::../media/archive_store_tsm.gif[TSM ミドルウェア接続用のアーカイブストアを設定します]
+
+. 必要に応じて次の設定を変更します。
++
+** Store State ：コンポーネントの状態を次のいずれかに設定します。
++
+*** Online ：アーカイブノードはオブジェクトデータを処理してアーカイブストレージシステムに格納できます。
+*** Offline ：アーカイブノードはオブジェクトデータを処理してアーカイブストレージシステムに格納できません。
+
+
+** Archive Store Disabled on Startup ：オンにすると、アーカイブストアコンポーネントは再起動後も読み取り専用のままになります。ターゲットのアーカイブストレージシステムへの格納を継続的に無効にする場合に使用します。対象のアーカイブストレージシステムでコンテンツを受け入れられない場合に便利です。
+** Reset Store Failure Count ：ストア障害のカウンタをリセットします。この設定を使用して、 ARVF （ Stores Failure ）アラームをクリアできます。
+
+
+. 「 * 変更を適用する * 」を選択します。
+
+
+.関連情報
+link:managing-archive-node-when-tsm-server-reaches-capacity.html["TSM サーバの容量が上限に達したときのアーカイブノードの管理"]

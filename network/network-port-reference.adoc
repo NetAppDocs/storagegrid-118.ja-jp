@@ -1,0 +1,16 @@
+---
+permalink: network/network-port-reference.html 
+sidebar: sidebar 
+keywords: network port reference 
+summary: ネットワークインフラが、グリッド内のノード間、および外部のクライアントやサービスとの間で内部通信および外部通信を可能にすることを確認する必要があります。内部および外部のファイアウォール、スイッチングシステム、およびルーティングシステム全体へのアクセスが必要な場合があります。 
+---
+= ネットワークポートのリファレンス
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ネットワークインフラが、グリッド内のノード間、および外部のクライアントやサービスとの間で内部通信および外部通信を可能にすることを確認する必要があります。内部および外部のファイアウォール、スイッチングシステム、およびルーティングシステム全体へのアクセスが必要な場合があります。
+
+に表示された詳細を使用します link:internal-grid-node-communications.html["内部でのグリッドノードの通信"] および link:external-communications.html["外部との通信"] 必要な各ポートの設定方法を確認します。

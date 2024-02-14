@@ -1,0 +1,31 @@
+---
+permalink: audit/event-specific-data.html 
+sidebar: sidebar 
+keywords: audit message, event, shea, s3 head 
+summary: 監査ログ内の各監査メッセージはシステムイベントに固有のデータを記録します。 
+---
+= イベント固有のデータ
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+監査ログ内の各監査メッセージはシステムイベントに固有のデータを記録します。
+
+開口部に続いて `[AUDT:` メッセージ自体を識別するコンテナ。次の一連の属性は、監査メッセージによって記述されるイベントまたはアクションに関する情報を提供します。以下の例では、これらの属性を強調表示しています。
+
+[]
+====
+2018-12-05T08：24：45.921845 [AUDT：*\[RST\（FC32\）：SUCS\]*
+*\[time\(UI64\):11454\]\[SAIP\(iPad\):"10.224.0.100"\]\[S3AI\(CStr\):"60025621595611246499"\]*
+*\[SACC\(CStr\):"account"\]\[S3AK\(CStr\):"SGKH4_Nc8SO1H6w3w0nCOFCGK__E6dYzKlumRsKJA=="\]*
+*\[SUSR\（CStr\）："urn：sgws：identity：：60025621595611246499：root"\]*
+*\[SBAI\（CStr\）："60025621595611246499"\]\[SBAC\（CStr\）："account"\]\[S3BK\（CStr\）："bucket"\]*
+*\[S3KY\（CStr\）："object"\]\[CBID\（UI64\）：0xCC128B9B9E428347\]*
+*\[UUID\（CStr\）："B975D2CE-E4DA-4D14-8A23-1CB4B83F2CD8"\]\[CSIZ\（UI64\）：30720\]*[aver（UI32）：10]
+\[ATIM（UI64）：1543998285921845]\[ATYP\（FC32\）：Shea\][ANID（UI32）：12281045][AMID（FC32）：S3RQ]
+\[ATID（UI64）：15552417629170647261]]
+
+====
+。 `ATYP` 要素（この例では下線付き）は、メッセージを生成したイベントを識別します。このメッセージ例には、が含まれています link:shea-s3-head.html["Shea"] メッセージコード（[ATYP（FC32）：Shea]）。S3 HEAD要求が成功して生成されたことを示します。

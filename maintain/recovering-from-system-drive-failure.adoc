@@ -1,0 +1,21 @@
+---
+permalink: maintain/recovering-from-system-drive-failure.html 
+sidebar: sidebar 
+keywords: recover, system drive failure, workflow 
+summary: ソフトウェアベースのストレージノードのシステムドライブで障害が発生すると、そのストレージノードは StorageGRID システムで使用できなくなります。システムドライブの障害からリカバリするには、特定のタスクを実行する必要があります。 
+---
+= システムドライブ障害からのリカバリ：ワークフロー
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ソフトウェアベースのストレージノードのシステムドライブで障害が発生すると、そのストレージノードは StorageGRID システムで使用できなくなります。システムドライブの障害からリカバリするには、特定のタスクを実行する必要があります。
+
+この手順 を使用して、ソフトウェアベースのストレージノードでシステムドライブ障害が発生した場合にリカバリします。この手順 には、障害が発生したストレージボリュームや再マウントできないストレージボリュームがある場合の手順が含まれます。
+
+
+NOTE: この 手順 環境 ソフトウェアベースのストレージノードのみ。には別の手順 を使用する必要があります link:recovering-storagegrid-appliance-storage-node.html["アプライアンスストレージノードをリカバリします"]。
+
+image::../media/storage_node_recovery_system_drive.gif[ソフトウェアベースのストレージノードで障害が発生したシステムドライブのリカバリ手順]

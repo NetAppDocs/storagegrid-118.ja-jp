@@ -1,0 +1,55 @@
+---
+permalink: audit/apct-archive-purge-from-cloud-tier.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, APCT, Archive Purge from Cloud-Tier 
+summary: このメッセージは、 S3 API を使用して StorageGRID に接続する外部アーカイブストレージシステムから、アーカイブされたオブジェクトデータが削除されたときに生成されます。 
+---
+= APCT ：クラウド階層からのアーカイブの削除
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+このメッセージは、 S3 API を使用して StorageGRID に接続する外部アーカイブストレージシステムから、アーカイブされたオブジェクトデータが削除されたときに生成されます。
+
+[cols="1a,1a,4a"]
+|===
+| コード | フィールド | 説明 
+
+
+ a| 
+CBID
+ a| 
+コンテンツブロック ID
+ a| 
+削除されたコンテンツブロックの一意の識別子。
+
+
+
+ a| 
+CSIZ
+ a| 
+コンテンツサイズ（ Content Size ）
+ a| 
+オブジェクトのサイズ（バイト単位）。常に 0 を返します。
+
+
+
+ a| 
+RSLT
+ a| 
+結果コード
+ a| 
+成功（ SUCS ）、またはバックエンドによって報告されたエラーが返されます。
+
+
+
+ a| 
+SUID
+ a| 
+Storage Unique Identifier の略
+ a| 
+オブジェクトが削除されたクラウド階層の一意の識別子（ UUID ）。
+
+|===

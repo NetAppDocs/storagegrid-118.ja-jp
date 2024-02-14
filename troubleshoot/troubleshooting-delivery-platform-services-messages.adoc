@@ -1,0 +1,35 @@
+---
+permalink: troubleshoot/troubleshooting-delivery-platform-services-messages.html 
+sidebar: sidebar 
+keywords: how to troubleshoot delivery of platform services message, how to troubleshoot smtt alarm 
+summary: データを受信できないデスティネーションにプラットフォームサービスメッセージが配信されると、Total Events\（SMTT\）アラームがGrid Managerでトリガーされます。 
+---
+= プラットフォームサービスメッセージの配信のトラブルシューティング（ SMTT アラーム）
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+データを受信できないデスティネーションにプラットフォームサービスメッセージが配信されると、Total Events（SMTT）アラームがGrid Managerでトリガーされます。
+
+.このタスクについて
+たとえば、設定されているエンドポイントに関連するレプリケーションまたは通知メッセージを配信できなくても、S3マルチパートアップロードは成功します。または、 CloudMirror レプリケーションのメッセージはメタデータが長すぎると配信できません。
+
+SMTTアラームには、 `Failed to publish notifications for _bucket-name object key_` 通知が失敗した最後のオブジェクト
+
+イベントメッセージは、にも表示されます `/var/local/log/bycast-err.log` ログファイル：を参照してください link:../monitor/logs-files-reference.html["ログファイル参照"]。
+
+追加情報の場合は、を参照してください link:../admin/troubleshooting-platform-services.html["プラットフォームサービスのトラブルシューティングを行う"]。必要に応じて link:../tenant/signing-in-to-tenant-manager.html["Tenant Manager からテナントにアクセスします"] プラットフォームサービスのエラーをデバッグするには、次の手順を実行
+
+.手順
+. アラームを表示するには、 * nodes * > * _site * > * _grid node_name * > * Events * を選択します。
+. 表の一番上に Last Event が表示されます。
++
+イベントメッセージは、にも表示されます `/var/local/log/bycast-err.log`。
+
+. SMTT アラームに記載されている指示に従って問題 を修正します。
+. [ * イベントカウントをリセット * ] を選択します。
+. プラットフォームサービスメッセージが配信されていないオブジェクトについてテナントに通知します。
+. テナントで、オブジェクトのメタデータまたはタグを更新することで、失敗したレプリケーションまたは通知をトリガーするよう指定します。
+

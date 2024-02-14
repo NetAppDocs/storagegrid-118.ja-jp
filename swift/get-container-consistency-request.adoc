@@ -1,0 +1,105 @@
+---
+permalink: swift/get-container-consistency-request.html 
+sidebar: sidebar 
+keywords: get container consistency request 
+summary: 整合性の値は、オブジェクトの可用性と、異なるストレージノードおよびサイト間でのオブジェクトの整合性のバランスを提供します。GET（コンテナ整合性）要求を使用すると、特定のコンテナに適用されている整合性を確認できます。 
+---
+= GET（コンテナ整合性）要求
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+整合性の値は、オブジェクトの可用性と、異なるストレージノードおよびサイト間でのオブジェクトの整合性のバランスを提供します。GET（コンテナ整合性）要求を使用すると、特定のコンテナに適用されている整合性を確認できます。
+
+
+
+== リクエスト
+
+[cols="2a,4a"]
+|===
+| 要求の HTTP ヘッダー | 説明 
+
+
+| X-Auth-Tokenの略  a| 
+要求に使用するアカウントの Swift 認証トークンを指定します。
+
+
+
+| x-ntap-sg-consistencyの略  a| 
+要求のタイプを指定します `true` = GETコンテナconsistency、および `false` =コンテナを取得します。
+
+
+
+| ホスト  a| 
+要求の転送先のホスト名。
+
+|===
+
+
+== 要求例
+
+[listing]
+----
+GET /v1/28544923908243208806/Swift container
+X-Auth-Token: SGRD_3a877009a2d24cb1801587bfa9050f29
+x-ntap-sg-consistency: true
+Host: test.com
+----
+
+
+== 応答
+
+[cols="2a,4a"]
+|===
+| 応答の HTTP ヘッダー | 説明 
+
+
+| 日付  a| 
+応答の日時。
+
+
+
+| 接続  a| 
+サーバへの接続が開いているかどうか。
+
+
+
+| X-Trans-ID  a| 
+要求の一意のトランザクション ID 。
+
+
+
+| Content-Lengthの略  a| 
+応答の本文の長さ。
+
+
+
+| x-ntap-sg-consistencyの略  a| 
+コンテナに適用されている整合性。次の値がサポートされています。
+
+* all *：すべてのノードがすぐにデータを受信しないと、要求が失敗します。
+
+* strong-global *：すべてのサイトのすべてのクライアント要求について、リードアフターライト整合性が保証されます。
+
+*strong-site *：サイト内のすべてのクライアント要求に対してリードアフターライト整合性が保証されます。
+
+* Read-after-new-write *：（デフォルト）新規オブジェクトにはリードアフターライト整合性を提供し、オブジェクトの更新には結果整合性を提供します。高可用性が確保され、データ保護が保証されます。ほとんどの場合に推奨されます。
+
+* available *：新しいオブジェクトとオブジェクトの更新の両方について、結果整合性を提供します。S3バケットの場合は、必要な場合にのみ使用します（読み取り頻度の低いログ値を含むバケットや、存在しないキーに対するHEAD処理やGET処理など）。S3 FabricPool バケットではサポートされません。
+
+|===
+
+
+== 応答例
+
+[listing]
+----
+HTTP/1.1 204 No Content
+Date: Sat, 29 Nov 2015 01:02:18 GMT
+Connection: CLOSE
+X-Trans-Id: 1936575373
+Content-Length: 0
+x-ntap-sg-consistency: strong-site
+----

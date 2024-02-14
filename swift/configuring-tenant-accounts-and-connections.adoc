@@ -1,0 +1,86 @@
+---
+permalink: swift/configuring-tenant-accounts-and-connections.html 
+sidebar: sidebar 
+keywords: swift test connection, cli, python-swiftclient 
+summary: Swift CLIを使用して、StorageGRIDシステムへの接続をテストし、オブジェクトの読み取りと書き込みが可能であることを確認できます。 
+---
+= Swift REST API設定のテスト
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Swift CLIを使用して、StorageGRIDシステムへの接続をテストし、オブジェクトの読み取りと書き込みが可能であることを確認できます。
+
+.作業を開始する前に
+* Swiftコマンドラインクライアントをダウンロードしてインストールしておきます。 https://platform.swiftstack.com/docs/integration/python-swiftclient.html["swifftStack ： python-swiftclient"^]
+* 必要に応じて、 link:../admin/configuring-load-balancer-endpoints.html["ロードバランサエンドポイントを作成しました"]。それ以外の場合は、接続するストレージノードのIPアドレスと使用するポート番号がわかっている必要があります。を参照してください link:../admin/summary-ip-addresses-and-ports-for-client-connections.html["クライアント接続用のIPアドレスとポート"]。
+* これで完了です link:../admin/creating-tenant-account.html["Swiftテナントアカウントを作成しました"]。
+* テナントアカウントにサインインし、グループとユーザを少なくとも1つ作成しておきます。を参照してください link:../tenant/creating-groups-for-swift-tenant.html["Swift テナント用のグループを作成します"]。
++
+
+NOTE: SwiftテナントユーザがSwift REST APIに認証するには、Administratorグループ権限が必要です。
+
+
+
+.このタスクについて
+セキュリティを設定していない場合は、を追加する必要があります `--insecure` これらの各コマンドにフラグを設定します。
+
+.手順
+. StorageGRID Swift 環境の情報 URL を照会します。
++
+[listing]
+----
+swift
+-U <Tenant_Account_ID:Account_User_Name>
+-K <User_Password>
+-A https://<FQDN | IP>:<Port>/info
+capabilities
+----
++
+この手順で、 Swift 環境が機能することをテストできます。オブジェクトを格納してアカウント設定をさらにテストするには、以降の手順を実行します。
+
+. オブジェクトをコンテナに配置します。
++
+[listing]
+----
+touch test_object
+swift
+-U <Tenant_Account_ID:Account_User_Name>
+-K <User_Password>
+-A https://<FQDN | IP>:<Port>/auth/v1.0
+upload test_container test_object
+--object-name test_object
+----
+. コンテナを取得してオブジェクトを確認します。
++
+[listing]
+----
+swift
+-U <Tenant_Account_ID:Account_User_Name>
+-K <User_Password>
+-A https://<FQDN | IP>:<Port>/auth/v1.0
+list test_container
+----
+. オブジェクトを削除します。
++
+[listing]
+----
+swift
+-U <Tenant_Account_ID:Account_User_Name>
+-K <User_Password>
+-A https://<FQDN | IP>:<Port>/auth/v1.0
+delete test_container test_object
+----
+. コンテナを削除します。
++
+[listing]
+----
+swift
+-U `<_Tenant_Account_ID:Account_User_Name_>`
+-K `<_User_Password_>`
+-A `\https://<_FQDN_ | _IP_>:<_Port_>/auth/v1.0'
+delete test_container
+----
+

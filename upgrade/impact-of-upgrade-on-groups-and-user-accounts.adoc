@@ -1,0 +1,35 @@
+---
+permalink: upgrade/impact-of-upgrade-on-groups-and-user-accounts.html 
+sidebar: sidebar 
+keywords: upgrade, permissions 
+summary: アップグレードの完了後に、グループとユーザアカウントを適切に更新しなければならない場合があります。 
+---
+= アップグレードによるグループおよびユーザアカウントへの影響
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アップグレードの完了後に、グループとユーザアカウントを適切に更新しなければならない場合があります。
+
+
+
+== グループの権限とオプションが変更されました
+
+StorageGRID 11.8にアップグレードしたら、必要に応じて次の新しい権限をテナントユーザグループに割り当てます。
+
+[cols="1a,2a,2a"]
+|===
+| アクセス権 | 説明 | 詳細 
+
+
+ a| 
+すべてのバケットを表示
+ a| 
+すべてのバケットとバケットの設定を表示できます。
+ a| 
+Manage All Buckets権限はView All Buckets権限よりも優先されます。
+
+|===
+を参照してください link:../tenant/tenant-management-permissions.html["テナント管理権限"]。

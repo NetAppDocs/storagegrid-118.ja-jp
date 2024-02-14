@@ -1,0 +1,64 @@
+---
+permalink: admin/creating-and-activating-domain-policy.html 
+sidebar: sidebar 
+keywords: domain policy for tsm, tivoli storage manager policy 
+summary: アーカイブノードから送信されたデータを保存するように TSM サーバを設定するには、ドメインポリシーを作成してアクティブ化する必要があります。 
+---
+= ドメインポリシーを作成してアクティブ化します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードから送信されたデータを保存するように TSM サーバを設定するには、ドメインポリシーを作成してアクティブ化する必要があります。
+
+.手順
+. ドメインポリシーを作成します。
++
+`copy domain standard tsm-domain`
+
+. 既存の管理クラスを使用しない場合は、次のいずれかを入力します。
++
+`define policyset tsm-domain standard`
+
++
+`define mgmtclass tsm-domain standard _default_`
+
++
+`_default_` は、導入用のデフォルトの管理クラスです。
+
+. 適切なストレージプールにコピーグループを作成します。（ 1 行に）次のように入力します。
++
+`define copygroup tsm-domain standard _default_ type=archive destination=SGWSDiskPool retinit=event retmin=0 retver=0`
+
++
+`_default_` は、アーカイブノードのデフォルトの管理クラスです。の値 `retinit`、 `retmin`および `retver` アーカイブノードで現在使用されている保持動作を反映するように選択されています
+
++
+
+NOTE: 設定しないでください `retinit` 終了： `retinit=create`。設定 `retinit=create` TSMサーバからコンテンツを削除するために保持イベントが使用されるため、アーカイブノードによるコンテンツの削除をブロックします。
+
+. 管理クラスをデフォルトに割り当てます。
++
+`assign defmgmtclass _tsm-domain_ standard _default_`
+
+. 新しいポリシーセットをアクティブに設定します。
++
+`activate policyset tsm-domain standard`
+
++
+activateコマンドを入力したときに表示される「no backup copy group」という警告は無視してください。
+
+. 新しいポリシーセットを使用するノードを TSM サーバに登録します。TSM サーバで、次のように（ 1 行に）入力します。
++
+`register node arc-user arc-password passexp=0 domain=tsm-domain MAXNUMMP=number-of-sessions`
+
++
+aarc-user と arc-password は、アーカイブノードで定義したクライアントノード名とパスワードです。また、 MAXNUMMP の値は、アーカイブノードの格納セッション用に予約されているテープドライブの数に設定されます。
+
++
+
+NOTE: デフォルトでは、ノードを登録すると、管理ユーザ ID がクライアント所有者の権限で作成され、パスワードが定義されます。
+
+

@@ -1,0 +1,33 @@
+---
+permalink: admin/optimizing-archive-node-for-tsm-middleware-sessions.html 
+sidebar: sidebar 
+keywords: archive node optimization 
+summary: アーカイブノードのセッションを構成することで、 Tivoli Server Manager\ （ TSM ）に接続するアーカイブノードのパフォーマンスを最適化できます。 
+---
+= TSM ミドルウェアセッション用にアーカイブノードを最適化します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードのセッションを設定することで、 Tivoli Server Manager （ TSM ）に接続するアーカイブノードのパフォーマンスを最適化できます。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* これで完了です link:admin-group-permissions.html["特定のアクセス権限"]。
+
+
+.このタスクについて
+通常、アーカイブノードが TSM ミドルウェアサーバに対して同時に開くことができるセッションの数は、 TSM サーバが所有するアーカイブノード専用のテープドライブの数に設定されます。1 本のテープドライブがストレージ用に割り当てられ、残りは読み出し用に割り当てられます。ただし、ストレージノードがアーカイブノードのコピーからリビルドされている場合や、アーカイブノードが読み取り専用モードで動作している場合は、読み出しセッションの最大数を同時セッション数と同じに設定することで、 TSM サーバのパフォーマンスを最適化できます。したがって、すべてのドライブを同時に読み出しに使用できます。また、必要に応じて、これらのドライブのうち 1 つをストレージに使用することもできます。
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. 「 * _ アーカイブノード _ * > * ARC * > * ターゲット * 」を選択します。
+. * Configuration * > * Main * を選択します。
+. Maximum Retrieve Sessions * を Number of Sessions * と同じに変更します。
++
+image::../media/optimizing_tivoli_storage_manager.gif[アーカイブノードの設定ページ]
+
+. 「 * 変更を適用する * 」を選択します。
+

@@ -1,0 +1,53 @@
+---
+permalink: fabricpool/remove-fabricpool-data.html 
+sidebar: sidebar 
+keywords: fabricPool, ontap, remove data from storagegrid 
+summary: StorageGRIDに現在保存されているFabricPoolデータを削除する必要がある場合は、次の手順を実行します。 
+---
+= StorageGRIDからFabricPoolデータを削除します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRIDに現在格納されているFabricPoolデータを削除する必要がある場合は、ONTAPを使用してFabricPoolボリュームのすべてのデータを取得し、高パフォーマンス階層に昇格する必要があります。
+
+.作業を開始する前に
+* の手順と考慮事項を確認しておきます https://docs.netapp.com/us-en/ontap/fabricpool/promote-data-performance-tier-task.html["データを高パフォーマンス階層に昇格"^]。
+* ONTAP 9.8以降を使用している。
+* を使用している link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* が搭載されたFabricPoolテナントアカウントのStorageGRIDユーザグループに属している必要があります link:../tenant/tenant-management-permissions.html["すべてのバケットまたはRoot Access権限を管理します"]。
+
+
+.このタスクについて
+ここでは、StorageGRIDからFabricPoolにデータを戻す方法について説明します。この手順は、ONTAPとStorageGRIDのテナントマネージャを使用して実行します。
+
+.手順
+. ONTAPから、問題を実行します `volume modify` コマンドを実行します
++
+設定 `tiering-policy` 終了： `none` を押して新しい階層化を停止し、設定します `cloud-retrieval-policy` 終了： `promote` 以前にStorageGRIDに階層化されたすべてのデータを返す。
+
++
+を参照してください https://docs.netapp.com/us-en/ontap/fabricpool/promote-all-data-performance-tier-task.html["FabricPool ボリュームのすべてのデータを高パフォーマンス階層に昇格します"^]。
+
+. 処理が完了するまで待ちます。
++
+を使用できます `volume object-store` コマンドにを指定します `tiering` オプションをに設定します https://docs.netapp.com/us-en/ontap/fabricpool/check-status-performance-tier-promotion-task.html["高パフォーマンス階層への昇格のステータスを確認します"^]。
+
+. 昇格処理が完了したら、FabricPoolテナントアカウントのStorageGRIDテナントマネージャにサインインします。
+. ダッシュボードで* View Buckets *を選択するか、* storage（S3）*>* Buckets *を選択します。
+. FabricPoolバケットが空になったことを確認します。
+. バケットが空の場合は、 link:../tenant/deleting-s3-bucket.html["バケットを削除します"]。
+
+
+.完了後
+バケットを削除すると、FabricPoolからStorageGRIDへの階層化を続行できなくなります。ただし、ローカル階層は引き続きStorageGRIDクラウド階層に接続されているため、ONTAP System Managerからバケットにアクセスできないことを示すエラーメッセージが返されます。
+
+これらのエラーメッセージが表示されないようにするには、次のいずれかを実行します。
+
+* FabricPoolミラーを使用して、別のクラウド階層をアグリゲートに接続します。
+* FabricPoolアグリゲートからFabricPool以外のアグリゲートにデータを移動してから、使用されていないアグリゲートを削除します。
+
+
+を参照してください https://docs.netapp.com/us-en/ontap/fabricpool/index.html["FabricPoolのONTAPドキュメント"^] 手順については、を参照し

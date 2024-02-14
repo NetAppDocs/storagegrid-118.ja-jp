@@ -1,0 +1,59 @@
+---
+indexpage:
+  tiles:
+  - title: テナントの詳細
+    links:
+    - title: テナントとは
+      url: "../tenant/index.html"
+    - title: Tenant Managerへのサインイン
+      url: "../tenant/signing-in-to-tenant-manager.html"
+    - title: テナントアカウントの監視
+      url: "../tenant/understanding-tenant-manager-dashboard.html"
+    - title: テナント管理APIを使用する
+      url: "../tenant/understanding-tenant-management-api.html"
+  - title: テナントグループとテナントユーザの管理
+    links:
+    - title: アイデンティティフェデレーションを使用する
+      url: "../tenant/using-identity-federation.html"
+    - title: S3グループを作成
+      url: "../tenant/creating-groups-for-s3-tenant.html"
+    - title: テナント管理権限
+      url: "../tenant/tenant-management-permissions.html"
+    - title: ローカルユーザを管理します
+      url: "../tenant/managing-local-users.html"
+  - title: S3アクセスキーとバケットの管理
+    links:
+    - title: S3 アクセスキーを管理します
+      url: "../tenant/managing-s3-access-keys.html"
+    - title: バケットを作成する
+      url: "../tenant/creating-s3-bucket.html"
+    - title: バケットの詳細を表示します
+      url: "../tenant/viewing-s3-bucket-details.html"
+    - title: バケットを削除します
+      url: "../tenant/deleting-s3-bucket.html"
+  - title: テナント機能の使用
+    links:
+    - title: アカウントのクローン
+      url: "../tenant/grid-federation-account-clone.html"
+    - title: グリッド間レプリケーション
+      url: "../tenant/grid-federation-manage-cross-grid-replication.html"
+    - title: プラットフォームサービス
+      url: "../tenant/what-platform-services-are.html"
+    - title: S3 オブジェクトのロック
+      url: "../tenant/using-s3-object-lock.html"
+  - title: S3 REST APIを使用する
+    links:
+    - title: クイックリファレンス：サポートされるS3 API要求
+      url: "../s3/quick-reference-support-for-aws-apis.html"
+    - title: バケットの処理
+      url: "../s3/operations-on-buckets.html"
+    - title: オブジェクトの処理
+      url: "../s3/operations-on-objects.html"
+    - title: バケットとグループのアクセスポリシー
+      url: "../s3/bucket-and-group-access-policies.html"
+  - title: Swift REST APIの使用（廃止）
+    links:
+    - title: サポートされる処理
+      url: "../swift/swift-rest-api-supported-operations.html"
+    - title: StorageGRID の Swift REST API 処理
+      url: "../swift/storagegrid-swift-rest-api-operations.html"

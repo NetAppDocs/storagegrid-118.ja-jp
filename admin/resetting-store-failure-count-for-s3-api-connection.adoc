@@ -1,0 +1,33 @@
+---
+permalink: admin/resetting-store-failure-count-for-s3-api-connection.html 
+sidebar: sidebar 
+keywords: archive node, store failure count 
+summary: アーカイブノードが S3 API 経由でアーカイブストレージシステムに接続している場合は、ストア障害数をリセットでき、 ARVF \ （ Store Failures \ ）アラームをクリアできます。 
+---
+= S3 API 接続のストア障害数をリセットします
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードが S3 API 経由でアーカイブストレージシステムに接続している場合は、ストア障害数をリセットでき、 ARVF （ Store Failures ）アラームをクリアできます。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* これで完了です link:admin-group-permissions.html["特定のアクセス権限"]。
+
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. 「 * _ アーカイブノード _ * > * ARC * > * Store * 」を選択します。
+. * Configuration * > * Main * を選択します。
++
+image::../media/archive_store_s3.gif[S3 API 接続用のストアを設定する]
+
+. 「 Reset Store Failure Count 」を選択します。
+. 「 * 変更を適用する * 」を選択します。
++
+Store Failures 属性がゼロにリセットされます。
+
+

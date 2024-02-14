@@ -1,0 +1,31 @@
+---
+permalink: monitor/managing-alerts.html 
+sidebar: sidebar 
+keywords: alert rules, managing alerts, alerts, alert notifications. edit alert rules 
+summary: アラートシステムでは、 StorageGRID の運用中に発生する問題を、使いやすいインターフェイスを通じて検出し、評価し、解決することができます。 
+---
+= アラートの管理：概要
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アラートシステムでは、 StorageGRID の運用中に発生する問題を、使いやすいインターフェイスを通じて検出し、評価し、解決することができます。
+
+カスタムアラートの作成、アラートの編集または無効化、アラート通知の管理を行うことができます。
+
+詳細については、以下をご覧ください。
+
+* ビデオを確認します。 https://netapp.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4506fc61-c8e9-4b86-ba00-b0b901184b38["ビデオ：StorageGRID 11.8のアラートの概要"^]
++
+[link=https://netapp.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=4506fc61-c8e9-4b86-ba00-b0b901184b38]
+image::../media/video-screenshot-alert-overview-118.png[ビデオ：StorageGRID 11.8のアラートの概要]
+
+* ビデオを確認します。 https://netapp.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e3a75bc1-47a2-44b9-a84d-b0b9011dc2d1["ビデオ：StorageGRID 11.8で指標を使用してカスタムアラートを作成する"^]
++
+[link=https://netapp.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=e3a75bc1-47a2-44b9-a84d-b0b9011dc2d1]
+image::../media/video-screenshot-alert-create-custom-118.png[ビデオ：StorageGRID 11.8で指標を使用してカスタムアラートを作成する]
+
+* を参照してください link:alerts-reference.html["アラート一覧"]。
+

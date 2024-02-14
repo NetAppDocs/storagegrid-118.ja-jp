@@ -1,0 +1,20 @@
+---
+permalink: admin/how-admin-nodes-show-acknowledged-alarms.html 
+sidebar: sidebar 
+keywords: admin node, acknowledge alarm 
+summary: ある管理ノードのアラームを確認しても、確認済みのアラームは他の管理ノードにはコピーされません。確認応答は他の管理ノードにはコピーされないため、グリッドトポロジツリーでは各管理ノードで同じように表示されない場合があります。 
+---
+= 管理ノードによる確認済みアラームの表示（従来のシステム）
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ある管理ノードのアラームを確認しても、確認済みのアラームは他の管理ノードにはコピーされません。確認応答は他の管理ノードにはコピーされないため、[Grid Topology]ツリーの表示が各管理ノードで同じにならないことがあります。
+
+この違いは、 Web クライアントに接続する場合に役立ちます。Web クライアントでは、管理者のニーズに基づいて、 StorageGRID システムをさまざまな方法で表示できます。
+
+image::../media/grid_topology_with_differing_alarm_acknowledgments.gif[複数の管理ノードとアラーム確認応答]
+
+通知は、確認応答が発生した管理ノードから送信されます。

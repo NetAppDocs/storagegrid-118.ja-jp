@@ -1,0 +1,36 @@
+---
+permalink: ubuntu/installing-linux.html 
+sidebar: sidebar 
+keywords: how to install Linux 
+summary: StorageGRIDは、すべてのUbuntuまたはDebianグリッドホストにインストールする必要があります。サポートされているバージョンの一覧については、NetApp Interoperability Matrix Toolを参照してください。 
+---
+= Linux をインストールします
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRIDは、すべてのUbuntuまたはDebianグリッドホストにインストールする必要があります。サポートされているバージョンの一覧については、NetApp Interoperability Matrix Toolを参照してください。
+
+
+NOTE: オペレーティングシステムがLinuxカーネル4.15以降にアップグレードされていることを確認します。
+
+.手順
+. ディストリビュータの指示または標準の手順 に従って、すべての物理グリッドホストまたは仮想グリッドホストに Linux をインストールします。
++
+
+NOTE: グラフィカルデスクトップ環境はインストールしないでください。Ubuntu をインストールする場合は、 * 標準のシステムユーティリティ * を選択する必要があります。Ubuntu ホストへの SSH アクセスを有効にするには、 * OpenSSH サーバ * を選択することを推奨します。その他のオプションはすべてクリアしたままにできます。
+
+. すべてのホストが Ubuntu または Debian のパッケージリポジトリにアクセスできることを確認します。
+. スワップが有効になっている場合：
++
+.. 次のコマンドを実行します。 `$ sudo swapoff --all`
+.. からすべてのスワップエントリを削除します `/etc/fstab` をクリックして設定を保持します。
++
+
+NOTE: スワップを完全に無効にできないと、パフォーマンスが大幅に低下する可能性があります
+
+
+
+

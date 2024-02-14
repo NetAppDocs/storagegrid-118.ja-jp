@@ -1,0 +1,37 @@
+---
+permalink: tenant/using-search-integration-service.html 
+sidebar: sidebar 
+keywords: how to use search integration service 
+summary: 検索統合サービスは、 3 つの StorageGRID プラットフォームサービスのうちの 1 つです。このサービスを有効にすると、オブジェクトが作成、削除されたとき、またはそのメタデータやタグが更新されたときに、デスティネーションの検索インデックスにオブジェクトメタデータを送信できます。 
+---
+= 検索統合サービスを使用する
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+検索統合サービスは、 3 つの StorageGRID プラットフォームサービスのうちの 1 つです。このサービスを有効にすると、オブジェクトが作成、削除されたとき、またはそのメタデータやタグが更新されたときに、デスティネーションの検索インデックスにオブジェクトメタデータを送信できます。
+
+テナントマネージャを使用して検索統合を設定し、カスタム StorageGRID 設定 XML をバケットに適用できます。
+
+
+NOTE: 検索統合サービスではオブジェクトメタデータがデスティネーションに送信されるため、その設定 XML は _ メタデータ通知設定 xml_ と呼ばれます。この設定 XML は、イベント通知を有効にするための _ 通知設定 xml_ とは異なります。
+
+を参照してください link:../s3/index.html["S3 クライアントアプリケーションを実装するための手順"] 次のカスタムの StorageGRID S3 REST API 処理の詳細については、以下を参照してください。
+
+* バケットのメタデータ通知設定を削除します
+* GET Bucket metadata notification configuration
+* PUT Bucket metadata notification configuration のコマンドです
+
+
+.関連情報
+link:configuration-xml-for-search-configuration.html["検索統合用の XML を設定します"]
+
+link:object-metadata-included-in-metadata-notifications.html["メタデータ通知に含まれているオブジェクトメタデータ"]
+
+link:json-generated-by-search-integration-service.html["検索統合サービスで生成される JSON"]
+
+link:configuring-search-integration-service.html["検索統合サービスを設定する"]
+
+link:../s3/index.html["S3 REST APIを使用する"]

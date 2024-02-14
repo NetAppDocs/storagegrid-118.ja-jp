@@ -1,0 +1,64 @@
+---
+permalink: tenant/update-default-retention-settings.html 
+sidebar: sidebar 
+keywords: update default retention for s3 object lock bucket, default retention mode, default retention period, compliance, governance 
+summary: バケットの作成時にS3 Object Lockを有効にした場合は、バケットを編集してデフォルトの保持設定を変更できます。デフォルトの保持を有効（または無効）にしたり、デフォルトの保持モードと保持期間を設定したりできます。 
+---
+= S3オブジェクトロックのデフォルトの保持期間を更新します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+バケットの作成時にS3 Object Lockを有効にした場合は、バケットを編集してデフォルトの保持設定を変更できます。デフォルトの保持を有効（または無効）にしたり、デフォルトの保持モードと保持期間を設定したりできます。
+
+.作業を開始する前に
+* Tenant Manager にはを使用してサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* が設定されたユーザグループに属している必要があります link:tenant-management-permissions.html["すべてのバケットまたはRoot Access権限を管理します"]。これらの権限は、グループまたはバケットポリシーの権限の設定よりも優先されます。
+* S3オブジェクトロックはStorageGRID システムに対してグローバルに有効になり、バケットの作成時に有効にしました。を参照してください link:using-s3-object-lock.html["S3オブジェクトロックを使用してオブジェクトを保持します"]。
+
+
+.手順
+. ダッシュボードで* View Buckets *を選択するか、* storage（S3）*>* Buckets *を選択します。
+. 表からバケット名を選択します。
++
+バケットの詳細ページが表示されます。
+
+. [Bucket options]タブで、[S3 Object Lock]*アコーディオンを選択します。
+. 必要に応じて、このバケットの*デフォルトの保持*を有効または無効にします。
++
+この設定の変更は、バケットにすでに含まれているオブジェクトや、保持期間が独自に設定されている可能性のあるオブジェクトには適用されません。
+
+. default retention *が有効になっている場合は、バケットの* default retention mode *を指定します。
++
+[cols="1a,2a"]
+|===
+| デフォルトの保持モード | 説明 
+
+
+ a| 
+コンプライアンス
+ a| 
+** retain-until-dateに達するまで、オブジェクトを削除できません。
+** オブジェクトのretain-until-dateは増やすことはできますが、減らすことはできません。
+** オブジェクトのretain-until-dateは、その日付に達するまで削除できません。
+
+
+
+
+ a| 
+ガバナンス
+ a| 
+** を使用するユーザ `s3:BypassGovernanceRetention` 権限はを使用できます `x-amz-bypass-governance-retention: true` 保持設定をバイパスする要求ヘッダー。
+** これらのユーザは、retain-until-dateに達する前にオブジェクトバージョンを削除できます。
+** これらのユーザは、オブジェクトのretain-until-dateを増減、または削除できます。
+
+
+|===
+. default retention *が有効になっている場合は、バケットの* default retention period *を指定します。
++
+Default retention period *は、このバケットに追加された新しいオブジェクトを取り込んだ時点から保持する期間です。1～36,500日、または1～100年の値を指定します。
+
+. 「変更を保存」を選択します。
+

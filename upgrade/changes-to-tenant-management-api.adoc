@@ -1,0 +1,25 @@
+---
+permalink: upgrade/changes-to-tenant-management-api.html 
+sidebar: sidebar 
+keywords: tenant management api, api, api version, swagger, rest api 
+summary: StorageGRID 11.8では、バージョン4のテナント管理APIが使用されます。バージョン4ではバージョン3が廃止されましたが、バージョン1、2、3は引き続きサポートされます。 
+---
+= テナント管理 API に変更が加えられました
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID 11.8では、バージョン4のテナント管理APIが使用されます。バージョン4ではバージョン3が廃止されましたが、バージョン1、2、3は引き続きサポートされます。
+
+
+NOTE: 廃止されたバージョンのテナント管理APIはStorageGRID 11.8で引き続き使用できますが、これらのバージョンのAPIのサポートはStorageGRIDの今後のリリースで削除される予定です。StorageGRID 11.8へのアップグレード後、廃止されたAPIはを使用して非アクティブ化できます。 `PUT /grid/config/management` API
+
+詳細については、を参照してください link:../tenant/understanding-tenant-management-api.html["テナント管理 API について理解する"]。
+
+
+
+== ILMポリシータグの新しいエンドポイント
+
+APIエンドポイント*/org/ilm-policy-tags *および*/org/containers/｛bucketName｝/ilm-policy-tags *を使用して、ILMポリシータグに関連する処理を実行できます。

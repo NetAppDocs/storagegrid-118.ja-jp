@@ -1,0 +1,59 @@
+---
+permalink: admin/configuring-connections-to-tsm-middleware.html 
+sidebar: sidebar 
+keywords: archive node connection to tsm, tivoli storage manager 
+summary: アーカイブノードがTivoli Storage Manager\（TSM\）ミドルウェアと通信できるようにするには、いくつかの設定を行う必要があります。 
+---
+= TSM ミドルウェアへの接続を設定します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードがTivoli Storage Manager（TSM）ミドルウェアと通信するためには、いくつかの設定を行う必要があります。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* これで完了です link:admin-group-permissions.html["特定のアクセス権限"]。
+
+
+.このタスクについて
+これらの設定が完了するまで ARC サービスは Tivoli Storage Manager と通信できないため、 Major アラーム状態のままです。
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. 「 * _ アーカイブノード _ * > * ARC * > * ターゲット * 」を選択します。
+. * Configuration * > * Main * を選択します。
++
+image::../media/configuring_tsm_middleware.gif[ターゲットの TSM アカウント]
+
+. [ ターゲット・タイプ *] ドロップダウン・リストから '[* Tivoli Storage Manager(TSM)*] を選択します
+. Tivoli Storage Manager State * では、 TSM ミドルウェアサーバからの読み出しを防ぐために「 * Offline * 」を選択します。
++
+デフォルトでは、「 Tivoli Storage Manager State 」は「 Online 」に設定されています。つまり、アーカイブノードは TSM ミドルウェアサーバからオブジェクトデータを読み出すことができます。
+
+. 次の情報を入力します。
++
+** * Server IP or Hostname * ： ARC サービスが使用する TSM ミドルウェアサーバの IP アドレスまたは完全修飾ドメイン名を指定します。デフォルトの IP アドレスは 127.0.0.1 です。
+** * Server Port * ： ARC サービスの接続先の TSM ミドルウェアサーバ上のポート番号を指定します。デフォルトは 1500 です。
+** * Node Name * ：アーカイブノードの名前を指定します。TSM ミドルウェアサーバに登録した名前（ arc ‐ user ）を入力する必要があります。
+** * User Name * ： ARC サービスが TSM サーバへのログインに使用するユーザ名を指定します。デフォルトのユーザ名（ arc ‐ user ）またはアーカイブノード用に指定した管理ユーザを入力します。
+** * Password * ： ARC サービスが TSM サーバへのログインに使用するパスワードを指定します。
+** * 管理クラス * ：オブジェクトが StorageGRID システムに保存されるときに管理クラスが指定されていない場合や、指定した管理クラスが TSM ミドルウェアサーバ上で定義されていない場合に使用するデフォルトの管理クラスを指定します。
+** * Number of Sessions * ： TSM ミドルウェアサーバ上にあるアーカイブノード専用のテープドライブの数を指定します。アーカイブノードは、最大でマウントポイントごとに 1 つのセッションと少数（ 5 つ未満）の追加セッションを同時に作成します。
++
+アーカイブノードを登録または更新したときには、この値を MAXNUMMP （マウントポイントの最大数）と同じ値に変更する必要があります（登録コマンドでは、値が設定されていない場合の MAXNUMMP のデフォルト値は 1 です）。
+
++
+また、 TSM サーバの MAXSESSIONS の値を、 ARC サービス用に設定されている Sessions の数以上の数値に変更する必要があります。TSM サーバ上の MAXSESSIONS のデフォルト値は 25 です。
+
+** * Maximum Retrieve Sessions * ： ARC サービスが読み出し処理用に TSM ミドルウェアサーバに対して開くことができるセッションの最大数を指定します。ほとんどの場合、適切な値は「セッション数 - ストアセッションの最大数」です。1 つのテープ・ドライブを共有してストレージと取得を行う必要がある場合は ' セッション数に等しい値を指定します
+** * Maximum Store Sessions * ： ARC サービスがアーカイブ処理用に TSM ミドルウェアサーバに対して開くことができる同時セッションの最大数を指定します。
++
+この値は、対象のアーカイブストレージシステムが一杯で、読み出しのみが可能な場合を除き、 1 に設定する必要があります。すべてのセッションを読み出しに使用するには、この値を 0 に設定します。
+
+
+
+. 「 * 変更を適用する * 」を選択します。
+

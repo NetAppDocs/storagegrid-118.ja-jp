@@ -1,0 +1,20 @@
+---
+permalink: admin/completing-archive-node-setup.html 
+sidebar: sidebar 
+keywords: archive node setup 
+summary: インストールプロセスを完了した時点ではアーカイブノードは機能していません。StorageGRID システムが TSM アーカイブノードにオブジェクトを保存できるようにするには、 TSM サーバのインストールと設定を完了し、 TSM サーバと通信するようにアーカイブノードを設定する必要があります。 
+---
+= アーカイブノードのセットアップを完了します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+インストールプロセスを完了した時点ではアーカイブノードは機能していません。StorageGRID システムが TSM アーカイブノードにオブジェクトを保存できるようにするには、 TSM サーバのインストールと設定を完了し、 TSM サーバと通信するようにアーカイブノードを設定する必要があります。
+
+必要に応じて次の IBM のドキュメントを参照し、 StorageGRID システムでアーカイブノードと TSM サーバを統合する準備をしてください。
+
+* http://www.ibm.com/support/docview.wss?rs=577&uid=ssg1S7002972["『 IBM Tape Device Drivers Installation and User's Guide 』（ IBM テープデバイスドライバインストールおよびユーザーズガイド）"^]
+* http://www.ibm.com/support/docview.wss?rs=577&uid=ssg1S7003032["IBM Tape Device Drivers Programming Reference"^]
+

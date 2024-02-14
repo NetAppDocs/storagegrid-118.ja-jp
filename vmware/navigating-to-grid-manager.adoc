@@ -1,0 +1,44 @@
+---
+permalink: vmware/navigating-to-grid-manager.html 
+sidebar: sidebar 
+keywords: how to navigate to Grid Manager 
+summary: StorageGRID システムの設定に必要なすべての情報については、グリッドマネージャを使用して定義します。 
+---
+= Grid Manager に移動します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID システムの設定に必要なすべての情報については、グリッドマネージャを使用して定義します。
+
+.作業を開始する前に
+プライマリ管理ノードが導入され、最初の起動シーケンスが完了している必要があります。
+
+.手順
+. Web ブラウザを開き、次のいずれかのアドレスに移動します。
++
+`https://_primary_admin_node_ip_`
+
++
+`https://_client_network_ip_`
+
++
+ポート 8443 でグリッドマネージャにアクセスすることもできます。
+
++
+`https://_primary_admin_node_ip_:8443`
+
++
+
+NOTE: ネットワーク設定に応じて、グリッドネットワーク上または管理ネットワーク上のプライマリ管理ノード IP の IP アドレスを使用できます。信頼されていない証明書に移動するには、ブラウザのsecurity/advancedオプションの使用が必要になる場合があります。
+
+. [Install a StorageGRID system]*を選択します。
++
+StorageGRID グリッドを設定するためのページが表示されます。
+
++
+image::../media/gmi_installer_first_screen.gif[この図には説明が付随しています。]
+
+

@@ -1,0 +1,36 @@
+---
+permalink: swift/how-storagegrid-implements-swift-rest-api.html 
+sidebar: sidebar 
+keywords: implement swift rest api 
+summary: クライアントアプリケーションは、 Swift REST API 呼び出しを使用してストレージノードやゲートウェイノードに接続し、コンテナの作成やオブジェクトの格納と読み出しを行うことができます。これを利用して、 OpenStack Swift 向けに開発されたサービス指向アプリケーションを、 StorageGRID システムで利用できるオンプレミスのオブジェクトストレージに接続することができます。 
+---
+= StorageGRID での Swift REST API の実装
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+クライアントアプリケーションは、 Swift REST API 呼び出しを使用してストレージノードやゲートウェイノードに接続し、コンテナの作成やオブジェクトの格納と読み出しを行うことができます。これを利用して、 OpenStack Swift 向けに開発されたサービス指向アプリケーションを、 StorageGRID システムで利用できるオンプレミスのオブジェクトストレージに接続することができます。
+
+
+
+== Swift オブジェクトの管理
+
+StorageGRIDシステムに取り込まれたSwiftオブジェクトは、アクティブなILMポリシー内の情報ライフサイクル管理（ILM）ルールによって管理されます。 link:../ilm/what-ilm-rule-is.html["ILM ルール"] および link:../ilm/creating-ilm-policy.html["ILMポリシー"] StorageGRID でオブジェクトデータのコピーを作成および分散し、一定の期間にわたって管理する方法を決定します。たとえば、 ILM ルールを特定の Swift コンテナ内のオブジェクトに適用し、複数のオブジェクトコピーを複数のデータセンターに一定期間保存するように指定できます。
+
+グリッドのILMルールとポリシーがSwiftテナントアカウントのオブジェクトに与える影響については、ネットアッププロフェッショナルサービスのコンサルタントまたはStorageGRID 管理者にお問い合わせください。
+
+
+
+== 競合するクライアント要求です
+
+同じキーに書き込む 2 つのクライアントなど、競合するクライアント要求は、「 latest-wins 」ベースで解決されます。「 latest-wins 」評価は、 Swift クライアントが処理を開始するタイミングではなく、 StorageGRID システムが特定の要求を完了したタイミングで行われます。
+
+
+
+== 整合性の保証と制御
+
+デフォルトでは、 StorageGRID は、新規作成されたオブジェクトにはリードアフターライト整合性を、オブジェクトの更新と HEAD 処理には結果整合性を提供します。任意 link:get-container-consistency-request.html["取得"] 正常に完了しました link:put-container-consistency-request.html["PUT"] 新しく書き込まれたデータを読み取ることができます。既存のオブジェクトの上書き、メタデータの更新、および削除の整合性レベルは、結果整合性です。上書きは通常、数秒から数分で反映されますが、最大で 15 日かかることがあります。
+
+StorageGRID では、コンテナごとに整合性を制御することもできます。整合性の値は、アプリケーションの必要に応じて、オブジェクトの可用性と異なるストレージノードおよびサイト間でのオブジェクトの整合性のバランスを提供します。

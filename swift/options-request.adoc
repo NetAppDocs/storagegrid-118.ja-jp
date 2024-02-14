@@ -1,0 +1,45 @@
+---
+permalink: swift/options-request.html 
+sidebar: sidebar 
+keywords: swift options request 
+summary: OPTIONS 要求は、個々の Swift サービスが使用可能かどうかを確認します。OPTIONS 要求は、 URL で指定されたストレージノードまたはゲートウェイノードによって処理されます。 
+---
+= OPTIONS 要求
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+OPTIONS 要求は、個々の Swift サービスが使用可能かどうかを確認します。OPTIONS 要求は、 URL で指定されたストレージノードまたはゲートウェイノードによって処理されます。
+
+
+
+== OPTIONS メソッド
+
+たとえば、クライアントアプリケーションでは、 Swift 認証クレデンシャルを入力することなく、ストレージノード上の Swift ポートに OPTIONS 要求を問題 で送信して、ストレージノードが使用可能かどうかを判別できます。この要求は、監視に使用できるほか、外部のロードバランサがストレージノードの停止を特定する目的でも使用できます。
+
+情報（ info ） URL またはストレージ（ storage ） URL と併用する場合、 OPTIONS メソッドは、 HEAD 、 GET 、 OPTIONS 、 PUT など、指定された URL でサポートされる動詞のリストを返します。OPTIONSメソッドは認証URLでは使用できません。
+
+次の要求パラメータが必要です。
+
+* `Account`
+
+
+次の要求パラメータはオプションです。
+
+* `Container`
+* `Object`
+
+
+実行が成功すると、「HTTP/1.1 204 No Content」の応答とともに次のヘッダーが返されます。ストレージ URL への OPTIONS 要求には、ターゲットが存在する必要はありません。
+
+* `Allow` （HEAD、GET、OPTIONSなど、指定されたURLでサポートされる動詞のリスト）およびPUT）
+* `Content-Length`
+* `Content-Type`
+* `Date`
+* `X-Trans-Id`
+
+
+.関連情報
+link:supported-swift-api-endpoints.html["サポートされている Swift API エンドポイント"]

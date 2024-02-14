@@ -1,0 +1,82 @@
+---
+permalink: upgrade/linux-installing-rpm-or-deb-package-on-all-hosts.html 
+sidebar: sidebar 
+keywords: upgrade, linux, rpm, deb, 
+summary: LinuxホストにStorageGRIDノードが導入されている場合は、アップグレードを開始する前に、これらの各ホストにRPMパッケージまたはDEBパッケージを追加でインストールしてください。 
+---
+= Linux：すべてのホストにRPMパッケージまたはDEBパッケージをダウンロードしてインストールします
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+LinuxホストにStorageGRIDノードが導入されている場合は、アップグレードを開始する前に、これらの各ホストにRPMパッケージまたはDEBパッケージを追加でダウンロードしてインストールします。
+
+
+
+== アップグレードファイル、Linuxファイル、ホットフィックスファイルをダウンロードします
+
+Grid ManagerからStorageGRID のアップグレードを実行すると、最初の手順として、アップグレードアーカイブと必要なホットフィックスをダウンロードするように求められます。ただし、Linuxホストをアップグレードするためにファイルをダウンロードする必要がある場合は、必要なファイルをすべて事前にダウンロードすることで時間を節約できます。
+
+.手順
+. に進みます https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["ネットアップのダウンロード： StorageGRID"^]。
+. 最新のリリースをダウンロードするボタンを選択するか、ドロップダウンメニューから別のバージョンを選択して、「 * Go * 」を選択します。
++
+StorageGRID ソフトウェアのバージョンの形式は、 11._x.y_. です。StorageGRID ホットフィックスの形式は、 11._x.y.z _ です。
+
+. ネットアップアカウントのユーザ名とパスワードを使用してサインインします。
+. 「Caution/MustRead」という通知が表示された場合は、ホットフィックス番号をメモし、チェックボックスをオンにします。
+. [End User License Agreement]を読み、チェックボックスをオンにして、*[Accept & Continue]*を選択します。
++
+選択したバージョンのダウンロードページが表示されます。このページには3つの列があります。
+
+. 2列目（* Upgrade StorageGRID *）から、次の2つのファイルをダウンロードします。
++
+** 最新リリースのアップグレードアーカイブ（VMware、SG1000、またはSG100プライマリ管理ノード*のセクションにあるファイル）。このファイルはアップグレードを実行するまでは必要ありませんが、今すぐダウンロードすると時間を節約できます。
+** のRPMまたはDEBアーカイブ `.tgz` または `.zip` の形式で入力しを選択します `.zip` ファイルサービスラップトップでWindowsを実行している場合。
++
+*** Red Hat Enterprise Linux+
+`StorageGRID-Webscale-_version_-RPM-_uniqueID_.zip` [+]
+`StorageGRID-Webscale-_version_-RPM-_uniqueID_.tgz`
+*** UbuntuまたはDebian+
+`StorageGRID-Webscale-_version_-DEB-_uniqueID_.zip` [+]
+`StorageGRID-Webscale-_version_-DEB-_uniqueID_.tgz`
+
+
+
+
+. 必要なホットフィックスが原因で「注意」/「必ずお読みください」の通知に同意する必要がある場合は、ホットフィックスをダウンロードしてください。
++
+.. に戻ります https://mysupport.netapp.com/site/products/all/details/storagegrid/downloads-tab["ネットアップのダウンロード： StorageGRID"^]。
+.. ドロップダウンからホットフィックス番号を選択します。
+.. 注意事項とEULAに再度同意します。
+.. ホットフィックスとそのREADMEをダウンロードして保存します。
++
+アップグレードを開始すると、StorageGRID の[Upgrade]ページでホットフィックスファイルをアップロードするように求められます。
+
+
+
+
+
+
+
+== すべてのLinuxホストにアーカイブをインストールします
+
+StorageGRID ソフトウェアをアップグレードする前に、次の手順を実行します。
+
+.手順
+. インストールファイルから RPM パッケージまたは DEB パッケージを展開します。
+. すべての Linux ホストに RPM パッケージまたは DEB パッケージをインストールします。
++
+インストール手順のStorageGRID ホストサービスのインストール手順を参照してください。
+
++
+** link:../rhel/installing-storagegrid-webscale-host-service.html["Red Hat Enterprise Linux：StorageGRIDホストサービスのインストール"]
+** link:../ubuntu/installing-storagegrid-webscale-host-services.html["UbuntuまたはDebian：StorageGRID ホストサービスをインストールします"]
+
+
++
+新しいパッケージは追加のパッケージとしてインストールされます。既存のパッケージを削除しないでください。
+
+

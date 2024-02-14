@@ -1,0 +1,107 @@
+---
+permalink: upgrade/whats-new.html 
+sidebar: sidebar 
+keywords: what is new in StorageGRID 11.8 
+summary: このリリースの StorageGRID には、次の機能が導入されています。 
+---
+= StorageGRID 11.8の新機能
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+このリリースのStorageGRID では、次の機能変更が導入されています。
+
+
+
+== インストール、アップグレード、ホットフィックス
+
+イチシインストルハスワアト:: いつでも link:../vmware/deploying-storagegrid-node-as-virtual-machine.html["StorageGRIDノードを仮想マシンとして導入"] または、VMware vSphereを使用して link:../vmware/automating-grid-node-deployment-in-vmware-vsphere.html["グリッドノードの導入を自動化"]をクリックすると、一時的なインストールパスワードを設定するように求められます。このパスワードは、新しいノードがグリッドに追加される前にVMコンソールにアクセスするかSSHを使用する必要がある場合にのみ使用されます。
+
+
+
+
+== アプライアンス
+
+アプライアンスのドキュメントサイト:: StorageGRIDアプライアンスのドキュメントは、 link:https://docs.netapp.com/us-en/storagegrid-appliances/["アプライアンスのドキュメントサイト"^]。
+FIPSのサポート:: FIPS 140-2準拠の暗号化がサポートされます。
+SGF6112の改善点:: StorageGRID 11.8およびStorageGRIDアプライアンスインストーラファームウェアバージョン3.8.0のサポート：
++
+--
+* SGF6112の新規インストールのPUTパフォーマンスが大幅に向上しました。
+* アップグレードしたSGF6112ノードと新しいSGF6112ノードの両方でUEFIセキュアブートを実行します。
+* DAS NVMe SSDドライブのパスワード用のローカルキー管理ツール。
+
+
+--
+
+
+
+
+== 構成と管理
+
+グリッド全体での整合性のデフォルト:: を変更できます link:../s3/consistency-controls.html["グリッド全体のデフォルト整合性"] Grid Managerまたはのgrid-configエンドポイントを使用する link:../admin/using-grid-management-api.html["グリッド管理プライベートAPI"]。新しいデフォルト値は、変更後に作成されたバケットに適用されます。
+ILMポリシータグ:: バケットタグで制御されるバケット単位のILMポリシーを許可します。アクティブなILMポリシーと非アクティブなILMポリシーを同時に複数作成できます。を参照してください link:../ilm/ilm-policy-overview.html["ILMポリシー：概要"]。
+Kafkaエンドポイント:: Kafkaエンドポイントのサポート link:../tenant/understanding-notifications-for-buckets.html["バケットイベント通知"]。
+管理インターフェイストラフィック用のロードバランサ:: 管理ノード上の管理インターフェイスのワークロードを管理するために、ロードバランサエンドポイントを作成します。を参照してください link:../admin/managing-load-balancing.html["ロードバランシングに関する考慮事項"]。この変更により、S3またはSwiftクライアントアクセス用のHTTPSロードバランサエンドポイントを作成する際に、Grid ManagerとTenant Managerのポート443、8443、9443を使用できるようになりました。
+[Manage Drives]タブ:: を追加しました link:../monitor/viewing-manage-drives-tab.html["[Manage Drives]タブ"] SGF6112アプライアンスの場合。
+メタデータ専用ストレージノード:: これで、新しい link:../primer/what-storage-node-is.html#types-of-storage-nodes["ソフトウェアベースのストレージノード"] は、オブジェクトとメタデータの両方ではなく、メタデータのみを格納するために使用されます。
+SSOでのユーザプリンシパル名のサポート:: いつ link:../admin/configuring-sso.html["シングルサインオン（SSO）の設定"] Active Directoryフェデレーションサービス（AD FS）またはPingFederateの場合、ユーザプリンシパル名を `Name ID` クレームルールまたは `sAMAccountName=${username}` アダプタインスタンス。
+TLSポリシーの設定とKMIPのサポート::
++
+--
+* StorageGRIDでは、KMIP接続でTLS 1.2またはTLS 1.3プロトコルがサポートされるようになりました。を参照してください link:../admin/kms-considerations-and-requirements.html["キー管理サーバを使用する際の考慮事項と要件"]。
+* link:../admin/kms-configuring-storagegrid-as-client.html["KMIPでHashicorpが完全にサポートされるようになりました"]。
+* 強化された機能 link:../admin/manage-tls-ssh-policy.html["TLSポリシーの設定"]。
+
+
+--
+
+
+
+
+== グリッドの拡張、グリッドの管理、ノードのリカバリまたは交換
+
+アカウントクローンの改善:: 既存のアカウントをリモートのグリッドにクローニングできます。を参照してください link:../admin/grid-federation-what-is-account-clone.html["アカウントクローンとは何ですか"]。
+アーカイブノードは運用停止が可能:: [Decommission Nodes]手順を使用して、グリッドから切断されている未使用のアーカイブノードを削除できるようになりました。を参照してください link:../maintain/decommissioning-disconnected-grid-nodes.html["切断されているグリッドノードの運用を停止"]。
++
+--
+
+NOTE: アーカイブノードはStorageGRID 11.7で廃止されました。
+
+--
+ボリュームの自動リストア:: ボリュームのリストアを自動的に実行するためのトグルが追加されました。を参照してください link:../maintain/restoring-volume.html["Grid Managerを使用してオブジェクトデータをリストアする"]。
+イレイジャーコーディング、構成に対する変更、手順のリバランシング:: イレイジャーコーディングの設定が改善されました。
++
+--
+既存のストレージノードと新規のストレージノードにイレイジャーコーディングフラグメントを再配置します。メンテナンスタスク中にバランスを再計算して、タスクが完了したときの配分を改善します。を参照してください link:../expand/rebalancing-erasure-coded-data-after-adding-storage-nodes.html["イレイジャーコーディングのリバランシング手順"]。
+
+--
+管理APIスタックトレース:: 管理APIスタックトレース*セキュリティ設定では、Grid ManagerおよびTenant Manager APIのエラー応答でスタックトレースを返すかどうかを制御できます。を参照してください link:../admin/changing-browser-session-timeout-interface.html["インターフェイスセキュリティ設定の変更"]。
+ローリングリブート手順:: これで、 link:../maintain/rolling-reboot-procedure.html["ローリングリブート手順"] サービスを停止せずに複数のグリッドノードをリブートする。
+
+
+
+
+== Grid Manager の略
+
+信頼されていないクライアントネットワーク、追加ポートに関する情報:: Grid Managerで、信頼されていないクライアントネットワークに対して開いているポートのリストが、* configuration *>* Network *>* Load balancer Endpoints *>* Management interface *（以前は[Firewall]制御ページにありました）の[Open to Untrusted Client network]列に表示されます。を参照してください link:../admin/configuring-load-balancer-endpoints.html["ロードバランサエンドポイントを設定する"]。
+
+
+
+
+== Tenant Manager の略
+
+S3コンソールの試験的廃止:: その他の機能については、を参照 link:../tenant/use-s3-console.html["S3コンソールを使用"]。
+テナント権限:: 。 link:../tenant/tenant-management-permissions.html["テナント管理権限"]「View all buckets」が追加されました。
+
+
+
+
+== S3 REST API
+
+* link:../s3/changes-to-s3-rest-api-support.html["S3 REST API のサポートに関する変更点"]。
+* UUIDが設定されたS3の削除マーカー。を参照してください link:../ilm/how-objects-are-deleted.html#delete-s3-versioned-objects["オブジェクトの削除方法"] および link:../audit/sdel-s3-delete.html["SDEL ： S3 DELETE"]。
+* link:../s3/select-object-content.html["S3 Select ScanRange"] CSVファイルおよび寄木細工ファイルの要求で提供される場合に使用されます。
+

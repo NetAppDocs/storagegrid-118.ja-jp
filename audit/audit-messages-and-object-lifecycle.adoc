@@ -1,0 +1,57 @@
+---
+permalink: audit/audit-messages-and-object-lifecycle.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, log, object lifecycle, ingest, retrieve, delete, s3, swift, timing, ILM, Information lifecycle management, archive node, archive nodes 
+summary: 監査メッセージは、オブジェクトの取り込み、読み出し、または削除が行われるたびに生成されます。監査ログでこれらのトランザクションを特定するには、 API 固有の監査メッセージ（ S3 または Swift ）を検索します。 
+---
+= 監査メッセージはいつ生成されますか？
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+監査メッセージは、オブジェクトの取り込み、読み出し、または削除が行われるたびに生成されます。監査ログでこれらのトランザクションを特定するには、 API 固有の（ S3 または Swift ）監査メッセージを検索します。
+
+監査メッセージは各プロトコルに固有な識別子によってリンクされます。
+
+[cols="1a,1a"]
+|===
+| プロトコル | コード 
+
+
+ a| 
+S3 処理をリンクしています
+ a| 
+S3BK（バケット）、S3KY（キー）、またはその両方
+
+
+
+ a| 
+Swift 処理をリンクしています
+ a| 
+WCON（コンテナ）、WOBJ（オブジェクト）、またはその両方
+
+
+
+ a| 
+内部処理をリンクしています
+ a| 
+CBID（オブジェクトの内部識別子）
+
+|===
+
+
+== 監査メッセージのタイミング
+
+グリッドノード間のタイミングの違い、オブジェクトサイズ、ネットワーク遅延などの要因により、各サービスによって生成される監査メッセージの順序はこのセクションに記載する例とは異なる場合があります。
+
+
+
+== アーカイブノード
+
+アーカイブノードから外部アーカイブストレージシステムにオブジェクトデータを送信するときに生成される一連の監査メッセージは、 SCMT （ Store Object Commit ）メッセージがないことを除き、ストレージノードの場合と似ています。 さらに、オブジェクトデータのアーカイブコピーごとに ATCE （ Archive Object Store Begin ）メッセージと ASCE （ Archive Object Store End ）メッセージが生成されます。
+
+アーカイブノードが外部のアーカイブストレージシステムからオブジェクトデータを読み出すときに生成される一連の監査メッセージは、ストレージノードの場合と似ていますが、オブジェクトデータのアーカイブコピーごとに ARCB （ Archive Object Retrieve Begin ）メッセージと ARCE （ Archive Object Retrieve End ）メッセージが生成される点が異なります。
+
+アーカイブノードが外部のアーカイブストレージシステムからオブジェクトデータを削除するときに生成される一連の監査メッセージは、ストレージノードのメッセージと似ています。ただし、 SREM （ Object Store Remove ）メッセージがなく、削除要求ごとに AREM （ Archive Object Remove ）メッセージが生成される点が異なります。

@@ -1,0 +1,135 @@
+---
+permalink: admin/defining-tsm-tape-and-disk-storage-pools.html 
+sidebar: sidebar 
+keywords: archive node, tsm, tape storage pool, tivoli storage manager 
+summary: アーカイブノードはディスクストレージプールに書き込みます。コンテンツをテープにアーカイブするには、コンテンツをテープストレージプールに移動するようにディスクストレージプールを設定する必要があります。 
+---
+= TSM テープストレージプールとディスクストレージプールを定義します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードはディスクストレージプールに書き込みます。コンテンツをテープにアーカイブするには、コンテンツをテープストレージプールに移動するようにディスクストレージプールを設定する必要があります。
+
+.このタスクについて
+1 台の TSM サーバに対し、 Tivoli Storage Manager でテープストレージプールとディスクストレージプールを定義する必要があります。ディスクプールを定義したら、ディスクボリュームを作成してディスクプールに割り当てます。TSM サーバでディスクのみのストレージを使用する場合、テーププールは必要ありません。
+
+テープストレージプールを作成する前に、TSMサーバでいくつかの手順を実行する必要があります。（テープライブラリを作成し、テープライブラリにドライブを少なくとも 1 本作成します。サーバからライブラリへのパスとサーバからドライブへのパスを定義し、ドライブのデバイスクラスを定義します）。 これらの手順の詳細は、サイトのハードウェア構成とストレージ要件によって異なります。詳細については、 TSM のドキュメントを参照してください。
+
+以下に、このプロセスの手順を示します。サイトの要件は導入の要件によって異なることに注意してください。設定の詳細および手順については、 TSM のドキュメントを参照してください。
+
+
+NOTE: 次のコマンドを実行するには、管理者権限でサーバにログインし、dsmadmcツールを使用する必要があります。
+
+.手順
+. テープライブラリを作成します。
++
+`define library _tapelibrary_ libtype=_scsi_`
+
++
+ここで `_tapelibrary_` はテープライブラリの任意の名前で、の値です `libtype` テープライブラリのタイプによって異なる場合があります。
+
+. サーバからテープライブラリへのパスを定義します。
++
+`define path _servername tapelibrary_ srctype=server desttype=library device=_lib-devicename_`
+
++
+** `_servername_` はTSMサーバの名前です
+** `_tapelibrary_` は、定義したテープライブラリの名前です
+** `_lib-devicename_` は、テープライブラリのデバイス名です
+
+
+. ライブラリのドライブを定義します。
++
+`define drive _tapelibrary_ _drivename_`
+
++
+** `_drivename_` は、ドライブに指定する名前です
+** `_tapelibrary_` は、定義したテープライブラリの名前です
++
+ハードウェア構成によっては、追加のドライブを設定することが必要になる場合があります。（たとえば、 1 つのテープライブラリからの入力が 2 つあるファイバチャネルスイッチに TSM サーバが接続されている場合は、入力ごとにドライブを定義します）。
+
+
+
+. サーバから定義したドライブへのパスを定義します。
++
+`define path _servername_ drivename srctype=server desttype=drive library=_tapelibrary_ device=_drive-dname_`
+
++
+** `_drive-dname_` は、ドライブのデバイス名です
+** `_tapelibrary_` は、定義したテープライブラリの名前です
++
+テープライブラリ用に定義したドライブごとに、別のを使用してこの手順を繰り返します `_drivename_` および `_drive-dname_` をクリックします。
+
+
+
+. ドライブのデバイスクラスを定義します。
++
+`define devclass _DeviceClassName_ devtype=_lto_ library=_tapelibrary_ format=_tapetype_`
+
++
+** `_DeviceClassName_` は、デバイスクラスの名前です
+** `_lto_` は、サーバに接続されているドライブのタイプです
+** `_tapelibrary_` は、定義したテープライブラリの名前です
+** `_tapetype_` は、テープのタイプです。たとえば、ultrium3です
+
+
+. ライブラリのインベントリにテープボリュームを追加します。
++
+`checkin libvolume _tapelibrary_`
+
++
+`_tapelibrary_` は、定義したテープライブラリの名前です。
+
+. プライマリテープストレージプールを作成します。
++
+`define stgpool _SGWSTapePool_ _DeviceClassName_ description=_description_ _collocate=filespace_ maxscratch=_XX_`
+
++
+** `_SGWSTapePool_` はアーカイブノードのテープストレージプールの名前です。テープストレージプールには（ TSM サーバが想定する命名規則に沿ってさえいれば）任意の名前を選択できます。
+** `_DeviceClassName_` は、テープライブラリのデバイスクラス名です。
+** `_description_` はストレージプールの概要 で、を使用してTSMサーバに表示できます `query stgpool` コマンドを実行しますたとえば、「Tape storage pool for the Archive Node」などです。
+** `_collocate=filespace_` は、TSMサーバが同じファイルスペースのオブジェクトを1つのテープに書き込む必要があることを指定します。
+** `XX` は次のいずれかです。
++
+*** テープライブラリ内の空のテープの数（アーカイブノードだけがライブラリを使用している場合）。
+*** StorageGRID システム用に割り当てられているテープの数（テープライブラリが共有されている場合）。
+
+
+
+
+. TSM サーバで、ディスクストレージプールを作成します。TSM サーバの管理コンソールで、と入力します
++
+`define stgpool _SGWSDiskPool_ disk description=_description_ maxsize=_maximum_file_size nextstgpool=SGWSTapePool_ highmig=_percent_high_ lowmig=_percent_low_`
+
++
+** `_SGWSDiskPool_` はアーカイブノードのディスクプールの名前です。ディスクストレージプールには（ TSM が想定する命名規則に沿ってさえいれば）任意の名前を選択できます。
+** `_description_` はストレージプールの概要 で、を使用してTSMサーバに表示できます `query stgpool` コマンドを実行しますたとえば、「Disk storage pool for the Archive Node」などです。
+**  `_maximum_file_size_` ディスクプールにキャッシュされるのではなく、このサイズよりも大きいオブジェクトをテープに直接書き込みます。を設定することを推奨します `_maximum_file_size_` を10 GBに設定します。
+** `_nextstgpool=SGWSTapePool_` は、ディスクストレージプールをアーカイブノード用に定義したテープストレージプールと関連付けます。
+**  `_percent_high_` ディスクプールの内容のテーププールへの移行を開始する値を設定します。を設定することを推奨します `_percent_high_` を0に設定すると、データがすぐに移行されます
+**  `_percent_low_` テープ・プールへの移行を停止する値を設定します。を設定することを推奨します `_percent_low_` を0に設定して、ディスクプールをクリアします。
+
+
+. TSM サーバで、 1 つ以上のディスクボリュームを作成してディスクプールに割り当てます。
++
+`define volume _SGWSDiskPool_ _volume_name_ formatsize=_size_`
+
++
+** `_SGWSDiskPool_` はディスクプール名です。
+** `_volume_name_` はボリュームの完全パスです（例： `/var/local/arc/stage6.dsm`）をテープに転送する準備として、TSMサーバ上でディスクプールの内容を書き込みます。
+** `_size_` は、ディスクボリュームのサイズ（MB単位）です。
++
+たとえば、テープボリュームの容量が 200GB の場合、ディスクプールのコンテンツで 1 つのテープを使い切るようなディスクボリュームを 1 個作成するには、 size の値を 200000 に設定します。
+
++
+ただし、 TSM サーバがディスクプール内の各ボリュームに書き込むことができるため、小さいサイズのディスクボリュームを複数作成する方がよい場合もあります。たとえばテープサイズが 250GB の場合、 10GB （ 10000 ）のディスクボリュームを 25 個作成します。
+
++
+TSM サーバは、ディスクボリューム用にディレクトリ内のスペースを事前に割り当てます。この処理には、完了までに時間がかかることがあります（ 200GB のディスクボリュームの場合は 3 時間以上）。
+
+
+
+

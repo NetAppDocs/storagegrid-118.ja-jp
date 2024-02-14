@@ -1,0 +1,209 @@
+---
+permalink: troubleshoot/troubleshooting-metadata-issues.html 
+sidebar: sidebar 
+keywords: how to troubleshoot metadata issues 
+summary: メタデータに関する問題の原因を特定するのに役立ついくつかのタスクを実行できます。 
+---
+= メタデータに関する問題のトラブルシューティング
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+メタデータに関する問題の原因を特定するのに役立ついくつかのタスクを実行できます。
+
+
+
+== Low metadata storageアラート
+
+Low metadata storage * アラートがトリガーされた場合は、新しいストレージノードを追加する必要があります。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+
+
+.このタスクについて
+StorageGRID は、各ストレージノードのボリューム 0 上にオブジェクトメタデータ用に一定量のスペースをリザーブします。このスペースは、実際のリザーブスペースと呼ばれ、オブジェクトメタデータに使用できるスペース（許容されるメタデータスペース）と、コンパクションや修復などの重要なデータベース処理に必要なスペースに分割されます。許可されるメタデータスペースは、オブジェクトの全体的な容量を決定します。
+
+image::../media/metadata_allowed_space_volume_0.png[Metadata Allowed Space ：ボリューム 0]
+
+オブジェクトメタデータがメタデータに使用できるスペースの100%を超えると、データベース処理を効率的に実行できず、エラーが発生します。
+
+可能です link:../monitor/monitoring-storage-capacity.html#monitor-object-metadata-capacity-for-each-storage-node["各ストレージノードのオブジェクトメタデータ容量を監視します"] エラーを予測し、発生前に修正できるようにします。
+
+StorageGRID は、次の Prometheus 指標を使用して、許可されているメタデータスペースの使用状況を測定します。
+
+[listing]
+----
+storagegrid_storage_utilization_metadata_bytes/storagegrid_storage_utilization_metadata_allowed_bytes
+----
+この Prometheus 式が特定のしきい値に達すると、 * Low metadata storage * アラートがトリガーされます。
+
+* * Minor * ：オブジェクトメタデータが、許可されているメタデータスペースの 70% 以上を使用しています。できるだけ早く新しいストレージノードを追加する必要があります。
+* * Major * ：オブジェクトメタデータが使用しているメタデータスペースが 90% 以上あります。すぐに新しいストレージノードを追加する必要があります。
++
+
+CAUTION: オブジェクトメタデータが使用可能なメタデータスペースの90%以上を使用している場合は、ダッシュボードに警告が表示されます。この警告が表示された場合は、すぐに新しいストレージノードを追加する必要があります。オブジェクトメタデータの使用量は、使用できるスペースの 100% を超えないようにする必要があります。
+
+* * クリティカル * ：オブジェクトメタデータが使用可能なメタデータスペースの 100% 以上を使用しており、重要なデータベース処理に必要なスペースを使い始めています。新しいオブジェクトの取り込みを停止し、すぐに新しいストレージノードを追加する必要があります。
+
+
+次の例では、オブジェクトメタデータが使用しているメタデータスペースが 100% を超えています。これは重大な状況であり、データベース処理の効率低下とエラーの発生につながります。
+
+image::../media/cdlp_dashboard_alarm.gif[メタデータダッシュボードアラーム]
+
+
+CAUTION: ボリューム 0 のサイズが Metadata Reserved Space ストレージオプションより小さい場合（非本番環境など）は、「 Low metadata storage * 」アラートが正確に計算されないことがあります。
+
+.手順
+. [ * alerts * > * current * ] を選択します。
+. アラートの表で、必要に応じて「 * Low metadata storage * 」アラートグループを展開し、表示する特定のアラートを選択します。
+. アラートダイアログボックスで詳細を確認します。
+. Major または Critical の * Low metadata storage * アラートがトリガーされた場合は、すぐに拡張を実行してストレージノードを追加します。
++
+
+NOTE: StorageGRID は各サイトですべてのオブジェクトメタデータの完全なコピーを保持するため、グリッド全体のメタデータ容量は最も小規模なサイトのメタデータ容量によって制限されます。1 つのサイトにメタデータ容量を追加する必要がある場合も、追加する必要があります link:../expand/adding-grid-nodes-to-existing-site-or-adding-new-site.html["他のサイトを展開します"] 同じ数のストレージノードで異なります。
+
++
+拡張の実行後、 StorageGRID によって既存のオブジェクトメタデータが新しいノードに再配分され、グリッドの全体的なメタデータ容量が増加します。ユーザによる操作は必要ありません。Low metadata storage * アラートがクリアされます。
+
+
+
+
+
+== Services：Status - Cassandra（SVST）アラーム
+
+Services ： Status - Cassandra （ SVST ）アラームは、ストレージノードに対する Cassandra データベースのリビルドが必要となる可能性があることを示します。Cassandra は StorageGRID 用のメタデータストアとして使用されます。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインする必要があります link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* これで完了です link:../admin/admin-group-permissions.html["特定のアクセス権限"]。
+* を用意しておく必要があります `Passwords.txt` ファイル。
+
+
+.このタスクについて
+Cassandra が停止している（ストレージノードの電源がオフになっているなど）期間が 15 日を超える場合、ノードがオンライン状態に戻っても Cassandra は起動されません。この場合、該当する DDS サービスの Cassandra データベースをリビルドする必要があります。
+
+可能です link:../monitor/running-diagnostics.html["診断を実行します"] グリッドの現在の状態に関する追加情報 を取得します。
+
+
+CAUTION: 複数のCassandraデータベースサービスが15日以上停止している場合は、次の手順は実行せずにテクニカルサポートに連絡してください。
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. アラームを表示するには、 [*_Site_*>*_Storage Node_*>*SSM*>*Services*>*Alarm*>*Main*] を選択します。
++
+この例は、 SVST アラームがトリガーされたことを示しています。
+
++
+image::../media/svst_alarm.gif[SSM のサービスのアラームページです]
+
++
+SSM Services のメインページには、 Cassandra が実行されていないことも表示されます。
+
++
+image::../media/cassandra_not_running.gif[SSM のサービスの概要ページを参照してください]
+
+. [[restart_cassandra_from_the_Storage_Node]]ストレージノードからCassandraを再起動してみます。
++
+.. グリッドノードにログインします。
++
+... 次のコマンドを入力します。 `ssh admin@grid_node_IP`
+... に記載されているパスワードを入力します `Passwords.txt` ファイル。
+... 次のコマンドを入力してrootに切り替えます。 `su -`
+... に記載されているパスワードを入力します `Passwords.txt` ファイル。
+rootとしてログインすると、プロンプトがから変わります `$` 終了： `#`。
+
+
+.. 入力するコマンド `/etc/init.d/cassandra status`
+.. Cassandraが実行されていない場合は再起動します。 `/etc/init.d/cassandra restart`
+
+
+. Cassandra が再起動されない場合は、 Cassandra が停止していた期間を調べます。Cassandra の停止期間が 15 日を超えている場合、 Cassandra データベースをリビルドする必要があります。
++
+
+CAUTION: 複数のCassandraデータベースサービスが停止している場合は、次の手順は実行せずにテクニカルサポートに連絡してください。
+
++
+グラフを作成するか、 servermanager.log ファイルを確認することで、 Cassandra が停止していた期間を調べることができます。
+
+. Cassandra のグラフを確認する手順は次
++
+.. サポート * > * ツール * > * グリッドトポロジ * を選択します。次に、 [* _ サイト _ * > * _ ストレージノード _ * > * SSM* > * サービス * > * レポート * > * チャート * ] を選択します。
+.. 「 * Attribute * > * Service ： Status - Cassandra * 」を選択します。
+.. [ 開始日 *] には、現在の日付よりも 16 日前の日付を入力します。[* 終了日 *] には、現在の日付を入力します。
+.. [ 更新（ Update ） ] をクリックします。
+.. グラフから Cassandra の停止期間が 15 日を超えていることがわかった場合は、 Cassandra データベースをリビルドします。
++
+次のグラフの例では、 Cassandra が少なくとも 17 日間は停止していることがわかります。
+
++
+image::../media/cassandra_not_running_chart.png[SSM のサービスの概要ページを参照してください]
+
+
+
+. ストレージノードで servermanager.log ファイルを確認するには、次の手順を実行します。
++
+.. グリッドノードにログインします。
++
+... 次のコマンドを入力します。 `ssh admin@grid_node_IP`
+... に記載されているパスワードを入力します `Passwords.txt` ファイル。
+... 次のコマンドを入力してrootに切り替えます。 `su -`
+... に記載されているパスワードを入力します `Passwords.txt` ファイル。
+rootとしてログインすると、プロンプトがから変わります `$` 終了： `#`。
+
+
+.. 入力するコマンド `cat /var/local/log/servermanager.log`
++
+servermanager.log ファイルの内容が表示されます。
+
++
+Cassandra の停止期間が 15 日を超えている場合、 servermanager.log ファイルに次のメッセージが表示されます。
+
++
+[listing]
+----
+"2014-08-14 21:01:35 +0000 | cassandra | cassandra not
+started because it has been offline for longer than
+its 15 day grace period - rebuild cassandra
+----
+.. このメッセージのタイムスタンプが手順に従って Cassandra の再起動を試行した時間になっていることを確認してください <<restart_Cassandra_from_the_Storage_Node,ストレージノードから Cassandra を再起動します>>。
++
+Cassandra のエントリは 1 つとは限らないため、最新のエントリを確認する必要があります。
+
+.. Cassandra の停止期間が 15 日を超えている場合、 Cassandra データベースをリビルドする必要があります。
++
+手順については、を参照してください link:../maintain/recovering-storage-node-that-has-been-down-more-than-15-days.html["ストレージノードを 15 日以上停止した状態にリカバリします"]。
+
+.. Cassandraの再構築後にアラームがクリアされない場合は、テクニカルサポートにお問い合わせください。
+
+
+
+
+
+
+== Cassandra Out of Memoryエラー（SMTTアラーム）
+
+Total Events （ SMTT ）アラームは、 Cassandra データベースでメモリ不足エラーが発生するとトリガーされます。このエラーが発生した場合は、テクニカルサポートに連絡して問題 の処理を依頼してください。
+
+.このタスクについて
+Cassandra データベースにメモリ不足エラーが発生すると、ヒープダンプが作成され、 Total Events （ SMTT ）アラームがトリガーされて、 Cassandra Heap Out Of Memory Errors のカウントが 1 つ増えます。
+
+.手順
+. イベントを表示するには、 * support * > * Tools * > * Grid topology * > * Configuration * を選択します。
+. Cassandra Heap Out Of Memory Errors のカウントが 1 以上であることを確認します。
++
+可能です link:../monitor/running-diagnostics.html["診断を実行します"] グリッドの現在の状態に関する追加情報 を取得します。
+
+. に進みます `/var/local/core/`を圧縮します `Cassandra.hprof` ファイルを保存してテクニカルサポートに送信します。
+. のバックアップを作成します `Cassandra.hprof` ファイルを選択し、から削除します `/var/local/core/ directory`。
++
+このファイルは 24GB もの大きさになることがあるため、削除してスペースを解放してください。
+
+. 問題 が解決されたら、[Cassandra Heap Out of Memory Errors]数の*[Reset]*チェックボックスを選択します。次に、 * 変更を適用 * を選択します。
++
+
+NOTE: イベント数をリセットするには、Gridトポロジページの設定権限が必要です。
+
+

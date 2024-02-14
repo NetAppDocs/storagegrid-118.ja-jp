@@ -1,0 +1,27 @@
+---
+permalink: maintain/resetting-archive-node-connection-to-cloud.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, archive node connection, reset archive node connection, resetting archive node connection, reset cloud connection, resetting cloud connections 
+summary: S3 API 経由でクラウドをターゲットとして使用するアーカイブノードをリカバリしたら、設定を変更して接続をリセットする必要があります。アーカイブノードがオブジェクトデータを読み出せない場合、 Outbound Replication Status \ （ ORSU\ ）アラームがトリガーされます。 
+---
+= アーカイブノードからクラウドへの接続をリセットします
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+S3 API 経由でクラウドをターゲットとして使用するアーカイブノードをリカバリしたら、設定を変更して接続をリセットする必要があります。アーカイブノードがオブジェクトデータを読み出せない場合、 Outbound Replication Status （ ORSU ）アラームがトリガーされます。
+
+
+NOTE: アーカイブノードがTSMミドルウェアを介して外部ストレージに接続している場合は、ノードが自動的にリセットされるため、再設定は必要ありません。
+
+.作業を開始する前に
+を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. アーカイブノード * > * ARC * > * Target * を選択します。
+. 誤った値を入力し、 * 変更の適用 * をクリックして、 * アクセスキー * フィールドを編集します。
+. 正しい値を入力し、 * 変更の適用 * をクリックして、 * アクセスキー * フィールドを編集します。
+

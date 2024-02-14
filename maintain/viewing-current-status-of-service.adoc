@@ -1,0 +1,39 @@
+---
+permalink: maintain/viewing-current-status-of-service.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, service, status 
+summary: グリッドノード上で実行されているサービスの現在のステータスはいつでも表示できます。 
+---
+= サービスの現在のステータスを表示します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+グリッドノード上で実行されているサービスの現在のステータスはいつでも表示できます。
+
+.作業を開始する前に
+を使用することができます `Passwords.txt` ファイル。
+
+.手順
+. グリッドノードにログインします。
++
+.. 次のコマンドを入力します。 `ssh admin@_grid_node_IP_`
+.. に記載されているパスワードを入力します `Passwords.txt` ファイル。
+.. 次のコマンドを入力してrootに切り替えます。 `su -`
+.. に記載されているパスワードを入力します `Passwords.txt` ファイル。
+
+
++
+rootとしてログインすると、プロンプトがから変わります `$` 終了： `#`。
+
+. グリッドノードで実行されているサービスの現在のステータスを表示します。'* service_servicename_status*
+グリッドノード上で実行されている要求されたサービスの現在のステータスが（実行中かどうかにかかわらず）報告されます。例：
++
+[listing]
+----
+cmn running for 1d, 14h, 21m, 2s
+----
+. コマンドシェルからログアウトします。 `*exit*`
+

@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-use/index.html 
+summary: 初期設定が完了すると、StorageGRIDテナントアカウントでバケットを作成し、S3クライアントアプリケーションを使用してオブジェクトの取り込み、読み出し、削除を実行できます。 
+---
+= StorageGRIDのテナントとクライアントの使用
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

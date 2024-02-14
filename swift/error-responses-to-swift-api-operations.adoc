@@ -1,0 +1,111 @@
+---
+permalink: swift/error-responses-to-swift-api-operations.html 
+sidebar: sidebar 
+keywords: swift api error responses 
+summary: エラー応答について理解しておくと、処理をトラブルシューティングする際に役立ちます。 
+---
+= Swift API 処理に対するエラー応答
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+エラー応答について理解しておくと、処理をトラブルシューティングする際に役立ちます。
+
+処理中にエラーが発生した場合に返される HTTP ステータスコードを次に示します。
+
+|===
+| Swift エラーの名前 | HTTPステータス 
+
+
+ a| 
+AccountNameTooLong 、 ContainerNameTooLong 、 HeaderTooBig 、 InvalidContainerName 、 InvalidRequest 、 InvalidURI 、 MetadataNameTooLong 、 MetadataValueTooBig 、 MissingSecurityHeader 、 ObjectNameTooLong 、 TooManyContainers 、 TooManyMetadataItems 、 TotalMetadataTooLarge
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+アクセスが拒否されました
+ a| 
+403 禁止
+
+
+
+ a| 
+ContainerNotEmpty 、 ContainerAlreadyExists です
+ a| 
+409 競合
+
+
+
+ a| 
+内部エラー
+ a| 
+500 Internal Server Error （内部サーバエラー）
+
+
+
+ a| 
+InvalidRange ：無効な範囲
+ a| 
+416 リクエストされた範囲が適合しません
+
+
+
+ a| 
+MethodNotAllowed のように入力します
+ a| 
+405 メソッドは許可されていません
+
+
+
+ a| 
+MissingContentLength （ MissingContentLength ）
+ a| 
+411 長さが必要です
+
+
+
+ a| 
+NOTFOUND
+ a| 
+404 が見つかりません
+
+
+
+ a| 
+実装なし
+ a| 
+501 は実装されていません
+
+
+
+ a| 
+PreconditionalFailed
+ a| 
+412 事前条件が失敗しました
+
+
+
+ a| 
+resourceNotFound です
+ a| 
+404 が見つかりません
+
+
+
+ a| 
+権限がありません
+ a| 
+401 認証なし
+
+
+
+ a| 
+UnprocessableEntity の場合
+ a| 
+422 加工不能エンティティ
+
+|===

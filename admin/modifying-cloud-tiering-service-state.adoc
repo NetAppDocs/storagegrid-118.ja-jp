@@ -1,0 +1,34 @@
+---
+permalink: admin/modifying-cloud-tiering-service-state.html 
+sidebar: sidebar 
+keywords: cloud tiering 
+summary: クラウド階層化サービスの状態を変更することで、 S3 API を介して接続する外部アーカイブストレージシステムに対してアーカイブノードが読み取りおよび書き込みできるかどうかを制御できます。 
+---
+= クラウドの階層化サービスの状態を変更します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+クラウドの階層化サービスの状態を変更することで、 S3 API を使用して接続する外部のアーカイブストレージシステムに対してアーカイブノードが読み取り / 書き込みできるかどうかを制御できます。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインする必要があります link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* これで完了です link:admin-group-permissions.html["特定のアクセス権限"]。
+* アーカイブノードが設定されている必要があります。
+
+
+.このタスクについて
+クラウドの階層化サービスの状態を「 * Read-Write Disabled 」に変更すると、アーカイブノードを効果的にオフラインにできます。
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. 「 * _ アーカイブノード _ * > * ARC * 」を選択します。
+. * Configuration * > * Main * を選択します。
++
+image::../media/modifying_middleware_state.gif[クラウドの階層化サービスの状態]
+
+. クラウドの階層化サービスの状態 * を選択します。
+. 「 * 変更を適用する * 」を選択します。
+

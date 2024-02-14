@@ -1,0 +1,14 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-expand/index.html 
+keywords: expand grid 
+summary: システムの処理を中断することなく、StorageGRIDシステムの容量や機能を拡張できます。 
+---
+= グリッドを展開する
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

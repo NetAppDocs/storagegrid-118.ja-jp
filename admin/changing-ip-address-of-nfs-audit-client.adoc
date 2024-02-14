@@ -1,0 +1,24 @@
+---
+permalink: admin/changing-ip-address-of-nfs-audit-client.html 
+sidebar: sidebar 
+keywords: NFS audit client, change IP address 
+summary: NFS 監査クライアントの IP アドレスを変更する必要がある場合は、次の手順を実行します。 
+---
+= NFS 監査クライアントの IP アドレスを変更します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+NFS 監査クライアントの IP アドレスを変更する必要がある場合は、次の手順を実行します。
+
+.手順
+. 既存の NFS 監査共有に新しい IP アドレスを追加します。
+. 元の IP アドレスを削除します。
+
+
+.関連情報
+* link:adding-nfs-audit-client-to-audit-share.html["監査共有に NFS 監査クライアントを追加します"]
+* link:removing-nfs-audit-client-from-audit-share.html["監査共有から NFS 監査クライアントを削除します"]
+

@@ -1,0 +1,86 @@
+---
+permalink: tenant/configuring-search-integration-service.html 
+sidebar: sidebar 
+keywords: how to configure search integration service 
+summary: 検索統合サービスでは、オブジェクトが作成、削除、またはそのメタデータ / タグが更新されるたびに、デスティネーションの検索インデックスにオブジェクトメタデータが送信されます。 
+---
+= 検索統合サービスを設定します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+検索統合サービスでは、オブジェクトが作成、削除、またはそのメタデータ / タグが更新されるたびに、デスティネーションの検索インデックスにオブジェクトメタデータが送信されます。
+
+.作業を開始する前に
+* テナントアカウントのプラットフォームサービスがStorageGRID 管理者によって有効にされている。
+* コンテンツにインデックスを付けるS3バケットを作成しておきます。
+* 検索統合サービスのデスティネーションとして使用するエンドポイントがすでに存在し、URNが設定されている必要があります。
+* が設定されたユーザグループに属している必要があります link:tenant-management-permissions.html["すべてのバケットまたはRoot Access権限を管理します"]。これらの権限は、 Tenant Manager を使用してバケットを設定する際にグループポリシーまたはバケットポリシーの権限設定よりも優先されます。
+
+
+.このタスクについて
+ソースバケットに対して検索統合サービスを設定した場合、オブジェクトを作成またはオブジェクトのメタデータ / タグを更新すると、オブジェクトメタデータがデスティネーションエンドポイントに送信されます。すでにオブジェクトが含まれているバケットで検索統合サービスを有効にすると、既存のオブジェクトに関するメタデータ通知は自動的には送信されません。既存のオブジェクトのメタデータがデスティネーションの検索インデックスに追加されるようにするには、オブジェクトを更新する必要があります。
+
+.手順
+. 検索統合を有効にするために必要なメタデータ通知 XML をテキストエディタで作成します。
++
+** 検索統合用の設定 XML に関する情報を参照してください。
+** XML を設定するにあたっては、デスティネーションとして検索統合エンドポイントの URN を使用します。
+
+
++
+[listing]
+----
+<MetadataNotificationConfiguration>
+ <Rule>
+    <Status>Enabled</Status>
+    <Prefix></Prefix>
+    <Destination>
+       <Urn>arn:aws:es:us-east-1:11111111111111:domain/mydomain/myindex/mytype</Urn>
+       </Destination>
+ </Rule>
+</MetadataNotificationConfiguration>
+----
+. Tenant Manager で、 * Storage （ S3 ） * > * Buckets * を選択します。
+. ソースバケットの名前を選択します。
++
+バケットの詳細ページが表示されます。
+
+. プラットフォームサービス *>* 検索統合 * を選択します
+. [検索統合を有効にする]*チェックボックスをオンにします。
+. テキストボックスにメタデータ通知設定を貼り付け、 * 変更を保存 * を選択します。
++
+image::../media/tenant_bucket_search_integration_configuration.png[検索統合の設定ダイアログボックスのスクリーンショット]
+
++
+
+NOTE: StorageGRID 管理者がグリッドマネージャまたは管理 API を使用して各テナントアカウントのプラットフォームサービスを有効にしておく必要があります。設定 XML の保存時にエラーが発生した場合は、 StorageGRID 管理者にお問い合わせください。
+
+. 検索統合サービスが正しく設定されていることを確認します。
++
+.. 設定 XML で指定されたメタデータ通知をトリガーする要件を満たすオブジェクトをソースバケットに追加します。
++
+前述の例では、バケットに追加されたすべてのオブジェクトがメタデータ通知をトリガーします。
+
+.. オブジェクトのメタデータとタグを含む JSON ドキュメントが、エンドポイントで指定された検索インデックスに追加されたことを確認します。
+
+
+
+
+.完了後
+必要に応じて、次のいずれかの方法でバケットの検索統合を無効にできます。
+
+* Storage（S3）*>* Buckets *を選択し、* Enable search integration *チェックボックスをオフにします。
+* S3 API を直接使用している場合は、 DELETE Bucket メタデータ通知要求を使用します。S3 クライアントアプリケーションを実装する手順を参照してください。
+
+
+.関連情報
+link:understanding-search-integration-service.html["検索統合サービスについて理解する"]
+
+link:configuration-xml-for-search-configuration.html["検索統合用の XML を設定します"]
+
+link:../s3/index.html["S3 REST APIを使用する"]
+
+link:creating-platform-services-endpoint.html["プラットフォームサービスエンドポイントを作成します"]

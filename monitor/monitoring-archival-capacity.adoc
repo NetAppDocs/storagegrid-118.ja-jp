@@ -1,0 +1,29 @@
+---
+permalink: monitor/monitoring-archival-capacity.html 
+sidebar: sidebar 
+keywords: archive, monitor, monitoring, monitoring archival capacity 
+summary: 外部アーカイブストレージシステムの容量をStorageGRID システムで直接監視することはできません。ただし、アーカイブノードからアーカイブ先にまだオブジェクトデータを送信できるかを監視することで、アーカイブメディアの拡張が必要かどうかを確認できます。 
+---
+= アーカイブ容量を監視する
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+外部アーカイブストレージシステムの容量をStorageGRID システムで直接監視することはできません。ただし、アーカイブノードからアーカイブ先にまだオブジェクトデータを送信できるかを監視することで、アーカイブメディアの拡張が必要かどうかを確認できます。
+
+.このタスクについて
+Store コンポーネントを監視することにより、アーカイブノードから対象のアーカイブストレージシステムにまだオブジェクトデータを送信できるかどうかを確認できます。また、 Store Failures （ ARVF ）アラームがトリガーされた場合、対象のアーカイブストレージシステムが容量に達し、オブジェクトデータをそれ以上受け入れられない状態になっている可能性があります。
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. [*_Archive Node_*>*ARC **>Overview**>Main*] を選択します。
+. Store State 属性と Store Status 属性をチェックして、 Store コンポーネントが Online with No Errors であることを確認します。
++
+image::../media/store_status_attribute.gif[ARC > Overview > Main を示すスクリーンショット]
+
++
+Store コンポーネントがオフラインになっている場合やエラーがある場合は、対象のアーカイブストレージシステムの容量に達したためにオブジェクトデータをそれ以上受け入れられない状態になっている可能性があります。
+
+

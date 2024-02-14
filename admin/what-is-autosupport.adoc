@@ -1,0 +1,377 @@
+---
+permalink: admin/what-is-autosupport.html 
+sidebar: sidebar 
+keywords: autosupport, technical support, storagegrid health, system status, Active IQ 
+summary: AutoSupport機能を使用すると、StorageGRIDからNetAppテクニカルサポートに健全性パッケージとステータスパッケージを送信できます。 
+---
+= AutoSupport を使用：概要
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+AutoSupport機能を使用すると、StorageGRIDからNetAppテクニカルサポートに健全性パッケージとステータスパッケージを送信できます。
+
+AutoSupportを使用すると、問題の特定と解決にかかる時間を大幅に短縮できます。また、システムのストレージニーズを監視し、新しいノードやサイトを追加する必要があるかどうかを判断するための支援も行います。必要に応じて、AutoSupportパッケージを1つの追加の送信先に送信するように設定できます。
+
+StorageGRIDには、次の2種類のAutoSupportがあります。
+
+StorageGRID AutoSupport:: StorageGRIDソフトウェアの問題を報告します。StorageGRIDの初回インストール時にデフォルトで有効になっています。可能です link:configure-autosupport-grid-manager.html["デフォルトのAutoSupport設定の変更"] 必要に応じて、
+
+
+
+NOTE: StorageGRID AutoSupportが有効になっていない場合は、グリッドマネージャのダッシュボードにメッセージが表示されます。このメッセージには、 AutoSupport 設定ページへのリンクが含まれています。メッセージを閉じても、 AutoSupport が無効なままであっても、ブラウザキャッシュがクリアされるまでは再度表示されません。
+
+アプライアンスハードウェアAutoSupport:: StorageGRIDアプライアンスの問題を報告します。実行する必要があります link:configure-autosupport-grid-manager.html#autosupport-for-appliances["各アプライアンスでのハードウェアAutoSupportの設定"]。
+
+
+
+
+== Active IQ とは
+
+Active IQ は、ネットアップのインストールベースが提供する予測分析と集合知を活用する、クラウドベースのデジタルアドバイザです。継続的なリスク評価、予測アラート、規範となるガイダンス、自動化されたアクションによって、問題が発生する前に予防できます。これにより、システムの健全性が向上し、システムの可用性が向上します。
+
+NetApp Support SiteでActive IQのダッシュボードと機能を使用する場合は、AutoSupportを有効にする必要があります。
+
+https://docs.netapp.com/us-en/active-iq/index.html["Active IQ Digital Advisorのドキュメント"^]
+
+
+
+== AutoSupportパッケージに含まれる情報
+
+AutoSupportパッケージには、次のXMLファイルと詳細が含まれています。
+
+[cols="2a,2a,3a"]
+|===
+| ファイル名 | フィールド | 説明 
+
+
+ a| 
+autosupport-history.xml
+ a| 
+AutoSupportシーケンス番号+
+このAutoSupportの宛先+
+トリガーイベント+
+配送状況+
+配信試行+
+AutoSupport件名+
+配信URI +
+前回のエラー+
+AutoSupport PUTファイル名+
+生成時刻+
+AutoSupportの圧縮後のサイズ+
+AutoSupportの解凍後のサイズ+
+合計収集時間（ミリ秒）
+ a| 
+AutoSupport履歴ファイル
+
+
+
+ a| 
+autosupport.xml
+ a| 
+ノード+
+サポートに連絡するためのプロトコル+
+HTTP / HTTPS +のサポートURL
+サポートアドレス+
+AutoSupport OnDemandの状態+
+AutoSupport OnDemandサーバのURL+
+AutoSupport OnDemandポーリング間隔
+ a| 
+AutoSupportステータスファイル。使用するプロトコル、テクニカルサポートのURLとアドレス、ポーリング間隔、OnDemand AutoSupport（有効または無効）の詳細が表示されます。
+
+
+
+ a| 
+buckets.xml
+ a| 
+バケットID+
+アカウントID+
+ビルドバージョン+
+ロケーション制約の設定+
+コンプライアンス有効+
+コンプライアンス構成+
+S3オブジェクトロック有効+
+S3オブジェクトロック設定+
+整合性設定+
+CORS有効+
+CORS設定+
+最終アクセス時間有効+
+有効なポリシー+
+ポリシー設定+
+通知有効+
+通知設定+
+CloudMirror有効+
+CloudMirrorの設定+
+検索有効+
+構成の検索+
+Swift読み取りACL有効+
+Swift読み取りACLの設定+
+Swift書き込みACL有効+
+Swift書き込みACLの設定+
+バケットタグ付け有効+
+バケットのタグ付け設定+
+バージョン管理の設定
+ a| 
+設定の詳細と統計がバケットレベルで表示されます。バケット設定の例には、プラットフォームサービス、準拠、バケット整合性などがあります。
+
+
+
+ a| 
+grid-configurations.xml
+ a| 
+属性ID+
+属性名+
+価値+
+インデックス+
+テーブルID+
+テーブル名
+ a| 
+グリッド全体の設定情報ファイル。グリッド証明書、メタデータリザーブスペース、グリッド全体の設定（準拠、S3オブジェクトロック、オブジェクト圧縮、アラート、syslog、 およびILMの設定）、イレイジャーコーディングプロファイルの詳細、DNS名、 link:../primer/nodes-and-services.html#storagegrid-services["NMS名"]など。
+
+
+
+ a| 
+GRID-SPEC.xml
+ a| 
+グリッド仕様、raw XML
+ a| 
+StorageGRIDの設定と導入に使用します。ノードのグリッド仕様、NTPサーバIP、DNSサーバIP、ネットワークトポロジ、およびハードウェアプロファイルが含まれます。
+
+
+
+ a| 
+grid-tasks.xml
+ a| 
+ノード+
+サービスパス+
+属性ID+
+属性名+
+価値+
+インデックス+
+テーブルID+
+テーブル名
+ a| 
+グリッドタスク（メンテナンス手順）のステータスファイル。グリッドのアクティブなタスク、終了したタスク、完了したタスク、失敗したタスク、および保留中のタスクの詳細が表示されます。
+
+
+
+ a| 
+ilm-status.xml
+ a| 
+ノード+
+サービスパス+
+属性ID+
+属性名+
+価値+
+インデックス+
+テーブルID+
+テーブル名
+ a| 
+ILM指標情報ファイル。各ノードのILM評価速度とグリッド全体の指標が格納されます。
+
+
+
+ a| 
+ilm.xml
+ a| 
+ILM raw XML
+ a| 
+ILMのアクティブポリシーファイル。ストレージプールID、取り込み動作、フィルタ、ルール、概要など、アクティブなILMポリシーの詳細が格納されます。
+
+
+
+ a| 
+LOG.TGZ
+ a| 
+_n/a_
+ a| 
+ダウンロード可能なログファイル。が含まれます `bycast-err.log` および `servermanager.log` （各ノードから）。
+
+
+
+ a| 
+manifest.xml
+ a| 
+回収順序+
+このデータのAutoSupportコンテンツファイル名+
+このデータ項目の概要+
+収集されたバイト数+
+収集に要した時間+
+このデータ項目のステータス+
+エラーの概要+
+このデータのAutoSupportコンテンツタイプ+
+ a| 
+すべてのAutoSupport XMLファイルのAutoSupportメタデータと簡単な説明が含まれています。
+
+
+
+ a| 
+nms-entities.xml
+ a| 
+属性インデックス+
+エンティティOID+
+ノードID+
+デバイスモデルID+
+デバイスモデルバージョン+
+エンティティ名
+ a| 
+のグループエンティティとサービスエンティティ link:../primer/nodes-and-services.html#storagegrid-services["NMSツリー"]。グリッドトポロジの詳細が表示されます。ノードは、ノードで実行されているサービスに基づいて特定できます。
+
+
+
+ a| 
+objects-status.xml
+ a| 
+ノード+
+サービスパス+
+属性ID+
+属性名+
+価値+
+インデックス+
+テーブルID+
+テーブル名
+ a| 
+オブジェクトのステータス（バックグラウンドスキャンステータス、アクティブな転送、転送速度、合計転送数、削除速度など） 破損したフラグメント、損失オブジェクト、欠落オブジェクト、修復の試行、スキャン速度 推定スキャン期間、修理完了ステータスなど。
+
+
+
+ a| 
+server-status.xml
+ a| 
+ノード+
+サービスパス+
+属性ID+
+属性名+
+価値+
+インデックス+
+テーブルID+
+テーブル名
+ a| 
+サーバ構成およびイベントファイル。各ノードの詳細が含まれます。プラットフォームタイプ、オペレーティングシステム、設置されているメモリ、使用可能なメモリ、ストレージ接続、 ストレージアプライアンスシャーシのシリアル番号、ストレージコントローラで障害が発生したドライブ数、コンピューティングコントローラシャーシの温度、コンピューティングハードウェア、コンピューティングコントローラのシリアル番号、電源装置、ドライブサイズ、ドライブタイプなど。
+
+
+
+ a| 
+service-status.xml
+ a| 
+ノード+
+サービスパス+
+属性ID+
+属性名+
+価値+
+インデックス+
+テーブルID+
+テーブル名
+ a| 
+サービスノード情報ファイル。割り当てられたテーブル領域、空きテーブル領域、データベースのリーパーメトリック、セグメント修復期間、修復ジョブ期間、自動ジョブ再開、自動ジョブ終了などの詳細が含まれます。 その他多数。
+
+
+
+ a| 
+storage-grades.xml
+ a| 
+ストレージグレードID+
+ストレージグレード名+
+ストレージノードID+
+ストレージノードのパス
+ a| 
+ストレージノードごとのストレージグレード定義ファイル。
+
+
+
+ a| 
+概要- attributes.xml
+ a| 
+グループOID+
+グループパス+
+サマリー属性ID+
+サマリー属性名+
+価値+
+インデックス+
+テーブルID+
+テーブル名
+ a| 
+StorageGRIDの使用状況情報を要約するシステムステータスデータの概要。グリッドの名前、サイトの名前、グリッドあたりおよびサイトあたりのストレージノード数、ライセンスタイプ、ライセンスの容量と使用状況、ソフトウェアのサポート条件、S3処理とSwift処理の詳細などの詳細が表示されます。
+
+
+
+ a| 
+system-alarms.xml
+ a| 
+ノード+
+サービスパス+
+重大度+
+alarmed属性+
+属性名+
+ステータス+
+価値+
+トリガー時間+
+確認応答時間
+ a| 
+システムレベルのアラーム（廃止）とステータスデータ。異常なアクティビティや潜在的な問題を示します。
+
+
+
+ a| 
+system-alerts.xml
+ a| 
+名前+
+重大度+
+ノード名+
+アラートステータス+
+サイト名+
+アラートトリガー日時+
+アラート解決時間+
+ルールID+
+ノードID+
+サイトID+
+消音+
+その他の注釈+
+その他のラベル
+ a| 
+StorageGRIDシステムの潜在的な問題を示す現在のシステムアラート。
+
+
+
+ a| 
+USERAGENTS.xml
+ a| 
+ユーザーエージェント+
+日数+
+合計HTTP要求+
+取り込まれた総バイト数+
+取得された総バイト数+
+PUT要求+
+GETリクエスト+
+削除要求+
+HEAD要求+
+POSTリクエスト+
+OPTIONSリクエスト+
+平均要求時間（ミリ秒）+
+PUT要求の平均時間（ミリ秒）+
+GET要求時間の平均（ミリ秒）+
+削除要求の平均時間（ミリ秒）+
+平均ヘッド要求時間（ミリ秒）+
+平均POST要求時間（ミリ秒）+
+平均OPTIONS要求時間（ミリ秒）
+ a| 
+アプリケーションユーザエージェントに基づく統計。たとえば、ユーザエージェントあたりのPUT / GET / DELETE / HEAD処理の数や、各処理の合計バイトサイズなどです。
+
+
+
+ a| 
+Xヘッダーデータ
+ a| 
+x-netapp-asup-generated-on+
+x-netapp-asup-hostname+
+x-netapp-asup-os-version+
+x-netapp-asup-serial-num+
+x-netapp-asup-subject+
+x-netapp-asup-system-id+
+x-netapp-asup-model-name+
+ a| 
+AutoSupportヘッダーデータ。
+
+|===

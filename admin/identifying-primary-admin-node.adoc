@@ -1,0 +1,28 @@
+---
+permalink: admin/identifying-primary-admin-node.html 
+sidebar: sidebar 
+keywords: cmn service, primary admin node, configuration management node 
+summary: プライマリ管理ノードは CMN サービスをホストします。一部のメンテナンス手順は、プライマリ管理ノードでしか実行できません。 
+---
+= プライマリ管理ノードを特定します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+プライマリ管理ノードは CMN サービスをホストします。一部のメンテナンス手順は、プライマリ管理ノードでしか実行できません。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* これで完了です link:admin-group-permissions.html["特定のアクセス権限"]。
+
+
+.手順
+. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+. 「 * _site * > * Admin Node * 」を選択し、を選択します image:../media/icon_plus_sign_black_on_white.gif["プラス記号"] をクリックしてトポロジツリーを展開し、この管理ノードでホストされているサービスを表示します。
++
+プライマリ管理ノードは CMN サービスをホストします。
+
+. この管理ノードが CMN サービスをホストしていない場合、他の管理ノードを確認します。
+

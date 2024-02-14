@@ -1,0 +1,48 @@
+---
+permalink: primer/what-archive-node-is.html 
+sidebar: sidebar 
+keywords: archive node 
+summary: アーカイブノードのサポートは廃止され、今後のリリースで削除される予定です。 
+---
+= アーカイブノードとは
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードのサポートは廃止され、今後のリリースで削除される予定です。
+
+[CAUTION]
+====
+アーカイブノードのサポートは廃止され、今後のリリースで削除される予定です。S3 API を使用してアーカイブノードから外部のアーカイブストレージシステムにオブジェクトを移動する処理は、より多くの機能を提供する ILM Cloud Storage Pools に置き換えられました。
+
+[Cloud Tiering - Simple Storage Service（S3）]オプションも廃止されました。このオプションのアーカイブノードを現在使用している場合は、 link:../admin/migrating-objects-from-cloud-tiering-s3-to-cloud-storage-pool.html["オブジェクトをクラウドストレージプールに移行します"] 代わりに、
+
+また、StorageGRID 11.7以前では、アクティブなILMポリシーからアーカイブノードを削除する必要があります。アーカイブノードに格納されているオブジェクトデータを削除すると、将来のアップグレードが簡単になります。を参照してください link:../ilm/working-with-ilm-rules-and-ilm-policies.html["ILMルールおよびILMポリシーの操作"]。
+
+====
+
+
+== アーカイブノードのプライマリサービス
+
+次の表に、アーカイブノードのプライマリサービスを示します。ただし、このテーブルにはすべてのノードサービスが表示されるわけではありません。
+
+[cols="1a,2a"]
+|===
+| サービス | キー機能 
+
+
+ a| 
+アーカイブ（ ARC ）
+ a| 
+Tivoli Storage Manager （ TSM ）外部テープストレージシステムと通信します。
+
+
+
+ a| 
+SSM （サーバステータスモニタ）
+ a| 
+オペレーティングシステムと基盤のハードウェアを監視します。
+
+|===

@@ -1,0 +1,42 @@
+---
+permalink: maintain/replacing-archive-node.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, archive node 
+summary: アーカイブノードをリカバリするには、まずノードの交換が必要です。 
+---
+= アーカイブノードの交換
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードをリカバリするには、まずノードの交換が必要です。
+
+使用しているプラットフォームに対応するノード交換用手順 を選択する必要があります。ノードの交換手順は、すべてのタイプのグリッドノードで同じです。
+
+[cols="1a,2a"]
+|===
+| プラットフォーム | 手順 
+
+
+ a| 
+VMware
+ a| 
+link:all-node-types-replacing-vmware-node.html["VMware ノードを交換"]
+
+
+
+ a| 
+Linux の場合
+ a| 
+link:all-node-types-replacing-linux-node.html["Linux ノードを交換"]
+
+
+
+ a| 
+OpenStack の機能を使用
+ a| 
+リカバリ処理を対象とした OpenStack 用の仮想マシンディスクファイルおよびスクリプトは、現在は提供されていません。OpenStack 環境で実行されているノードのリカバリが必要な場合は、使用している Linux オペレーティングシステム用のファイルをダウンロードしてください。次に、の手順 に従います link:all-node-types-replacing-linux-node.html["Linuxノードの交換"]。
+
+|===

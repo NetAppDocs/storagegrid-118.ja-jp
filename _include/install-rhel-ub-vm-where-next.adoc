@@ -1,0 +1,30 @@
+= 任意のタスク
+:allow-uri-read: 
+
+
+* link:../admin/managing-tenants.html["テナントアカウントを作成します"] StorageGRID システムにオブジェクトを格納するために使用される各クライアントプロトコル（SwiftまたはS3）。
+* link:../admin/controlling-storagegrid-access.html["システムアクセスを制御します"] グループとユーザアカウントを設定する。必要に応じて、を実行できます link:../admin/using-identity-federation.html["フェデレーテッドアイデンティティソースを設定する"] （Active DirectoryやOpenLDAPなど）を使用して、管理者グループとユーザをインポートできます。または、できます link:../admin/managing-users.html#create-a-local-user["ローカルグループとユーザを作成します"]。
+* を統合してテストします link:../s3/configuring-tenant-accounts-and-connections.html["S3 API"] または link:../swift/configuring-tenant-accounts-and-connections.html["Swift API"] StorageGRID システムにオブジェクトをアップロードするために使用するクライアントアプリケーション。
+* link:../ilm/index.html["情報ライフサイクル管理（ILM）ルールとILMポリシーを設定する"] を使用してオブジェクトデータを保護する。
+* インストール環境にアプライアンスストレージノードが含まれている場合は、SANtricity OSを使用して次のタスクを実行します。
++
+** 各 StorageGRID アプライアンスに接続します。
+** AutoSupport データの受信を確認します。
++
+を参照してください https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/configuring-hardware.html["ハードウェアをセットアップする"^]。
+
+
+
+* を確認し、手順に従います link:../harden/index.html["StorageGRID システムのセキュリティ強化ガイドライン"] セキュリティリスクを排除するため。
+* link:../monitor/email-alert-notifications.html["システムアラートのEメール通知を設定します"]。
+* StorageGRID システムにアーカイブノードが含まれている（廃止）場合は、アーカイブノードからターゲットの外部アーカイブストレージシステムへの接続を設定します。
+
+
+
+
+== 任意のタスク
+
+* link:../maintain/changing-ip-addresses-and-mtu-values-for-all-nodes-in-grid.html["グリッドノードのIPアドレスを更新します"] 導入を計画してリカバリパッケージを生成したあとに変更された場合。
+* link:../admin/changing-network-options-object-encryption.html["ストレージ暗号化を設定します"]（必要な場合）。
+* link:../admin/configuring-stored-object-compression.html["ストレージの圧縮を設定します"] 必要に応じて、格納オブジェクトのサイズを縮小します。
+

@@ -1,0 +1,37 @@
+---
+permalink: ubuntu/configuring-docker-storage-volume.html 
+sidebar: sidebar 
+keywords: how to configure Docker storage volume 
+summary: Docker をインストールする前に、 Docker ストレージボリュームをフォーマットして /var/lib/docker にマウントする必要があります。 
+---
+= Docker ストレージボリュームを設定します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+Dockerをインストールする前に、Dockerストレージボリュームをフォーマットして、にマウントする必要があります `/var/lib/docker`。
+
+.このタスクについて
+Dockerストレージボリュームにローカルストレージを使用する予定で、を含むホストパーティションに十分なスペースがある場合は、以下の手順をスキップできます `/var/lib`。
+
+.手順
+. Docker ストレージボリュームにファイルシステムを作成します。
++
+[listing]
+----
+sudo mkfs.ext4 docker-storage-volume-device
+----
+. Docker ストレージボリュームをマウントします。
++
+[listing]
+----
+sudo mkdir -p /var/lib/docker
+sudo mount docker-storage-volume-device /var/lib/docker
+----
+. /etc/fstab に docker -storage-volume-device のエントリを追加します。
++
+これにより、ホストのリブート後にストレージボリュームが自動的に再マウントされます。
+
+

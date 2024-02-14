@@ -1,0 +1,137 @@
+---
+permalink: swift/container-operations.html 
+sidebar: sidebar 
+keywords: swift container operations 
+summary: StorageGRID では、 Swift アカウントあたり最大で 1 、 000 個のコンテナがサポートされます。コンテナに対して実行する Swift API 処理を次に示します。 
+---
+= コンテナの処理
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID では、 Swift アカウントあたり最大で 1 、 000 個のコンテナがサポートされます。コンテナに対して実行する Swift API 処理を次に示します。
+
+
+
+== コンテナを削除します
+
+この処理は、 StorageGRID システムの Swift アカウントから空のコンテナを削除します。
+
+次の要求パラメータが必要です。
+
+* `Account`
+* `Container`
+
+
+次の要求ヘッダーが必要です。
+
+* `X-Auth-Token`
+
+
+実行が成功すると、「 HTTP/1.1 204 No Content 」の応答とともに次のヘッダーが返されます。
+
+* `Content-Length`
+* `Content-Type`
+* `Date`
+* `X-Trans-Id`
+
+
+
+
+== GET コンテナ
+
+この処理は、コンテナに関連付けられているオブジェクトリストを、 StorageGRID システム内のコンテナの統計情報およびメタデータとともに読み出します。
+
+次の要求パラメータが必要です。
+
+* `Account`
+* `Container`
+
+
+次の要求ヘッダーが必要です。
+
+* `X-Auth-Token`
+
+
+次のサポートされている要求クエリパラメータはオプションです。
+
+* `Delimiter`
+* `End_marker`
+* `Format`
+* `Limit`
+* `Marker`
+* `Path`
+* `Prefix`
+
+
+実行が成功すると、「 HTTP/1.1 200 Success 」または「 HTTP/1.1 204 No Content 」の応答とともに次のヘッダーが返されます。
+
+* `Accept-Ranges`
+* `Content-Length`
+* `Content-Type`
+* `Date`
+* `X-Container-Bytes-Used`
+* `X-Container-Object-Count`
+* `X-Timestamp`
+* `X-Trans-Id`
+
+
+
+
+== HEAD（コンテナ）
+
+この処理は、 StorageGRID システムからコンテナの統計情報とメタデータを読み出します。
+
+次の要求パラメータが必要です。
+
+* `Account`
+* `Container`
+
+
+次の要求ヘッダーが必要です。
+
+* `X-Auth-Token`
+
+
+実行が成功すると、「 HTTP/1.1 204 No Content 」の応答とともに次のヘッダーが返されます。
+
+* `Accept-Ranges`
+* `Content-Length`
+* `Date`
+* `X-Container-Bytes-Used`
+* `X-Container-Object-Count`
+* `X-Timestamp`
+* `X-Trans-Id`
+
+
+
+
+== PUT（コンテナ）
+
+この処理は、 StorageGRID システムのアカウントにコンテナを作成します。
+
+次の要求パラメータが必要です。
+
+* `Account`
+* `Container`
+
+
+次の要求ヘッダーが必要です。
+
+* `X-Auth-Token`
+
+
+実行が成功すると、「 HTTP/1.1 201 Created 」または「 HTTP/1.1 202 Accepted 」の応答（このアカウントにコンテナがすでに存在する場合）とともに次のヘッダーが返されます。
+
+* `Content-Length`
+* `Date`
+* `X-Timestamp`
+* `X-Trans-Id`
+
+
+コンテナ名は StorageGRID ネームスペース内で一意である必要があります。このコンテナが別のアカウントの下に存在する場合は、ヘッダー「 HTTP/1.1 409 Conflict 」が返されます。
+
+.関連情報
+link:monitoring-and-auditing-operations.html["監視と監査の処理"]

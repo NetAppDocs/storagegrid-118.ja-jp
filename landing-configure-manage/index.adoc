@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-configure-manage/index.html 
+summary: 新しいStorageGRID システムで実行する必要がある設定タスクは、グリッドの使用方法によって異なります。少なくとも、システムアクセスのセットアップ、FabricPool ウィザードとS3ウィザードの使用、ストレージとセキュリティのさまざまな設定の管理を行う必要があります。 
+---
+= StorageGRIDシステムの設定と管理
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

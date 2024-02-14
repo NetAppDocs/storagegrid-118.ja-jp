@@ -1,0 +1,43 @@
+---
+permalink: rhel/installing-storagegrid-webscale-host-service.html 
+sidebar: sidebar 
+keywords: how to install host services 
+summary: StorageGRID ホストサービスをインストールするには、 StorageGRID RPM パッケージを使用します。 
+---
+= StorageGRID ホストサービスをインストールする
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID ホストサービスをインストールするには、 StorageGRID RPM パッケージを使用します。
+
+.このタスクについて
+以下の手順では、 RPM パッケージからホストサービスをインストールする方法について説明します。また、インストールアーカイブに含まれている Yum リポジトリメタデータを使用して、 RPM パッケージをリモートでインストールすることもできます。使用している Linux オペレーティングシステムの Yum リポジトリに関する手順を参照してください。
+
+.手順
+. 各ホストに StorageGRID RPM パッケージをコピーするか、共有ストレージに置きます。
++
+たとえば、に配置します `/tmp` ディレクトリ。次の手順でコマンドの例を使用できます。
+
+. 各ホストに root アカウントまたは sudo 権限を持つアカウントでログインし、次のコマンドをこの順序で実行します。
++
+[listing]
+----
+sudo yum --nogpgcheck localinstall /tmp/StorageGRID-Webscale-Images-version-SHA.rpm
+----
++
+[listing]
+----
+sudo yum --nogpgcheck localinstall /tmp/StorageGRID-Webscale-Service-version-SHA.rpm
+----
++
+
+CAUTION: まずイメージパッケージをインストールし、次にサービスパッケージをインストールする必要があります。
+
++
+
+NOTE: パッケージを以外のディレクトリに配置した場合は `/tmp`をクリックし、使用したパスに応じてコマンドを変更します。
+
+

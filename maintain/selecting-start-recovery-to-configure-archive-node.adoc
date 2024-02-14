@@ -1,0 +1,50 @@
+---
+permalink: maintain/selecting-start-recovery-to-configure-archive-node.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, archive node 
+summary: アーカイブノードを交換したら、 Grid Manager で Start Recovery を選択して、障害ノードの代わりとして新しいノードを設定する必要があります。 
+---
+= Start Recovery を選択して、アーカイブノードを設定します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードを交換したら、 Grid Manager で Start Recovery を選択して、障害ノードの代わりとして新しいノードを設定する必要があります。
+
+.作業を開始する前に
+* を使用して Grid Manager にサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* を使用することができます link:../admin/admin-group-permissions.html["Maintenance権限またはRoot Access権限"]。
+* プロビジョニングパスフレーズを用意します。
+* 交換用ノードの導入と設定を完了しておきます。
+
+
+.手順
+. Grid Manager から * maintenance * > * Tasks * > * Recovery * を選択します。
+. リカバリするグリッドノードを Pending Nodes リストで選択します。
++
+ノードに障害が発生するとリストに表示されますが、ノードを再インストールしてリカバリの準備ができるまでは選択できません。
+
+. プロビジョニングパスフレーズ * を入力します。
+. [ リカバリの開始 ] をクリックします。
++
+image::../media/4b_select_recovery_node.png[Maintenance > Recovery ページを示すスクリーンショット]
+
+. リカバリ中のグリッドノードテーブルで、リカバリの進行状況を監視します。
++
+
+NOTE: リカバリ手順 の実行中に [* リセット ] をクリックすると、新しいリカバリを開始できます。手順 をリセットするとノードが不確定な状態のままになることを示すダイアログボックスが表示されます。
+
++
+image::../media/recovery_reset_warning.gif[リカバリのリセットに関する警告を示すダイアログボックスのスクリーンショット]
+
++
+手順 をリセットしたあとにリカバリを再試行する場合は、次の手順でノードをインストール前の状態にリストアする必要があります。
+
++
+** * vmware * ：導入した仮想グリッドノードを削除します。その後、リカバリを再開する準備ができたら、ノードを再導入します。
+** * Linux *：Linuxホストで次のコマンドを実行して、ノードを再起動します。 `storagegrid node force-recovery _node-name_`
+
+
+

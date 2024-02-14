@@ -1,0 +1,24 @@
+---
+permalink: admin/archiving-to-cloud-through-s3-api.html 
+sidebar: sidebar 
+keywords: archive node to AWS, Amazon Web Services 
+summary: アーカイブノードは、 Amazon Web Services （ AWS ）に直接接続するように設定することも、 S3 API を使用して StorageGRID システムと通信可能な他のシステムに接続するように設定することもできます。 
+---
+= S3 API を使用してクラウドにアーカイブします
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+アーカイブノードは、 Amazon Web Services （ AWS ）に直接接続するように設定することも、 S3 API を使用して StorageGRID システムと連携可能な他のシステムに接続するように設定することもできます。
+
+[CAUTION]
+====
+アーカイブノードのサポートは廃止され、今後のリリースで削除される予定です。S3 API を使用してアーカイブノードから外部のアーカイブストレージシステムにオブジェクトを移動する処理は、より多くの機能を提供する ILM Cloud Storage Pools に置き換えられました。
+
+[Cloud Tiering - Simple Storage Service（S3）]オプションも廃止されました。このオプションのアーカイブノードを現在使用している場合は、 link:../admin/migrating-objects-from-cloud-tiering-s3-to-cloud-storage-pool.html["オブジェクトをクラウドストレージプールに移行します"] 代わりに、
+
+また、StorageGRID 11.7以前では、アクティブなILMポリシーからアーカイブノードを削除する必要があります。アーカイブノードに格納されているオブジェクトデータを削除すると、将来のアップグレードが簡単になります。を参照してください link:../ilm/working-with-ilm-rules-and-ilm-policies.html["ILMルールおよびILMポリシーの操作"]。
+
+====

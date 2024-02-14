@@ -1,0 +1,16 @@
+---
+permalink: maintain/recovering-from-gateway-node-failures.html 
+sidebar: sidebar 
+keywords: recover, gateway node failure, workflow 
+summary: ゲートウェイノードの障害からリカバリするには、一連のタスクを正しい順序で実行する必要があります。 
+---
+= ゲートウェイノードの障害からのリカバリ：ワークフロー
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+ゲートウェイノードの障害からリカバリするには、一連のタスクを正しい順序で実行する必要があります。
+
+image::../media/overview_api_gateway_node_recovery.png[ゲートウェイノードのリカバリの概要フローチャート]

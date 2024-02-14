@@ -1,0 +1,64 @@
+---
+permalink: audit/arct-archive-retrieve-from-cloud-tier.html 
+sidebar: sidebar 
+keywords: storagegrid, audit, message, ARCT, Archive Retrieve from Cloud-Tier 
+summary: このメッセージは、 S3 API を使用して StorageGRID に接続する外部アーカイブストレージシステムから、アーカイブされたオブジェクトデータが読み出されたときに生成されます。 
+---
+= ARCT ：クラウド階層からアーカイブを取得します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+このメッセージは、 S3 API を使用して StorageGRID に接続する外部アーカイブストレージシステムから、アーカイブされたオブジェクトデータが読み出されたときに生成されます。
+
+[cols="1a,1a,4a"]
+|===
+| コード | フィールド | 説明 
+
+
+ a| 
+CBID
+ a| 
+コンテンツブロック ID
+ a| 
+読み出されたコンテンツブロックの一意の識別子。
+
+
+
+ a| 
+CSIZ
+ a| 
+コンテンツサイズ（ Content Size ）
+ a| 
+オブジェクトのサイズ（バイト単位）。読み出しが成功した場合にのみ正確な値が表示されます。
+
+
+
+ a| 
+RSLT
+ a| 
+結果コード
+ a| 
+成功（ SUCS ）、またはバックエンドによって報告されたエラーが返されます。
+
+
+
+ a| 
+SUID
+ a| 
+Storage Unique Identifier の略
+ a| 
+外部アーカイブストレージシステムの一意の識別子（ UUID ）。
+
+
+
+ a| 
+時間
+ a| 
+時間
+ a| 
+要求の合計処理時間（マイクロ秒）。
+
+|===

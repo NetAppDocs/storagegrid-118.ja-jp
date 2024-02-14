@@ -1,0 +1,37 @@
+---
+permalink: upgrade/changes-to-grid-management-api.html 
+sidebar: sidebar 
+keywords: grid management api, api, api version, swagger, rest api 
+summary: StorageGRID 11.8では、バージョン4のグリッド管理APIが使用されます。バージョン4ではバージョン3が廃止されましたが、バージョン1、2、3は引き続きサポートされます。 
+---
+= Grid 管理 API に対する変更
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID 11.8では、バージョン4のグリッド管理APIが使用されます。バージョン4ではバージョン3が廃止されましたが、バージョン1、2、3は引き続きサポートされます。
+
+
+NOTE: StorageGRID 11.8では、廃止されたバージョンの管理APIを引き続き使用できますが、これらのバージョンのAPIのサポートはStorageGRIDの今後のリリースで削除される予定です。StorageGRID 11.8へのアップグレード後、廃止されたAPIはを使用して非アクティブ化できます。 `PUT /grid/config/management` API
+
+詳細については、を参照してください link:../admin/using-grid-management-api.html["グリッド管理 API を使用します"]。
+
+
+
+== ヘンコウテン `ilm-policies` API v4
+
+StorageGRID 11.8（バージョン4）から有効 `ilm-policies` APIのバージョン3との違いは次のとおりです。
+
+* 履歴ポリシーは返されなくなりました。履歴ポリシーおよびタグデータを取得するための新しい個別のAPIが次の場所に追加されました。 `/grid/ilm-history`。
+* 削除されたプロパティ： `proposed`、 `historical`、 `historicalRules`、 `activationTime`。
+* 追加されたプロパティ： `active` （ブーリアン）。 `activatedBy` （ポリシーが割り当てられているタグUUIDの配列）。
+* のオプションのtypeクエリパラメータ `GET ilm-policies` ここでは、 `inactive` および `active.` 以前の値は次のとおりです。 `proposed`、 `active`および `historical`。
+
+
+
+
+== ドライブ管理用の新しいエンドポイント
+
+/grid/drive-details/｛nodeid｝* APIエンドポイントを使用して、アプライアンスストレージノードの特定のモデルのドライブに対して処理を実行できます。

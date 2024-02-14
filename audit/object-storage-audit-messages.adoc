@@ -1,0 +1,172 @@
+---
+permalink: audit/object-storage-audit-messages.html 
+sidebar: sidebar 
+keywords: audit, object storage, object management, object retrieval, node transfer, verification, APCT, ARCB, ARCE, ARCT, AREM, ASCE, ASCT, ATCE, AVCC, BROR, CBSE, CBRE, CGRR, EBDL, EBKR, SCMT, SREM 
+summary: オブジェクトストレージ監査カテゴリに属する監査メッセージについて十分に理解しておく必要があります。StorageGRID システム内のオブジェクトのストレージと管理に関連するイベントを示します。オブジェクトの格納と読み出し、グリッドノードからグリッドノードへの転送、および検証が含まれます。 
+---
+= オブジェクトストレージ監査メッセージ
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+オブジェクトストレージ監査カテゴリに属する監査メッセージは、StorageGRID システム内のオブジェクトの格納と管理に関連するイベントに使用されます。オブジェクトの格納と読み出し、グリッドノードからグリッドノードへの転送、および検証が含まれます。
+
+[cols="1a,2a,1a"]
+|===
+| コード | 説明 | を参照してください 
+
+
+ a| 
+APCT
+ a| 
+Archive Purge from Cloud-Tier ： S3 API を使用して StorageGRID に接続する外部アーカイブストレージシステムから、アーカイブされたオブジェクトデータが削除されました。
+ a| 
+link:apct-archive-purge-from-cloud-tier.html["APCT ：クラウド階層からのアーカイブの削除"]
+
+
+
+ a| 
+ARCB
+ a| 
+Archive Object Retrieve Begin ： ARC サービスが、外部アーカイブストレージシステムからオブジェクトデータの読み出しを開始しました。
+ a| 
+link:arcb-archive-object-retrieve-begin.html["ARCB ：アーカイブオブジェクトの読み出しが開始されました"]
+
+
+
+ a| 
+ARCE
+ a| 
+Archive Object Retrieve End ：オブジェクトデータが外部アーカイブストレージシステムから読み出され、 ARC サービスが読み出し処理のステータスをレポートします。
+ a| 
+link:arce-archive-object-retrieve-end.html["ARCE ：アーカイブオブジェクトの読み出しが終了しました"]
+
+
+
+ a| 
+ARCT
+ a| 
+Archive Retrieve from Cloud-Tier ： S3 API を使用して StorageGRID に接続する外部アーカイブストレージシステムから、アーカイブされたオブジェクトデータが読み出されました。
+ a| 
+link:arct-archive-retrieve-from-cloud-tier.html["ARCT ：クラウド階層からアーカイブを取得します"]
+
+
+
+ a| 
+AREM
+ a| 
+Archive Object Remove ：外部アーカイブストレージシステムからのコンテンツブロックの削除が成功または失敗しました。
+ a| 
+link:arem-archive-object-remove.html["AREM ：アーカイブオブジェクトの削除"]
+
+
+
+ a| 
+ASCE
+ a| 
+Archive Object Store End ：コンテンツブロックが外部アーカイブストレージシステムに書き込まれ、 ARC サービスが書き込み処理のステータスをレポートします。
+ a| 
+link:asce-archive-object-store-end.html["ASCE ：アーカイブオブジェクトストアの終了"]
+
+
+
+ a| 
+▽ SCT 。△
+ a| 
+Archive Store Cloud-Tier ： S3 API を使用して StorageGRID に接続する外部アーカイブストレージシステムに、オブジェクトデータが格納されました。
+ a| 
+link:asct-archive-store-cloud-tier.html["ASCT ：アーカイブストアのクラウド階層"]
+
+
+
+ a| 
+ATCE
+ a| 
+Archive Object Store Begin ：外部アーカイブストレージへのコンテンツブロックの書き込みが開始されました。
+ a| 
+link:atce-archive-object-store-begin.html["ATCE ：アーカイブオブジェクトストアが開始されました"]
+
+
+
+ a| 
+AVCC の場合
+ a| 
+Archive Validate Cloud-Tier Configuration ：指定されたアカウントおよびバケットの設定の検証に成功または失敗しました。
+ a| 
+link:avcc-archive-validate-cloud-tier-configuration.html["AVCC ：アーカイブによってクラウド階層の構成を検証"]
+
+
+
+ a| 
+ブロア
+ a| 
+Bucket Read Only Request：バケットが読み取り専用モードになったか、または終了しました。
+ a| 
+link:bror-bucket-read-only-request.html["BROR：バケット読み取り専用要求"]
+
+
+
+ a| 
+CBSE
+ a| 
+Object Send End ：ソースエンティティが、グリッドノードからグリッドノードへのデータ転送処理を完了しました。
+ a| 
+link:cbse-object-send-end.html["CBSE ：オブジェクト送信終了"]
+
+
+
+ a| 
+CBRE
+ a| 
+Object Receive End ：デスティネーションエンティティが、グリッドノードからグリッドノードへのデータ転送処理を完了しました。
+ a| 
+link:cbre-object-receive-end.html["CBRE ：オブジェクト受信終了"]
+
+
+
+ a| 
+CGRR
+ a| 
+Cross-Grid Replication Request：StorageGRID が、グリッドフェデレーション接続内のバケット間でオブジェクトをレプリケートするために、グリッド間レプリケーション処理を試行しました。
+ a| 
+link:cgrr-cross-grid-replication-request.html["CGRR：クロスグリッドレプリケーション要求"]
+
+
+
+ a| 
+EBDL
+ a| 
+Empty Bucket Delete：ILMスキャナが、すべてのオブジェクトを削除中のバケット内のオブジェクトを削除しました（空のバケット処理を実行中）。
+ a| 
+link:ebdl-empty-bucket-delete.html["EBDL：空のバケット削除"]
+
+
+
+ a| 
+EBKR
+ a| 
+Empty Bucket Request：ユーザが、空のバケットをオンまたはオフにする（バケットオブジェクトを削除する、またはオブジェクトの削除を停止する）要求を送信しました。
+ a| 
+link:ebkr-empty-bucket-request.html["EBKR：バケット要求が空です"]
+
+
+
+ a| 
+SCMT
+ a| 
+Object Store Commit ：コンテンツブロックの格納と検証がすべて完了し、要求可能な状態になりました。
+ a| 
+link:scmt-object-store-commit.html["SCMT：オブジェクトストアコミット要求"]
+
+
+
+ a| 
+SREM
+ a| 
+Object Store Remove ：コンテンツブロックがグリッドノードから削除され、直接要求できなくなりました。
+ a| 
+link:srem-object-store-remove.html["SREM ：オブジェクトストアの削除"]
+
+|===

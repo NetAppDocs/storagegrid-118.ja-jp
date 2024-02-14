@@ -1,0 +1,193 @@
+---
+permalink: tenant/configuration-xml-for-search-configuration.html 
+sidebar: sidebar 
+keywords: search integration, configuration xml, metadata notification, container tag, urn 
+summary: 検索統合サービスは、 <MetadataNotificationConfiguration\> タグと </MetadataNotificationConfiguration\> タグに含まれる一連のルールを使用して設定します。各ルールは、ルール環境 が作成するオブジェクト、および StorageGRID がそのオブジェクトのメタデータを送信する宛先を指定します。 
+---
+= 検索統合用の XML を設定します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+検索統合サービスは、内に含まれる一連のルールを使用して設定します `<MetadataNotificationConfiguration>` および `</MetadataNotificationConfiguration>` タグ。各ルールは、ルール環境 で指定されたオブジェクト、および StorageGRID からそのオブジェクトのメタデータを送信するデスティネーションを指定します。
+
+オブジェクトはオブジェクト名のプレフィックスでフィルタリングできます。たとえば、というプレフィックスのオブジェクトのメタデータを送信できます `images` を1つのデスティネーションに、プレフィックスがのオブジェクトのメタデータに追加します `videos` 別のノードに移動しますプレフィックスが重複している設定は有効ではなく、送信時に拒否されます。たとえば、プレフィックスがのオブジェクトに対するルールを1つ含む設定です `test` プレフィックスが付いたオブジェクトの2番目のルールです `test2` は許可されていません。
+
+デスティネーションは、検索統合サービス用に作成された StorageGRID エンドポイントの URN を使用して指定する必要があります。これらのエンドポイントは、 Elasticsearch クラスタ上に定義されているインデックスとタイプを参照します。
+
+[listing]
+----
+<MetadataNotificationConfiguration>
+    <Rule>
+        <ID>Rule-1</ID>
+        <Status>rule-status</Status>
+        <Prefix>key-prefix</Prefix>
+        <Destination>
+           <Urn>arn:aws:es:region:account-ID:domain/mydomain/myindex/mytype</Urn>
+        </Destination>
+    </Rule>
+    <Rule>
+        <ID>Rule-2</ID>
+         ...
+    </Rule>
+     ...
+</MetadataNotificationConfiguration>
+----
+次の表に、メタデータ通知設定 XML の要素を示します。
+
+[cols="2a,3a,1a"]
+|===
+| 名前 | 説明 | 必須 
+
+
+ a| 
+MetadataNotificationConfiguration のページです
+ a| 
+メタデータ通知でオブジェクトとデスティネーションの指定に使用されるルール用のコンテナタグ。
+
+1 つ以上の Rule 要素を含みます。
+ a| 
+はい。
+
+
+
+ a| 
+ルール
+ a| 
+指定したインデックスにメタデータを追加する必要があるオブジェクトを特定するルール用のコンテナタグ。
+
+プレフィックスが重複しているルールは拒否されます。
+
+MetadataNotificationConfiguration 要素に含まれています。
+ a| 
+はい。
+
+
+
+ a| 
+ID
+ a| 
+ルールの一意の識別子。
+
+Rule 要素に含まれています。
+ a| 
+いいえ
+
+
+
+ a| 
+ステータス
+ a| 
+Status には「 Enabled 」または「 Disabled 」を指定できます。無効になっているルールについては操作が実行されません。
+
+Rule 要素に含まれています。
+ a| 
+はい。
+
+
+
+ a| 
+プレフィックス
+ a| 
+プレフィックスと一致するオブジェクトにルールが適用され、そのメタデータが指定したデスティネーションに送信されます。
+
+すべてのオブジェクトを照合するには、空のプレフィックスを指定します。
+
+Rule 要素に含まれています。
+ a| 
+はい。
+
+
+
+ a| 
+宛先
+ a| 
+ルールのデスティネーションのコンテナタグ。
+
+Rule 要素に含まれています。
+ a| 
+はい。
+
+
+
+ a| 
+URN
+ a| 
+オブジェクトメタデータが送信されるデスティネーションの URN 。次のプロパティを持つ StorageGRID エンドポイントの URN を指定する必要があります。
+
+* `es` 3番目のエレメントである必要があります。
+* URNの末尾に、メタデータが格納されるインデックスとタイプを、の形式で指定する必要があります `domain-name/myindex/mytype`。
+
+
+エンドポイントは、 Tenant Manager またはテナント管理 API を使用して設定します。形式は次のとおりです。
+
+* `arn:aws:es:region:account-ID:domain/mydomain/myindex/mytype`
+* `urn:mysite:es:::mydomain/myindex/mytype`
+
+
+エンドポイントは設定 XML を送信する前に設定する必要があります。そうしないと、 404 エラーで設定が失敗します。
+
+Urn は Destination 要素に含まれています。
+ a| 
+はい。
+
+|===
+サンプルのメタデータ通知設定 XML を使用して、独自の XML を作成する方法を確認できます。
+
+
+
+== メタデータ通知設定：環境 のすべてのオブジェクトを対象にした設定です
+
+この例では、すべてのオブジェクトのオブジェクトメタデータが同じデスティネーションに送信されます。
+
+[listing]
+----
+<MetadataNotificationConfiguration>
+    <Rule>
+        <ID>Rule-1</ID>
+        <Status>Enabled</Status>
+        <Prefix></Prefix>
+        <Destination>
+           <Urn>urn:myes:es:::sgws-notifications/test1/all</Urn>
+        </Destination>
+    </Rule>
+</MetadataNotificationConfiguration>
+----
+
+
+== 2 つのルールを含むメタデータ通知設定
+
+この例では、プレフィックスに一致するオブジェクトのオブジェクトメタデータを指定します `/images` が1つのデスティネーションに送信され、プレフィックスに一致するオブジェクトのオブジェクトメタデータが送信されます `/videos` 2番目の送信先に送信されます。
+
+[listing]
+----
+
+<MetadataNotificationConfiguration>
+    <Rule>
+        <ID>Images-rule</ID>
+        <Status>Enabled</Status>
+        <Prefix>/images</Prefix>
+        <Destination>
+           <Urn>arn:aws:es:us-east-1:3333333:domain/es-domain/graphics/imagetype</Urn>
+        </Destination>
+    </Rule>
+    <Rule>
+        <ID>Videos-rule</ID>
+        <Status>Enabled</Status>
+        <Prefix>/videos</Prefix>
+        <Destination>
+           <Urn>arn:aws:es:us-west-1:22222222:domain/es-domain/graphics/videotype</Urn>
+        </Destination>
+    </Rule>
+</MetadataNotificationConfiguration>
+----
+.関連情報
+link:../s3/index.html["S3 REST APIを使用する"]
+
+link:object-metadata-included-in-metadata-notifications.html["メタデータ通知に含まれているオブジェクトメタデータ"]
+
+link:json-generated-by-search-integration-service.html["検索統合サービスで生成される JSON"]
+
+link:configuring-search-integration-service.html["検索統合サービスを設定する"]

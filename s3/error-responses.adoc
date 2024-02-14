@@ -1,0 +1,378 @@
+---
+permalink: s3/error-responses.html 
+sidebar: sidebar 
+keywords: error, error responses 
+summary: StorageGRID システムでは、該当する S3 REST API の標準のエラー応答をすべてサポートしています。また、 StorageGRID の実装では、カスタム応答もいくつか追加されています。 
+---
+= エラー応答
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID システムでは、該当する S3 REST API の標準のエラー応答をすべてサポートしています。また、 StorageGRID の実装では、カスタム応答もいくつか追加されています。
+
+
+
+== サポートされている S3 API のエラーコード
+
+[cols="1a,1a"]
+|===
+| 名前 | HTTPステータス 
+
+
+ a| 
+アクセスが拒否されました
+ a| 
+403 禁止
+
+
+
+ a| 
+BadDigest の略
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+BucketAlreadyExists のようになりました
+ a| 
+409 競合
+
+
+
+ a| 
+BucketNotEmpty のように入力します
+ a| 
+409 競合
+
+
+
+ a| 
+IncompleteBody
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+内部エラー
+ a| 
+500 Internal Server Error （内部サーバエラー）
+
+
+
+ a| 
+InvalidAccessKeyId
+ a| 
+403 禁止
+
+
+
+ a| 
+アンヴァリッドドキュメント
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+InvalidBucketName の略
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+InvalidBucketState の場合
+ a| 
+409 競合
+
+
+
+ a| 
+InvalidDigest の略
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+InvalidEncryptionAlgorithmError
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+InvalidPart
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+InvalidPartOrder
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+InvalidRange ：無効な範囲
+ a| 
+416 リクエストされた範囲が適合しません
+
+
+
+ a| 
+InvalidRequest
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+InvalidStorageClass
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+InvalidTag
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+InvalidURI
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+KeyTooLong の 2 つのグループがあります
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+MalformedXML の場合
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+MetadataTooLarge
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+MethodNotAllowed のように入力します
+ a| 
+405 メソッドは許可されていません
+
+
+
+ a| 
+MissingContentLength （ MissingContentLength ）
+ a| 
+411 長さが必要です
+
+
+
+ a| 
+MissingRequestBodyError
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+MissingSecurityHeader
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+NoSuchBucket
+ a| 
+404 が見つかりません
+
+
+
+ a| 
+NoSuchKey
+ a| 
+404 が見つかりません
+
+
+
+ a| 
+NoSuchUpload
+ a| 
+404 が見つかりません
+
+
+
+ a| 
+実装なし
+ a| 
+501 は実装されていません
+
+
+
+ a| 
+NoSuchBucketPolicy のようになります
+ a| 
+404 が見つかりません
+
+
+
+ a| 
+ObjectLockConfigurationNotFoundError
+ a| 
+404 が見つかりません
+
+
+
+ a| 
+PreconditionalFailed
+ a| 
+412 事前条件が失敗しました
+
+
+
+ a| 
+RequestTimeTooSkewed
+ a| 
+403 禁止
+
+
+
+ a| 
+サービスを利用できません
+ a| 
+503 Service Unavailable （ 503 サービスが利用でき
+
+
+
+ a| 
+SignatureDoesNotMatch のように指定します
+ a| 
+403 禁止
+
+
+
+ a| 
+TooManyBuckets
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+UserKeyMustBeSpecified
+ a| 
+400 不正な要求です
+
+|===
+
+
+== StorageGRID カスタムのエラーコード
+
+[cols="2a,2a,1a"]
+|===
+| 名前 | 説明 | HTTPステータス 
+
+
+ a| 
+XBucketLifecycleNotAllowed のようになりました
+ a| 
+バケットライフサイクル設定は従来の準拠バケットには適用されません
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+XBucketPolicyParseException
+ a| 
+受信したバケットポリシー JSON を解析できませんでした。
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+XCompliConflict
+ a| 
+準拠設定が古いため、処理が拒否されました。
+ a| 
+403 禁止
+
+
+
+ a| 
+XCompliReducedRedundancyForbidden
+ a| 
+レガシー準拠バケットでは冗長性の低下は許可されません
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+XMaxBucketPolicyLengthExceeded （ XMaxBucketLengthExceeded ）
+ a| 
+ポリシーが許容される最大バケットポリシー長を超えています。
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+XMissingInternalRequestHeader
+ a| 
+内部要求のヘッダーがありません。
+ a| 
+400 不正な要求です
+
+
+
+ a| 
+XNoSuchBucketCompliance です
+ a| 
+指定したバケットで従来の準拠が有効になっていません。
+ a| 
+404 が見つかりません
+
+
+
+ a| 
+XNotAcceptable
+ a| 
+要求に含まれている Accept ヘッダーの 1 つ以上を満たすことができませんでした。
+ a| 
+406 は許容されません
+
+
+
+ a| 
+XNotImplemented
+ a| 
+指定した要求の処理には、実装されていない機能が含まれます。
+ a| 
+501 は実装されていません
+
+|===

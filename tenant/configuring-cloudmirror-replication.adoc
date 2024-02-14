@@ -1,0 +1,103 @@
+---
+permalink: tenant/configuring-cloudmirror-replication.html 
+sidebar: sidebar 
+keywords: how to configure CloudMirror replication, replication xml 
+summary: CloudMirror レプリケーションサービスは、 3 つの StorageGRID プラットフォームサービスのいずれかです。CloudMirror レプリケーションを使用すると、外部の S3 バケットにオブジェクトを自動的にレプリケートできます。 
+---
+= CloudMirror レプリケーションを設定します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+。 link:understanding-cloudmirror-replication-service.html["CloudMirror レプリケーションサービス"] は、 3 つの StorageGRID プラットフォームサービスのうちの 1 つです。CloudMirror レプリケーションを使用すると、外部の S3 バケットにオブジェクトを自動的にレプリケートできます。
+
+.作業を開始する前に
+* テナントアカウントのプラットフォームサービスがStorageGRID 管理者によって有効にされている。
+* レプリケーションソースとして機能するバケットがすでに作成されている。
+* CloudMirrorレプリケーションのデスティネーションとして使用するエンドポイントがすでに存在し、そのURNが必要です。
+* が設定されたユーザグループに属している必要があります link:tenant-management-permissions.html["すべてのバケットまたはRoot Access権限を管理します"]。これらの権限は、 Tenant Manager を使用してバケットを設定する際にグループポリシーまたはバケットポリシーの権限設定よりも優先されます。
+
+
+.このタスクについて
+CloudMirror レプリケーションでは、ソースバケットからエンドポイントで指定されたデスティネーションバケットにオブジェクトがコピーされます。
+
+
+NOTE: CloudMirrorレプリケーションには、クロスグリッドレプリケーション機能と重要な類似点と相違点があります。詳細については、を参照してください link:../admin/grid-federation-compare-cgr-to-cloudmirror.html["グリッド間レプリケーションとCloudMirrorレプリケーションを比較してください"]。
+
+バケットでCloudMirrorレプリケーションを有効にするには、有効なバケットレプリケーション設定XMLを作成して適用する必要があります。レプリケーション設定 XML では、各デスティネーションとして S3 バケットエンドポイントの URN を使用する必要があります。
+
+
+NOTE: S3 オブジェクトロックが有効なソースバケットまたはデスティネーションバケットでは、レプリケーションはサポートされません。
+
+バケットレプリケーションとその設定方法の一般的な情報については、を参照してください https://docs.aws.amazon.com/AmazonS3/latest/userguide/replication.html["Amazon Simple Storage Service（S3）のドキュメント：「オブジェクトのレプリケート"^]。StorageGRID でのGetBucketReplication、DeleteBucketReplication、およびPutBucketReplicationの実装方法については、を参照してください link:../s3/operations-on-buckets.html["バケットの処理"]。
+
+オブジェクトを含むバケットでCloudMirrorレプリケーションを有効にすると、バケットに追加された新しいオブジェクトがレプリケートされますが、バケット内の既存のオブジェクトはレプリケートされません。レプリケーションをトリガーするには、既存のオブジェクトを更新する必要があります。
+
+レプリケーション設定 XML でストレージクラスを指定した場合は、デスティネーション S3 エンドポイントに対して処理を実行する際に StorageGRID でそのクラスが使用されます。指定したストレージクラスは、デスティネーションエンドポイントでもサポートされている必要があります。デスティネーションシステムのベンダーからの推奨事項がある場合は、それに準拠してください。
+
+.手順
+. ソースバケットのレプリケーションを有効にします。
++
+S3 レプリケーション API で指定されているように、レプリケーションを有効にするために必要なレプリケーション設定 XML をテキストエディタで作成します。XML を設定する場合は、次の点に
+
++
+** StorageGRID では、 V1 のレプリケーション設定のみがサポートされます。つまり、StorageGRID では、の使用はサポートされていません `Filter` ルールのエレメント。V1の規則に従ってオブジェクトバージョンを削除します。詳細については、レプリケーション設定に関する Amazon のドキュメントを参照してください。
+** デスティネーションとして S3 バケットエンドポイントの URN を使用してください。
+** 必要に応じてを追加します `<StorageClass>` エレメントを選択し、次のいずれかを指定します。
++
+***  `STANDARD`：デフォルトのストレージクラス。オブジェクトをアップロードするときにストレージクラスを指定しない場合は、が表示されます `STANDARD` ストレージクラスが使用されている。
+*** `STANDARD_IA`：（標準-アクセス頻度の低いアクセス）このストレージクラスは、アクセス頻度は低いが、必要に応じて高速アクセスが必要なデータに使用します。
+*** `REDUCED_REDUNDANCY`：重大度が低く、再現可能で、かつ冗長性に劣る状態で保存可能なデータには、このストレージクラスを使用します `STANDARD` ストレージクラス。
+
+
+** を指定する場合 `Role` 設定XMLでは無視されます。この値は StorageGRID では使用されません。
++
+[listing]
+----
+<ReplicationConfiguration>
+    <Role></Role>
+    <Rule>
+        <Status>Enabled</Status>
+        <Prefix>2020</Prefix>
+        <Destination>
+           <Bucket>urn:sgws:s3:::2017-records</Bucket>
+           <StorageClass>STANDARD</StorageClass>
+         </Destination>
+     </Rule>
+</ReplicationConfiguration>
+----
+
+
+. ダッシュボードで* View Buckets *を選択するか、* storage（S3）*>* Buckets *を選択します。
+. ソースバケットの名前を選択します。
++
+バケットの詳細ページが表示されます。
+
+. プラットフォームサービス * > * レプリケーション * を選択します。
+. [レプリケーションを有効にする]*チェックボックスを選択します。
+. レプリケーション設定 XML をテキストボックスに貼り付け、 * 変更を保存 * を選択します。
++
+image::../media/tenant_bucket_replication_configuration.png[レプリケーションの設定ダイアログボックスのスクリーンショット]
+
++
+
+NOTE: StorageGRID 管理者がグリッドマネージャまたはグリッド管理 API を使用して各テナントアカウントのプラットフォームサービスを有効にしておく必要があります。設定 XML の保存時にエラーが発生した場合は、 StorageGRID 管理者にお問い合わせください。
+
+. レプリケーションが正しく設定されていることを確認します。
++
+.. レプリケーション設定で指定されたレプリケーションの要件を満たすオブジェクトをソースバケットに追加します。
++
+前述の例では、プレフィックス「2020」に一致するオブジェクトがレプリケートされます。
+
+.. オブジェクトがデスティネーションバケットにレプリケートされたことを確認します。
++
+サイズの小さいオブジェクトについては、レプリケーションの所要時間が短くなります。
+
+
+
+
+
+.関連情報
+link:creating-platform-services-endpoint.html["プラットフォームサービスエンドポイントを作成します"]

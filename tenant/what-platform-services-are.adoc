@@ -1,0 +1,115 @@
+---
+permalink: tenant/what-platform-services-are.html 
+sidebar: sidebar 
+keywords: platform services 
+summary: StorageGRID プラットフォームサービスでは、イベント通知やS3オブジェクトとオブジェクトメタデータのコピーを外部のデスティネーションに送信できるため、ハイブリッドクラウド戦略の実装に役立ちます。 
+---
+= プラットフォームサービスの管理：概要
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID プラットフォームサービスでは、イベント通知やS3オブジェクトとオブジェクトメタデータのコピーを外部のデスティネーションに送信できるため、ハイブリッドクラウド戦略の実装に役立ちます。
+
+テナントアカウントにプラットフォームサービスの使用が許可されている場合は、 S3 バケットに対して次のサービスを設定できます。
+
+CloudMirror レプリケーション:: 使用 link:understanding-cloudmirror-replication-service.html["StorageGRID CloudMirror レプリケーションサービス"] StorageGRID バケットから指定した外部のデスティネーションに特定のオブジェクトをミラーリングする。
++
+--
+たとえば、 CloudMirror レプリケーションを使用して特定の顧客レコードを Amazon S3 にミラーリングし、 AWS サービスを利用してデータを分析することができます。
+
+
+NOTE: ソースバケットで S3 オブジェクトのロックが有効になっている場合、 CloudMirror レプリケーションはサポートされません。
+
+--
+通知:: 使用 link:understanding-notifications-for-buckets.html["バケット単位のイベント通知"] オブジェクトに対して実行された特定の処理に関する通知を、指定した外部のAmazon Simple Notification Service（Amazon SNS）に送信すること。
++
+--
+たとえば、バケットに追加された各オブジェクトについてアラートが管理者に送信されるように設定できます。この場合、オブジェクトは重大なシステムイベントに関連付けられているログファイルです。
+
+
+NOTE: S3 オブジェクトのロックが有効になっているバケットでイベント通知を設定することはできますが、オブジェクトの S3 オブジェクトロックメタデータ（ Retain Until Date および Legal Hold のステータスを含む）は通知メッセージに含まれません。
+
+--
+検索統合サービス:: を使用します link:understanding-search-integration-service.html["検索統合サービス"] 外部サービスを使用してメタデータを検索または分析できるように、指定されたElasticsearchインデックスにS3オブジェクトメタデータを送信する場合。
++
+--
+たとえば、リモートの Elasticsearch サービスに S3 オブジェクトメタデータを送信するようにバケットを設定できます。次に、 Elasticsearch を使用してバケット間で検索を実行し、オブジェクトメタデータのパターンに対して高度な分析を実行できます。
+
+
+NOTE: S3 オブジェクトロックが有効なバケットでは Elasticsearch 統合を設定できますが、オブジェクトの S3 オブジェクトロックメタデータ（ Retain Until Date および Legal Hold のステータスを含む）は通知メッセージに含まれません。
+
+--
+
+
+通常、プラットフォームサービスのターゲットは StorageGRID 環境の外部にあるため、プラットフォームサービスを使用することで外部ストレージリソース、通知サービス、検索または分析サービスの機能と柔軟性をデータに対して利用できます。
+
+単一の S3 バケットに対して複数のプラットフォームサービスを組み合わせて設定できます。たとえば、 StorageGRID S3 バケットに対して CloudMirror サービスと通知の両方を設定して、特定のオブジェクトを Amazon Simple Storage Service にミラーリングし、同時に各オブジェクトに関する通知を他社製の監視アプリケーションに送信して AWS の費用を追跡できます。
+
+
+TIP: プラットフォームサービスの使用は、 StorageGRID 管理者がグリッドマネージャまたはグリッド管理 API を使用してテナントアカウントごとに有効にする必要があります。
+
+
+
+== プラットフォームサービスの設定方法
+
+プラットフォームサービスは、を使用して設定した外部エンドポイントと通信します link:configuring-platform-services-endpoints.html["Tenant Manager の略"] または link:understanding-tenant-management-api.html["テナント管理 API"]。各エンドポイントは外部のデスティネーション（StorageGRID S3バケット、Amazon Web Servicesバケット、Amazon SNSトピック、ローカルやAWSなどでホストされるElasticsearchクラスタなど）です。
+
+外部エンドポイントを作成したら、バケットにXML設定を追加してプラットフォームサービスを有効にできます。XML 設定は、バケットが処理を実行するオブジェクト、実行する処理、およびサービスに使用するエンドポイントを特定します。
+
+設定するプラットフォームサービスごとに XML 設定を追加する必要があります。例：
+
+* キーがで始まるすべてのオブジェクトを指定する場合 `/images` Amazon S3バケットにレプリケートするには、ソースバケットにレプリケーション設定を追加する必要があります。
+* これらのオブジェクトがバケットに格納されたときに通知も送信するには、通知設定を追加する必要があります。
+* 最後に、これらのオブジェクトのメタデータのインデックスを作成する場合は、検索統合を実装するためのメタデータ通知設定を追加する必要があります。
+
+
+設定 XML の形式は、 StorageGRID プラットフォームサービスの実装に使用する S3 REST API に従います。
+
+[cols="1a,2a,1a"]
+|===
+| プラットフォームサービス | S3 REST API | を参照してください 
+
+
+ a| 
+CloudMirror レプリケーション
+ a| 
+* GetBucketReplicationの略
+* PutBucketReplicationの略
+
+ a| 
+* link:configuring-cloudmirror-replication.html["CloudMirror レプリケーション"]
+* link:../s3/operations-on-buckets.htmll["バケットの処理"]
+
+
+
+
+ a| 
+通知
+ a| 
+* GetBucketNotificationConfigurationを参照してください
+* PutBucketNotificationConfigurationの略
+
+ a| 
+* link:configuring-event-notifications.html["通知"]
+* link:../s3/s3/operations-on-buckets.html["バケットの処理"]
+
+
+
+
+ a| 
+検索統合
+ a| 
+* GET Bucket metadata notification configuration
+* PUT Bucket metadata notification configuration のコマンドです
+
+ a| 
+* link:using-search-integration-service.html["検索統合"]
+* link:../s3/custom-operations-on-buckets.html["StorageGRIDのカスタム処理"]
+
+
+|===
+.関連情報
+link:considerations-for-platform-services.html["プラットフォームサービスに関する考慮事項"]

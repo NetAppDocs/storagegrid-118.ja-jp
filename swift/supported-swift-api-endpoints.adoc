@@ -1,0 +1,107 @@
+---
+permalink: swift/supported-swift-api-endpoints.html 
+sidebar: sidebar 
+keywords: swift api endpoint support 
+summary: StorageGRID でサポートされている Swift API エンドポイントは、情報 URL 、認証 URL 、およびストレージ URL です。 
+---
+= サポートされている Swift API エンドポイント
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+StorageGRID でサポートされている Swift API エンドポイントは、情報 URL 、認証 URL 、およびストレージ URL です。
+
+
+
+== 情報 URL
+
+StorageGRID Swift 実装の機能と制限事項については、 Swift のベース URL に /info パスを付加して GET 要求を発行することで確認できます。
+
+`https://_FQDN_ | _Node IP:Swift Port_/info/`
+
+要求の内容は次のとおりです。
+
+* `_FQDN_` は完全修飾ドメイン名です。
+* `_Node IP_` は、StorageGRID ネットワークのストレージノードまたはゲートウェイノードのIPアドレスです。
+* `_Swift Port_` は、ストレージノードまたはゲートウェイノードのSwift API接続に使用するポート番号です。
+
+
+たとえば、次の情報 URL は、 IP アドレスが 10.99.106.103 でポート 18083 を使用しているストレージノードから情報を要求します。
+
+`\https://10.99.106.103:18083/info/`
+
+応答には、 Swift 実装の機能が JSON ディクショナリとして含まれます。クライアントツールは、 JSON 応答を解析して実装の機能を特定し、後続のストレージ処理で制約として使用できます。
+
+StorageGRID 実装の Swift では、情報 URL への認証されていないアクセスが許可されます。
+
+
+
+== 認証 URL
+
+クライアントは、 Swift 認証 URL を使用してテナントアカウントユーザとして認証できます。
+
+`https://_FQDN_ | _Node IP:Swift Port_/auth/v1.0/`
+
+で、テナントアカウントID、ユーザ名、およびパスワードをパラメータとして指定する必要があります `X-Auth-User` および `X-Auth-Key` 次のように要求ヘッダー
+
+`X-Auth-User: _Tenant_Account_ID:Username_`
+
+`X-Auth-Key: _Password_`
+
+要求ヘッダーは次のようになります。
+
+* `_Tenant_Account_ID_` は、Swiftテナントの作成時にStorageGRID によって割り当てられたアカウントIDです。Tenant Manager のサインインページで使用するテナントアカウント ID と同じです。
+* `_Username_` は、Tenant Managerで作成されたテナントユーザの名前です。このユーザは、 Swift 管理者権限を持つグループに属している必要があります。テナントのrootユーザをSwift REST APIを使用するように設定することはできません。
++
+テナントアカウントに対してアイデンティティフェデレーションが有効になっている場合は、 LDAP サーバからのフェデレーテッドユーザのユーザ名とパスワードを指定します。または、 LDAP ユーザのドメイン名を指定します。例：
+
++
+`X-Auth-User: _Tenant_Account_ID:Username@Domain_Name_`
+
+* `_Password_` は、テナントユーザのパスワードです。ユーザパスワードは Tenant Manager で作成および管理します。
+
+
+認証要求が成功すると、ストレージ URL と認証トークンが次のように返されます。
+
+`X-Storage-Url: https://_FQDN_ | _Node_IP:Swift_Port_/v1/_Tenant_Account_ID_`
+
+`X-Auth-Token: _token_`
+
+`X-Storage-Token: _token_`
+
+デフォルトでは、トークンの有効期間は生成時刻から 24 時間です。
+
+トークンは特定のテナントアカウントに対して生成されます。あるアカウントに対して有効なトークンで、別のアカウントにアクセスするユーザを許可することはできません。
+
+
+
+== ストレージ URL
+
+クライアントアプリケーションは、ゲートウェイノードまたはストレージノードに対して、問題 の Swift REST API 呼び出しを使用して、アカウント、コンテナ、オブジェクトのサポートされる処理を実行できます。ストレージ要求は、認証応答で返されたストレージ URL にアドレスが指定されます。要求には、認証要求から返された X-Auth-Token ヘッダーと値も含める必要があります。
+
+`\https://FQDN | _IP:Swift_Port_/v1/_Tenant_Account_ID_`
+
+`[_/container_][_/object_]`
+
+`X-Auth-Token: _token_`
+
+使用状況の統計が含まれるストレージ応答ヘッダーに、最近変更されたオブジェクトの正確な数が反映されない場合があります。このヘッダーに正確な数値が表示されるまでに数分かかることがあります。
+
+使用状況の統計が含まれているアカウントおよびコンテナ処理の応答ヘッダーの例を次に示します。
+
+* `X-Account-Bytes-Used`
+* `X-Account-Object-Count`
+* `X-Container-Bytes-Used`
+* `X-Container-Object-Count`
+
+
+.関連情報
+link:configuring-tenant-accounts-and-connections.html["テナントアカウントと接続を設定する"]
+
+link:account-operations.html["アカウントの処理"]
+
+link:container-operations.html["コンテナの処理"]
+
+link:object-operations.html["オブジェクトの処理"]

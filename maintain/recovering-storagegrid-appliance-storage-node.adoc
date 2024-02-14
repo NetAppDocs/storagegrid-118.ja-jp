@@ -1,0 +1,32 @@
+---
+permalink: maintain/recovering-storagegrid-appliance-storage-node.html 
+sidebar: sidebar 
+keywords: recover, appliance storage node failure, workflow 
+summary: 障害が発生した StorageGRID アプライアンスストレージノードのリカバリ用手順 は、システムドライブの損失からリカバリする場合も、ストレージボリュームのみの損失からリカバリする場合も同じです。 
+---
+= アプライアンスストレージノードのリカバリに関する警告
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+障害が発生した StorageGRID アプライアンスストレージノードのリカバリ用手順 は、システムドライブの損失からリカバリする場合も、ストレージボリュームのみの損失からリカバリする場合も同じです。
+
+
+CAUTION: 複数のストレージノードで障害が発生した場合（またはオフラインの場合）は、テクニカルサポートにお問い合わせください。次の回復手順 を実行しないでください。データが失われる可能性があります。
+
+
+CAUTION: ストレージノードの障害またはリカバリ後 15 日以内に 2 つ目のストレージノードの障害が発生した場合は、テクニカルサポートにお問い合わせください。15 日以内に複数のストレージノードで Cassandra を再構築すると、データが失われることがあります。
+
+
+NOTE: サイトの複数のストレージノードで障害が発生した場合は、サイトリカバリ手順 が必要になる可能性があります。を参照してください link:how-site-recovery-is-performed-by-technical-support.html["テクニカルサポートによるサイトのリカバリ方法"]。
+
+
+CAUTION: レプリケートコピーを 1 つだけ保存するように ILM ルールを設定している場合に、そのコピーがあるストレージボリュームで障害が発生すると、オブジェクトをリカバリできません。
+
+
+NOTE: リカバリ中にServices：Status - Cassandra（SVST）アラームが発生した場合は、を参照してください link:../maintain/recovering-failed-storage-volumes-and-rebuilding-cassandra-database.html["障害ストレージボリュームをリカバリし、 Cassandra データベースを再構築します"]。Cassandra を再構築すると、アラームは解除されます。アラームがクリアされない場合は、テクニカルサポートにお問い合わせください。
+
+
+NOTE: コントローラの交換やSANtricity OSの再インストールなど、ハードウェアのメンテナンス手順については、を参照してください。 https://docs.netapp.com/us-en/storagegrid-appliances/["ストレージアプライアンスのメンテナンス手順"^]。

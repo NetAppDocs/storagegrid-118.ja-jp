@@ -1,0 +1,131 @@
+---
+permalink: admin/configuring-client-connections.html 
+sidebar: sidebar 
+keywords: s3 connection, swift connection, connect to storagegrid, s3 setup wizard 
+summary: グリッド管理者は設定オプションを管理し、S3およびSwiftクライアントアプリケーションがデータの格納と読み出しを行うためにStorageGRID システムに接続する方法を制御します。 
+---
+= S3およびSwiftクライアント接続を設定します。概要
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+グリッド管理者は設定オプションを管理し、S3およびSwiftクライアントアプリケーションがデータの格納と読み出しを行うためにStorageGRID システムに接続する方法を制御します。
+
+
+NOTE: Swiftクライアントアプリケーションのサポートは廃止され、今後のリリースで削除される予定です。
+
+
+
+== 設定ワークフロー
+
+ワークフロー図に示すように、StorageGRID をS3またはSwiftアプリケーションに接続する主な手順は4つあります。
+
+. クライアントアプリケーションがStorageGRID に接続する方法に基づいて、StorageGRID で前提条件となるタスクを実行します。
+. StorageGRID を使用して、アプリケーションがグリッドに接続するために必要な値を取得します。S3セットアップウィザードを使用するか、各StorageGRID エンティティを手動で設定できます。
+. S3またはSwiftアプリケーションを使用して、StorageGRID への接続を完了します。DNSエントリを作成して、使用するドメイン名にIPアドレスを関連付けます。
+. アプリケーションとStorageGRID で継続的なタスクを実行し、時間の経過に伴うオブジェクトストレージの管理と監視を行います。
+
+
+image::../media/s3_swift_storagegrid_workflow.png[S3またはSwiftクライアントアプリケーションをStorageGRID に接続するワークフロー]
+
+
+
+== クライアントアプリケーションにStorageGRID を接続するために必要な情報
+
+S3またはSwiftクライアントアプリケーションにStorageGRID を接続する前に、StorageGRID で設定手順を実行して特定の値を取得する必要があります。
+
+
+
+=== どのような価値が必要か？
+
+次の表に、StorageGRID で設定する必要がある値と、それらの値がS3またはSwiftアプリケーションとDNSサーバで使用される場所を示します。
+
+[cols="1a,1a,1a"]
+|===
+| 価値 | 値が設定されます | 値が使用されます 
+
+
+ a| 
+仮想IP（VIP）アドレス
+ a| 
+[HA group]をクリックしますStorageGRID
+ a| 
+DNSエントリ
+
+
+
+ a| 
+ポート
+ a| 
+StorageGRID > Load Balancer Endpointの順に選択します
+ a| 
+クライアントアプリケーション
+
+
+
+ a| 
+SSL証明書
+ a| 
+StorageGRID > Load Balancer Endpointの順に選択します
+ a| 
+クライアントアプリケーション
+
+
+
+ a| 
+サーバ名（FQDN）
+ a| 
+StorageGRID > Load Balancer Endpointの順に選択します
+ a| 
+* クライアントアプリケーション
+* DNSエントリ
+
+
+
+
+ a| 
+S3アクセスキーIDとシークレットアクセスキー
+ a| 
+StorageGRID > Tenant and bucketの順に選択します
+ a| 
+クライアントアプリケーション
+
+
+
+ a| 
+バケット/コンテナ名
+ a| 
+StorageGRID > Tenant and bucketの順に選択します
+ a| 
+クライアントアプリケーション
+
+|===
+
+
+=== これらの値を取得するにはどうすればよいですか。
+
+要件に応じて、次のいずれかの方法で必要な情報を入手できます。
+
+* *を使用します link:use-s3-setup-wizard.html["S3セットアップウィザード"]*S3セットアップウィザードを使用すると、StorageGRID に必要な値を簡単に設定でき、S3アプリケーションの設定時に使用できる1つまたは2つのファイルを出力できます。ウィザードの指示に従って必要な手順を実行し、設定がStorageGRID のベストプラクティスに準拠していることを確認できます。
++
+
+NOTE: S3アプリケーションを設定する場合は、特別な要件がある場合や実装に大幅なカスタマイズが必要な場合を除き、S3セットアップウィザードを使用することを推奨します。
+
+* *を使用します link:../fabricpool/use-fabricpool-setup-wizard.html["FabricPool セットアップウィザード"]*S3セットアップウィザードと同様に、FabricPool セットアップウィザードを使用して必要な値をすばやく設定し、ONTAP でFabricPool クラウド階層を設定するときに使用できるファイルを出力できます。
++
+
+NOTE: StorageGRID をFabricPool クラウド階層のオブジェクトストレージシステムとして使用する場合は、特別な要件がある場合や実装の大幅なカスタマイズが必要になる場合を除き、FabricPool セットアップウィザードを使用することを推奨します。
+
+* *項目を手動で設定する*。Swiftアプリケーションに接続する場合（またはS3アプリケーションに接続してS3セットアップウィザードを使用しない場合）は、設定を手動で実行して必要な値を取得できます。次の手順を実行します。
++
+.. S3またはSwiftアプリケーションに使用するハイアベイラビリティ（HA）グループを設定します。を参照してください link:configure-high-availability-group.html["ハイアベイラビリティグループを設定する"]。
+.. S3またはSwiftアプリケーションが使用するロードバランサエンドポイントを作成します。を参照してください link:configuring-load-balancer-endpoints.html["ロードバランサエンドポイントを設定する"]。
+.. S3またはSwiftアプリケーションが使用するテナントアカウントを作成します。を参照してください link:creating-tenant-account.html["テナントアカウントを作成します"]。
+.. S3テナントの場合は、テナントアカウントにサインインし、アプリケーションにアクセスする各ユーザのアクセスキーIDとシークレットアクセスキーを生成します。を参照してください link:../tenant/creating-your-own-s3-access-keys.html["独自のアクセスキーを作成します"]。
+.. テナントアカウント内に1つ以上のS3バケットまたはSwiftコンテナを作成します。S3の場合は、を参照してください link:../tenant/creating-s3-bucket.html["S3 バケットを作成する"]。Swiftの場合は、を使用します link:../swift/container-operations.html["PUT（コンテナ）要求"]。
+.. 新しいテナントまたはバケット/コンテナに属するオブジェクトに対する特定の配置手順を追加するには、新しいILMルールを作成し、そのルールを使用する新しいILMポリシーをアクティブ化します。を参照してください link:../ilm/access-create-ilm-rule-wizard.html["ILM ルールを作成する"] および link:../ilm/creating-ilm-policy.html["ILM ポリシーを作成する"]。
+
+
+

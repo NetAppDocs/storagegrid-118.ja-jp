@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-maintain/index.html 
+summary: ノードやサイトを追加して、システムの容量や機能を拡張することができます。また、さまざまなメンテナンス手順を実行して、障害からリカバリしたり、StorageGRID システムを最新の状態に維持して効率的に実行したりすることもできます。 
+---
+= StorageGRIDシステムの保守
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

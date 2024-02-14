@@ -1,0 +1,177 @@
+---
+permalink: s3/head-object.html 
+sidebar: sidebar 
+keywords: HeadObject 
+summary: S3 HeadObject要求を使用すると、オブジェクト自体を返さずにオブジェクトからメタデータを読み出すことができます。 
+---
+= HeadObject （ヘッドオブジェクト）
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+S3 HeadObject要求を使用すると、オブジェクト自体を返さずにオブジェクトからメタデータを読み出すことができます。オブジェクトがクラウドストレージプールに格納されている場合は、HeadObjectを使用してオブジェクトの移行状態を確認できます。
+
+
+
+== HeadObjectオブジェクトとマルチパートオブジェクト
+
+を使用できます `partNumber` マルチパートまたはセグメント化されたオブジェクトの特定の部分のメタデータを読み出す要求パラメータ。  。 `x-amz-mp-parts-count` response要素は、オブジェクトに含まれるパーツの数を示します。
+
+設定できます `partNumber` セグメント化されたオブジェクト/マルチパートオブジェクトとセグメント化されていないオブジェクト/マルチパート以外のオブジェクトの場合は1になります。ただし、 `x-amz-mp-parts-count` 応答要素は、セグメント化されたオブジェクトまたはマルチパートオブジェクトの場合にのみ返されます。
+
+
+
+== ユーザメタデータ内の UTF-8 文字
+
+StorageGRID は、ユーザ定義メタデータ内のエスケープされた UTF-8 文字を解析も解釈もしません。ユーザ定義メタデータにエスケープされたUTF-8文字が含まれているオブジェクトに対するHEAD要求では、が返されません `x-amz-missing-meta` キーの名前または値に印刷できない文字が含まれている場合は、ヘッダーを指定します。
+
+
+
+== サポートされない要求ヘッダーです
+
+次の要求ヘッダーはサポートされていません `XNotImplemented`：
+
+* `x-amz-website-redirect-location`
+
+
+
+
+== バージョン管理
+
+の場合 `versionId` サブリソースが指定されていません。バージョン管理されたバケット内のオブジェクトの最新バージョンが取得されます。オブジェクトの現在のバージョンが削除マーカーの場合は、「Not Found」ステータスが `x-amz-delete-marker` 応答ヘッダーをに設定しました `true`。
+
+
+
+== ユーザ指定の暗号化キーによるサーバ側の暗号化（ SSE-C ）の要求ヘッダー
+
+指定した一意のキーでオブジェクトが暗号化されている場合は、次の 3 つのヘッダーをすべて使用します。
+
+* `x-amz-server-side-encryption-customer-algorithm`:指定します `AES256`。
+* `x-amz-server-side-encryption-customer-key`:オブジェクトの暗号化キーを指定します
+* `x-amz-server-side-encryption-customer-key-MD5`:オブジェクトの暗号化キーのMD5ダイジェストを指定します。
+
+
+
+CAUTION: 指定した暗号化キーが格納されることはありません。暗号化キーを紛失すると、対応するオブジェクトが失われます。ユーザ指定のキーを使用してオブジェクトデータを保護する前に、の考慮事項を確認してください link:using-server-side-encryption.html["サーバ側の暗号化を使用します"]。
+
+
+
+== クラウドストレージプールオブジェクトに対するHeadObject応答
+
+オブジェクトがに格納されている場合 link:../ilm/what-cloud-storage-pool-is.html["クラウドストレージプール"]を指定すると、次の応答ヘッダーが返されます。
+
+* `x-amz-storage-class: GLACIER`
+* `x-amz-restore`
+
+
+応答ヘッダーは、オブジェクトがクラウドストレージプールに移動され、必要に応じて読み出し不可能な状態に移行されてリストアされるときの状態に関する情報を提供します。
+
+[cols="1a,1a"]
+|===
+| オブジェクトの状態 | HeadObjectへの応答 
+
+
+ a| 
+StorageGRID に取り込まれているがまだ ILM によって評価されていないオブジェクト、または従来のストレージプールに格納されているオブジェクト、またはイレイジャーコーディングを使用しているオブジェクト
+ a| 
+`200 OK` （特別な応答ヘッダーは返されません）。
+
+
+
+ a| 
+クラウドストレージプール内にあるが、まだ読み出し不可能な状態に移行していない
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+'x-amz-restore：ongoing-request="false"、expiry-date="2030年7月23日（土）00：00：00 GMT
+
+オブジェクトが読み出し不可能な状態に移行されるまでの間、の値 `expiry-date` は、将来の特定の日時に設定されます。移行の正確な時間は、 StorageGRID システムでは制御されません。
+
+
+
+ a| 
+オブジェクトが読み出し不可能な状態に移行したが、少なくとも 1 つのコピーがグリッドに存在する
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+'x-amz-restore：ongoing-request="false"、expiry-date="2030年7月23日（土）00：00：00 GMT
+
+の値 `expiry-date` は、将来の特定の日時に設定されます。
+
+*注*：グリッド上のコピーを使用できない場合（ストレージノードが停止している場合など）は、問題 を実行する必要があります link:post-object-restore.html["RestoreObject"] オブジェクトを読み出す前にクラウドストレージプールからコピーをリストアする要求。
+
+
+
+ a| 
+読み出し不可能な状態に移行しており、グリッドにコピーが存在しない
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+
+
+ a| 
+読み出し不可能な状態からリストア中である
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+'x-amz-restore：ongoing-request="true"
+
+
+
+ a| 
+クラウドストレージプールへのリストアが完了している
+ a| 
+`200 OK`
+
+`x-amz-storage-class: GLACIER`
+
+'x-amz-restore：ongoing-request="false"、expiry-date="2018年7月23日（土）00：00：00（GMT）"
+
+。 `expiry-date` クラウドストレージプール内のオブジェクトが読み出し不可能な状態に戻るタイミングを示します。
+
+|===
+
+
+=== クラウドストレージプール内のマルチパートオブジェクトまたはセグメント化されたオブジェクト
+
+マルチパートオブジェクトをアップロードした場合や StorageGRID が大きなオブジェクトをセグメントに分割した場合、 StorageGRID はオブジェクトのパーツまたはセグメントのサブセットをサンプリングすることでクラウドストレージプール内のオブジェクトが使用可能かどうかを判断します。オブジェクトの一部の部分がすでに読み出し不可能な状態に移行されている場合や、オブジェクトの一部がまだリストアされていない場合、HeadObject要求が誤って「x-amz-restore：ongoing-request="false"」を返すことがあります。
+
+
+
+== HeadObjectとクロスグリッドレプリケーション
+
+使用するポート link:../admin/grid-federation-overview.html["グリッドフェデレーション"] および link:../tenant/grid-federation-manage-cross-grid-replication.html["グリッド間レプリケーション"] バケットで有効になっている場合、S3クライアントはHeadObject要求を発行してオブジェクトのレプリケーションステータスを確認できます。応答にはStorageGRID固有の情報が含まれます `x-ntap-sg-cgr-replication-status` 応答ヘッダー。次のいずれかの値が設定されます。
+
+[cols="1a,2a"]
+|===
+| グリッド（ Grid ） | レプリケーションのステータス 
+
+
+ a| 
+ソース
+ a| 
+* *成功*：レプリケーションは成功しました。
+* * pending*：オブジェクトはまだレプリケートされていません。
+* *failure*:レプリケーションが永続的なエラーで失敗しました。ユーザーはエラーを解決する必要があります。
+
+
+
+
+ a| 
+宛先
+ a| 
+*replica*:オブジェクトはソースグリッドからレプリケートされました。
+
+|===
+
+NOTE: StorageGRID ではがサポートされません `x-amz-replication-status` ヘッダー。

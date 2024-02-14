@@ -1,0 +1,44 @@
+---
+permalink: maintain/forcing-service-to-terminate.html 
+sidebar: sidebar 
+keywords: storagegrid, terminate service, terminating service, force terminate 
+summary: 'サービスをすぐに停止する必要がある場合は、を使用できます `force-stop` コマンドを実行します' 
+---
+= サービスを強制終了します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+サービスをすぐに停止する必要がある場合は、を使用できます `force-stop` コマンドを実行します
+
+.作業を開始する前に
+を使用することができます `Passwords.txt` ファイル。
+
+.手順
+. グリッドノードにログインします。
++
+.. 次のコマンドを入力します。 `ssh admin@_grid_node_IP_`
+.. に記載されているパスワードを入力します `Passwords.txt` ファイル。
+.. 次のコマンドを入力してrootに切り替えます。 `su -`
+.. に記載されているパスワードを入力します `Passwords.txt` ファイル。
+
+
++
+rootとしてログインすると、プロンプトがから変わります `$` 終了： `#`。
+
+. サービスを手動で強制終了します。 `service _servicename_ force-stop`
++
+例：
+
++
+[listing]
+----
+service ldr force-stop
+----
++
+システムは 30 秒待機してからサービスを終了します。
+
+. コマンドシェルからログアウトします。 `exit`
+

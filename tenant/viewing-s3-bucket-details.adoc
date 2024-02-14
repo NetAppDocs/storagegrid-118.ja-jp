@@ -1,0 +1,113 @@
+---
+permalink: tenant/viewing-s3-bucket-details.html 
+sidebar: sidebar 
+keywords: how to view bucket details 
+summary: テナントアカウント内のバケットを表示できます。 
+---
+= バケットの詳細を表示します
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+テナントアカウント内のバケットを表示できます。
+
+.作業を開始する前に
+* Tenant Manager にはを使用してサインインします link:../admin/web-browser-requirements.html["サポートされている Web ブラウザ"]。
+* が設定されたユーザグループに属している必要があります link:tenant-management-permissions.html["rootアクセス、Manage All Buckets、View All Buckets権限"]。これらの権限は、グループポリシーまたはバケットポリシーの権限設定よりも優先されます。
+
+
+.手順
+. ダッシュボードで* View Buckets *を選択するか、* storage（S3）*>* Buckets *を選択します。
++
+[Buckets]ページが表示されます。
+
+. 各バケットの概要情報を確認します。
++
+必要に応じて、任意の列で情報をソートしたり、リストを前後にページ移動したりできます。
+
++
+
+NOTE: 「オブジェクト数」と「使用済みスペース」の値が概算値として表示されます。これらの推定値は、取り込みのタイミング、ネットワーク接続、ノードのステータスによって左右されます。バケットでバージョン管理が有効になっている場合は、削除したオブジェクトのバージョンがオブジェクト数に含まれます。
+
++
+[cols="1a,3a"]
+|===
+| 列（ Column ） | 説明 
+
+
+ a| 
+名前
+ a| 
+バケットの一意の名前。変更することはできません。
+
+
+
+ a| 
+有効な機能
+ a| 
+バケットで有効になっている機能のリスト。
+
+
+
+ a| 
+S3 オブジェクトのロック
+ a| 
+バケットでS3オブジェクトロックが有効になっているかどうか。
+
+この列は、グリッドでS3オブジェクトロックが有効になっている場合にのみ表示されます。この列には、古い準拠バケットの情報も表示されます。
+
+
+
+ a| 
+地域
+ a| 
+バケットのリージョン。変更できません。
+
+
+
+ a| 
+オブジェクト数
+ a| 
+このバケット内のオブジェクトの数。オブジェクトが追加または削除されたときに、この値がすぐに更新されないことがあります。バケットでバージョン管理が有効になっている場合は、最新でないオブジェクトバージョンがこの値に含まれます。
+
+
+
+ a| 
+使用済みスペース
+ a| 
+バケット内のすべてのオブジェクトの論理サイズ。論理サイズには、レプリケートコピーやイレイジャーコーディングコピー、またはオブジェクトメタデータに必要な実際のスペースは含まれていません。
+
+
+
+ a| 
+作成日
+ a| 
+バケットが作成された日時。
+
+|===
+. 特定のバケットの詳細を表示するには、テーブルでバケット名を選択します。
++
+バケットの詳細ページが表示されます。必要な権限があれば、このページで次のタスクを実行できます。
+
++
+** バケットオプションを設定および管理します。
++
+*** link:ilm-policy-tags.html["ILMポリシータグ"]
+*** link:manage-bucket-consistency.html["バケットの整合性の管理"]
+*** link:enabling-or-disabling-last-access-time-updates.html["最終アクセス時間の更新"]
+*** link:changing-bucket-versioning.html["オブジェクトのバージョン管理"]
+*** link:using-s3-object-lock.html["S3 オブジェクトのロック"]
+*** link:update-default-retention-settings.html["デフォルトのバケット保持"]
+
+
+** バケットアクセスを設定します（など） link:configuring-cross-origin-resource-sharing-cors.html["Cross-Origin Resource Sharing（CORS）"]
+** link:what-platform-services-are.html["プラットフォームサービスを管理します"] （テナントで許可されている場合）CloudMirrorレプリケーション、イベント通知、検索統合など
+** とを有効にします link:grid-federation-manage-cross-grid-replication.html["グリッド間レプリケーションを管理します"] （テナントで許可されている場合）このバケットに取り込まれたオブジェクトを別のStorageGRID システムにレプリケートする
+** にアクセスします link:use-s3-console.html["S3コンソール"] をクリックしてバケット内のオブジェクトを管理します
+** link:deleting-s3-bucket-objects.html["バケット内のすべてのオブジェクトを削除する"]
+** link:deleting-s3-bucket.html["バケットを削除する"] それはすでに空です
+
+
+

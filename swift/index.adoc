@@ -1,0 +1,42 @@
+---
+permalink: swift/index.html 
+sidebar: sidebar 
+keywords: openstack swift api support, swift rest api 
+summary: クライアントアプリケーションでは、 OpenStack Swift API を使用して、 StorageGRID システムを操作できます。 
+---
+= Swift REST APIの使用：概要
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+クライアントアプリケーションでは、 OpenStack Swift API を使用して、 StorageGRID システムを操作できます。
+
+
+NOTE: Swiftクライアントアプリケーションのサポートは廃止され、今後のリリースで削除される予定です。
+
+StorageGRID でサポートしている Swift および HTTP のバージョンは次のとおりです。
+
+|===
+| 項目 | バージョン 
+
+
+ a| 
+Swift の仕様
+ a| 
+2015 年 11 月時点の OpenStack Swift Object Storage API v1
+
+
+
+ a| 
+HTTP
+ a| 
+1.1
+HTTP の詳細については、 HTTP/1.1 （ RFC 7230~7235 ）を参照してください。
+
+* 注： StorageGRID は、 HTTP/1.1 パイプラインをサポートしません。
+
+|===
+.関連情報
+http://docs.openstack.org/developer/swift/api/object_api_v1_overview.html["OpenStack ：オブジェクトストレージ API"^]

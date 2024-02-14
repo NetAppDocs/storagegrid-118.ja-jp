@@ -1,0 +1,35 @@
+---
+section: swift
+title: Swift REST APIの使用（廃止）
+entries:
+- title: 概要
+  pdf-filename: StorageGRID で Swift を使用します
+  url: "/swift/index.html"
+  entries:
+  - title: StorageGRID での Swift API サポートの履歴
+    url: "/swift/history-of-swift-api-support-in-storagegrid.html"
+  - title: StorageGRID での Swift REST API の実装
+    url: "/swift/how-storagegrid-implements-swift-rest-api.html"
+  - title: Swift REST API を実装する際の推奨事項
+    url: "/swift/recommendations-for-implementing-swift-rest-api.html"
+- title: Swift REST API接続のテスト
+  url: "/swift/configuring-tenant-accounts-and-connections.html"
+- title: Swift REST API でサポートされている処理
+  url: "/swift/swift-rest-api-supported-operations.html"
+  entries:
+  - title: サポートされている Swift API エンドポイント
+    url: "/swift/supported-swift-api-endpoints.html"
+  - title: アカウントの処理
+    url: "/swift/account-operations.html"
+  - title: コンテナの処理
+    url: "/swift/container-operations.html"
+  - title: オブジェクトの処理
+    url: "/swift/object-operations.html"
+  - title: OPTIONS 要求
+    url: "/swift/options-request.html"
+  - title: Swift API 処理に対するエラー応答
+    url: "/swift/error-responses-to-swift-api-operations.html"
+- title: StorageGRID の Swift REST API 処理
+  url: "/swift/storagegrid-swift-rest-api-operations.html"
+- title: 監査ログで追跡される Swift 処理
+  url: "/swift/swift-operations-tracked-in-audit-logs.html"

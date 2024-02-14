@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-install-upgrade/index.html 
+summary: StorageGRID システムは、ハードウェアベースとソフトウェアベースの個 々 のノードで構成されます。最初に各アプライアンスノードのハードウェアを設置し、LinuxまたはVMwareホストをそれぞれ設定します。その後、各アプライアンスまたはソフトウェアホストにStorageGRIDソフトウェアをインストールし、ノードをグリッドに接続します。 
+---
+= StorageGRIDのインストール、アップグレード、ホットフィックス
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

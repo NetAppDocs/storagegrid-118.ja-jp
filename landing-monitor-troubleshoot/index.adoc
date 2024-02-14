@@ -1,0 +1,13 @@
+---
+layout: landing-page 
+sidebar: sidebar 
+permalink: landing-monitor-troubleshoot/index.html 
+summary: システムが起動したら、定期的にアクティビティを監視し、アラートをトラブルシューティングして解決する必要があります。外部syslogサーバの設定、SNMPによる監視、追加データの収集などが必要になる場合もあります。 
+---
+= StorageGRIDシステムの監視とトラブルシューティング
+:hardbreaks:
+:allow-uri-read: 
+:linkattrs: 
+:imagesdir: ./media/
+
+

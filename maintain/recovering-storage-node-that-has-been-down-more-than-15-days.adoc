@@ -1,0 +1,95 @@
+---
+permalink: maintain/recovering-storage-node-that-has-been-down-more-than-15-days.html 
+sidebar: sidebar 
+keywords: storagegrid, recover, storage node failure 
+summary: 単一のストレージノードがオフラインになって他のストレージノードに接続されなくなってから 15 日以上が経過した場合は、そのノードで Cassandra を再構築する必要があります。 
+---
+= ストレージノードを 15 日以上停止した状態にリカバリします
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+単一のストレージノードがオフラインになって他のストレージノードに接続されなくなってから 15 日以上が経過した場合は、そのノードで Cassandra を再構築する必要があります。
+
+.作業を開始する前に
+* ストレージノードの運用停止処理が進行中でないこと、またはノードの手順 の運用停止処理が一時停止されていることを確認しておきます（ Grid Manager で、 * maintenance * > * Tasks * > * Decommission * を選択します）。
+* 拡張が進行中でないことを確認しておきます（ Grid Manager で、 * maintenance * > * Tasks * > * Expansion * を選択します。）
+
+
+.このタスクについて
+ストレージノードには、オブジェクトメタデータを含む Cassandra データベースがあります。他のストレージノードと 15 日以上通信できていないストレージノードの Cassandra データベースは、 StorageGRID によって古いとみなされます。他のストレージノードからの情報を使用してCassandraが再構築されるまで、ストレージノードはグリッドに再参加できません。
+
+この手順 は、 1 つのストレージノードが停止している場合にのみ Cassandra を再構築するために使用します。追加のストレージノードがオフラインの場合や、 15 日以内に別のストレージノードで Cassandra が再構築されている場合は、テクニカルサポートにお問い合わせください。たとえば、障害ストレージボリュームのリカバリ手順または障害ストレージノードのリカバリ手順の一環として Cassandra が再構築されている可能性があります。
+
+
+CAUTION: 複数のストレージノードで障害が発生した場合（またはオフラインの場合）は、テクニカルサポートにお問い合わせください。次の回復手順 を実行しないでください。データが失われる可能性があります。
+
+
+CAUTION: ストレージノードの障害またはリカバリ後 15 日以内に 2 つ目のストレージノードの障害が発生した場合は、テクニカルサポートにお問い合わせください。次の回復手順 を実行しないでください。データが失われる可能性があります。
+
+
+NOTE: サイトの複数のストレージノードで障害が発生した場合は、サイトリカバリ手順 が必要になる可能性があります。を参照してください link:how-site-recovery-is-performed-by-technical-support.html["テクニカルサポートによるサイトのリカバリ方法"]。
+
+.手順
+. 必要に応じて、リカバリが必要なストレージノードの電源をオンにします。
+. グリッドノードにログインします。
++
+.. 次のコマンドを入力します。 `ssh admin@_grid_node_IP_`
+.. に記載されているパスワードを入力します `Passwords.txt` ファイル。
+.. 次のコマンドを入力してrootに切り替えます。 `su -`
+.. に記載されているパスワードを入力します `Passwords.txt` ファイル。
++
+rootとしてログインすると、プロンプトがから変わります `$` 終了： `#`.+
+
++
+
+NOTE: グリッドノードにログインできない場合は、システムディスクが破損している可能性があります。の手順 にアクセスします  link:recovering-from-system-drive-failure.html["システムドライブ障害からのリカバリ"]。
+
+
+
+. ストレージノードで次のチェックを実行します。
++
+.. 問題コマンド： `nodetool status`
++
+出力がになっている必要があります `Connection refused`
+
+.. Grid Manager で、 * support * > * Tools * > * Grid topology * を選択します。
+.. [*_Site_*>] > [* Storage Node] * > [* SSM*] > [* Services] を選択します。Cassandraサービスが表示されていることを確認します `Not Running`。
+.. Storage Node * > * SSM * > * Resources * を選択します。ボリュームセクションにエラーステータスがないことを確認します。
+.. 問題コマンド： `grep -i Cassandra /var/local/log/servermanager.log`
++
+出力に次のメッセージが表示されます。
+
++
+[listing]
+----
+Cassandra not started because it has been offline for more than 15 day grace period - rebuild Cassandra
+----
+
+
+. 問題 ：このコマンドを使用して、スクリプトの出力を監視します。 `check-cassandra-rebuild`
++
+** ボリューム0に応じたCassandraサービスが実行されている場合は、サービスを停止するように求められます。「 * y * 」と入力します
++
+
+NOTE: Cassandraサービスがすでに停止している場合は、プロンプトは表示されません。Cassandra サービスは、ボリューム 0 に対してのみ停止します。
+
+** スクリプト内の警告を確認します。いずれの状況も該当しない場合は、 Cassandra の再構築を確定します。「 * y * 」と入力します
++
+
+NOTE: 一部の StorageGRID リカバリ手順では、 Reaper を使用して Cassandra の修復を処理します。関連サービスまたは必要なサービスが開始されるとすぐに修理が自動的に行われます。スクリプトの出力に「reaper」または「cassandra repair」と記載されていることがあります。 修復が失敗したことを示すエラーメッセージが表示された場合は、エラーメッセージに示されているコマンドを実行します。
+
+
+
+. リビルドが完了したら、次のチェックを実行します。
++
+.. Grid Manager で、 * support * > * Tools * > * Grid topology * を選択します。
+.. [*_Site_*>] > [* リカバリ済みストレージノード *] > [* SSM*] > [* サービス *] を選択します。
+.. すべてのサービスが実行されていることを確認します。
+.. DDS * > * Data Store * を選択します。
+.. [Data Store Status]*が「Up」で、*[Data Store State]*が「Normal」であることを確認します。
+
+
+

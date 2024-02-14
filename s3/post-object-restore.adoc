@@ -1,0 +1,83 @@
+---
+permalink: s3/post-object-restore.html 
+sidebar: sidebar 
+keywords: post, RestoreObject, object 
+summary: S3 RestoreObject要求を使用して、クラウドストレージプールに格納されているオブジェクトをリストアできます。 
+---
+= RestoreObject
+:allow-uri-read: 
+:icons: font
+:imagesdir: ../media/
+
+
+[role="lead"]
+S3 RestoreObject要求を使用して、クラウドストレージプールに格納されているオブジェクトをリストアできます。
+
+
+
+== サポートされている要求タイプ
+
+StorageGRIDでは、オブジェクトのリストアでRestoreObject要求のみがサポートされます。ではサポートされません `SELECT` リストアのタイプ。戻り要求を選択してください `XNotImplemented`。
+
+
+
+== バージョン管理
+
+必要に応じて、と指定します `versionId` バージョン管理されたバケット内のオブジェクトの特定のバージョンをリストアする。指定しない場合 `versionId`オブジェクトの最新バージョンがリストアされます
+
+
+
+== クラウドストレージプールオブジェクトでのRestoreObjectの動作
+
+オブジェクトがに格納されている場合 link:../ilm/what-cloud-storage-pool-is.html["クラウドストレージプール"]のRestoreObject要求の動作は、オブジェクトの状態に基づいて次のようになります。を参照してください link:head-object.html["HeadObject （ヘッドオブジェクト）"] 詳細：
+
+
+NOTE: オブジェクトがクラウドストレージプールに格納されていて、そのオブジェクトのコピーがグリッドに1つ以上存在する場合は、RestoreObject要求を実行してオブジェクトをリストアする必要はありません。代わりに、GetObject要求を使用してローカルコピーを直接取得できます。
+
+[cols="1a,2a"]
+|===
+| オブジェクトの状態 | RestoreObjectの動作 
+
+
+ a| 
+StorageGRID に取り込まれているがまだ ILM によって評価されていない、またはオブジェクトがクラウドストレージプールにない
+ a| 
+`403 Forbidden`、 `InvalidObjectState`
+
+
+
+ a| 
+クラウドストレージプール内にあるが、まだ読み出し不可能な状態に移行していない
+ a| 
+`200 OK` 変更は行われません。
+
+*注*：オブジェクトが読み出し不可能な状態に移行されるまでは変更できません `expiry-date`。
+
+
+
+ a| 
+オブジェクトを読み出し不可能な状態に移行した
+ a| 
+`202 Accepted` 要求の本文で指定されている日数、オブジェクトの読み出し可能なコピーをクラウドストレージプールにリストアします。この期間が終了すると、オブジェクトは読み出し不可能な状態に戻ります。
+
+必要に応じて、を使用します `Tier` リストアジョブの完了までにかかる時間を確認するための要求要素 (`Expedited`、 `Standard`または `Bulk`）。指定しない場合 `Tier`、 `Standard` 階層を使用しています。
+
+*重要*：オブジェクトがS3 Glacier Deep Archiveに移行された場合、またはクラウドストレージプールがAzure BLOBストレージを使用している場合は、を使用してリストアできません `Expedited` 階層：次のエラーが返されます `403 Forbidden`、 `InvalidTier`： `Retrieval option is not supported by this storage class`。
+
+
+
+ a| 
+読み出し不可能な状態からリストア中である
+ a| 
+`409 Conflict`、 `RestoreAlreadyInProgress`
+
+
+
+ a| 
+クラウドストレージプールへのリストアが完了している
+ a| 
+`200 OK`
+
+*注：*オブジェクトが読み出し可能な状態にリストアされている場合は、オブジェクトを変更できます `expiry-date` 新しい値を指定してRestoreObject要求を再発行する `Days`。要求が実行された日時に基づいてリストア日が更新されます。
+
+|===
