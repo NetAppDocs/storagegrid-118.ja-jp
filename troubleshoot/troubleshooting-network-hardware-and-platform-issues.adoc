@@ -88,7 +88,7 @@ MTU 設定の違いから、 eth0 ネットワークの一部がジャンボフ�
 . すべてのノードの eth0 についての MTU 設定を表示します。
 +
 ** Grid Manager に用意されているクエリを使用する。
-** に移動します `_primary Admin Node IP address_/metrics/graph` をクリックし、次のクエリを入力します。 `node_network_mtu_bytes{interface='eth0'}`
+** に移動します `_primary Admin Node IP address_/metrics/graph` をクリックし、次のクエリを入力します。 `node_network_mtu_bytes{device="eth0"}`
 
 
 . https://docs.netapp.com/us-en/storagegrid-appliances/commonhardware/changing-mtu-setting.html["MTUの設定を変更します"^] 必要に応じて、すべてのノードのグリッドネットワークインターフェイス（eth0）で同じにする必要があります。
