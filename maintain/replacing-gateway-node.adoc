@@ -35,7 +35,7 @@ link:all-node-types-replacing-linux-node.html["Linux ノードを交換"]
 
 
  a| 
-SG100 および SG1000 サービスアプライアンス
+サービスアプライアンス
  a| 
 link:replacing-failed-node-with-services-appliance.html["サービスアプライアンスを交換します"]
 

@@ -24,6 +24,6 @@ summary: 交換用ノードにサービスアプライアンスを使用してVM
 この手順 は、 VMware または Linux でホストされていた障害ノードをサービスアプライアンスでホストされているノードと交換してリカバリする場合にのみ実行してください。
 
 .手順
-. 新しい SG100 または SG1000 サービスアプライアンスの設置手順に従ってください。を参照してください https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/index.html["ハードウェア設置のクイックスタート"^]。
+. 新しいサービスアプライアンスの設置手順に従います。を参照してください https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/index.html["ハードウェア設置のクイックスタート"^]。
 . ノード名の入力を求められたら、障害ノードのノード名を使用します。
 

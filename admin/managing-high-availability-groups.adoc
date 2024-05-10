@@ -23,7 +23,7 @@ summary: 複数の管理ノードとゲートウェイノードのネットワ�
 
 * ゲートウェイノード、管理ノード、またはその両方を含む HA グループは、 S3 クライアントと Swift クライアントに可用性の高いデータ接続を提供します。
 * 管理ノードだけで構成される HA グループは、 Grid Manager と Tenant Manager への可用性の高い接続を提供します。
-* SG100 または SG1000 アプライアンスと VMware ベースのソフトウェアノードだけで構成された HA グループは、の可用性の高い接続を提供できます link:../admin/manage-s3-select-for-tenant-accounts.html["S3 Select を使用する S3 テナント"]。
+* サービスアプライアンスとVMwareベースのソフトウェアノードのみを含むHAグループは、 link:../admin/manage-s3-select-for-tenant-accounts.html["S3 Select を使用する S3 テナント"]。
 S3 Select を使用する場合は HA グループを推奨しますが、必須ではありません。
 
 

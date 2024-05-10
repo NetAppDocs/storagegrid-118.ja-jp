@@ -22,7 +22,7 @@ NOTE: Swiftクライアントアプリケーションのサポートは廃止さ
 * を確認しておきます link:managing-load-balancing.html["ロードバランシングに関する考慮事項"]。
 * ロードバランサエンドポイントに使用するポートを再マッピングした場合は、を使用します link:../maintain/removing-port-remaps.html["ポートの再マッピングを削除しました"]。
 * 使用するハイアベイラビリティ（ HA ）グループを作成しておきます。HA グループを推奨しますが、必須ではありません。を参照してください link:managing-high-availability-groups.html["ハイアベイラビリティグループを管理します"]。
-* ロードバランサエンドポイントがで使用される場合 link:../admin/manage-s3-select-for-tenant-accounts.html["S3 Select 用の S3 テナント"]ベアメタルノードの IP アドレスまたは FQDN を使用しないでください。S3 Select に使用するロードバランサエンドポイントには、 SG100 または SG1000 アプライアンスと VMware ベースのソフトウェアノードのみが許可されます。
+* ロードバランサエンドポイントがで使用される場合 link:../admin/manage-s3-select-for-tenant-accounts.html["S3 Select 用の S3 テナント"]ベアメタルノードの IP アドレスまたは FQDN を使用しないでください。S3 Selectに使用されるロードバランサエンドポイントには、サービスアプライアンスとVMwareベースのソフトウェアノードのみが許可されます。
 * 使用する VLAN インターフェイスを設定しておきます。を参照してください link:configure-vlan-interfaces.html["VLAN インターフェイスを設定します"]。
 * HTTPS エンドポイントを作成する場合（推奨）は、サーバ証明書の情報が必要です。
 +
