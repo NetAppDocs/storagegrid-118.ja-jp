@@ -44,7 +44,7 @@ UbuntuまたはDebian StorageGRIDノードをインストールする手順の�
 
 * Ansible、Puppet、Chefなどの標準的なオーケストレーションフレームワークを使用して自動化：
 +
-** RHELのインストール
+** UbuntuまたはDebianのインストール
 ** ネットワークとストレージの構成
 ** コンテナエンジンとStorageGRIDホストサービスのインストール
 ** 仮想グリッドノードの導入
