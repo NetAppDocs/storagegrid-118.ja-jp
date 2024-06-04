@@ -17,7 +17,7 @@ summary: ストレージボリュームを 16 個以下にすることでスト�
 ストレージボリュームを追加する前に、を参照してください link:guidelines-for-adding-object-capacity.html["オブジェクト容量を追加する場合のガイドラインを次に示します"] ILM ポリシーの要件を満たすボリュームを追加する場所を確認しておく必要があります。
 
 
-NOTE: この手順はソフトウェアベースのストレージノードにのみ該当します。を参照してください https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/adding-expansion-shelf-to-deployed-sg6060.html["導入済み SG6060 に拡張シェルフを追加します"^] 拡張シェルフを設置して SG6060 にストレージボリュームを追加する方法については、こちらを参照してください。他のアプライアンスストレージノードは拡張できません。
+NOTE: この手順はソフトウェアベースのストレージノードにのみ該当します。を参照してください https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/adding-expansion-shelf-to-deployed-sg6060.html["導入済み SG6060 に拡張シェルフを追加します"^] または https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/adding-expansion-shelf-to-deployed-sg6160.html["導入したSG6160に拡張シェルフを追加"^] 拡張シェルフを設置してSG6060またはSG6160にストレージボリュームを追加する方法については、を参照してください。他のアプライアンスストレージノードは拡張できません。
 
 .このタスクについて
 ストレージノードの基盤となるストレージは、複数のストレージボリュームに分割されます。ストレージボリュームは、 StorageGRID システムでフォーマットされてオブジェクトの格納用にマウントされたブロックベースのストレージデバイスです。各ストレージノードでサポートされるストレージボリュームは、 Grid Manager では _ オブジェクトストア _ と呼ばれ、最大 16 個です。

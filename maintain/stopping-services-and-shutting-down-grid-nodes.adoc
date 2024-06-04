@@ -74,6 +74,12 @@ NOTE: 問題 を実行する場合は、を参照して `service servermanager s
 ... 青色の電源 LED が消灯するまで待ちます。
 
 
+** SG6160アプライアンスの場合
++
+... SG6100-CNストレージコントローラの電源をオフにします。
+... SG6100-CNストレージコントローラの青色の電源LEDが消灯するまで待ちます。
+
+
 ** SG6000 アプライアンスの場合
 +
 ... ストレージコントローラの背面にある緑のキャッシュアクティブ LED が消灯するまで待ちます。
@@ -101,7 +107,7 @@ NOTE: 問題 を実行する場合は、を参照して `service servermanager s
 
 
 .関連情報
-https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/index.html["SGF6112ストレージアプライアンス"^]
+https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/index.html["SGF6112およびSG6160ストレージアプライアンス"^]
 
 https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/index.html["SG6000 ストレージアプライアンス"^]
 
