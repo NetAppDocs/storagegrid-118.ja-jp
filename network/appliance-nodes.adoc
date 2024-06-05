@@ -22,6 +22,7 @@ StorageGRID アプライアンスの 10 / 25GbE ポートは、グリッドネ�
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/gathering-installation-information-sg6100.html#port-bond-modes["ポートボンディングモード（SG6160）"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/gathering-installation-information-sg6100.html#port-bond-modes["ポートボンディングモード（SGF6112）"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/gathering-installation-information-sg6000.html#port-bond-modes["ポートボンディングモード（SG6000-CNコントローラ）"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/gathering-installation-information-sg5800.html#port-bond-modes["ポートボンディングモード（SG5800コントローラ）"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/gathering-installation-information-sg5700.html#port-bond-modes["ポートボンディングモード（E5700SGコントローラ）"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/gathering-installation-information-sg110-and-sg1100.html#port-bond-modes["ポートボンディングモード（SG110およびSG1100）"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/gathering-installation-information-sg100-and-sg1000.html#port-bond-modes["ポートボンディングモード（SG100およびSG1000）"^]

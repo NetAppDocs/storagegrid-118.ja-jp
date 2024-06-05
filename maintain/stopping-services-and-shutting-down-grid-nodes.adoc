@@ -89,6 +89,17 @@ NOTE: 問題 を実行する場合は、を参照して `service servermanager s
 ... アプライアンスの電源をオフにし、青色の電源 LED が消灯するまで待ちます。
 
 
+** SG5800アプライアンスの場合
++
+... ストレージコントローラの背面にある緑のキャッシュアクティブ LED が消灯するまで待ちます。
++
+この LED は、キャッシュデータをドライブに書き込む必要があるときに点灯します。この LED が消灯するのを待ってから、電源をオフにする必要があります。
+
+... SANtricity システムマネージャのホームページで、「 * 進行中の処理を表示」を選択します。
+... すべての処理が完了したことを確認してから、次の手順に進みます。
+... コントローラシェルフの両方の電源スイッチをオフにし、コントローラシェルフのすべてのLEDが消灯するまで待ちます。
+
+
 ** SG5700アプライアンスの場合
 +
 ... ストレージコントローラの背面にある緑のキャッシュアクティブ LED が消灯するまで待ちます。
@@ -110,6 +121,8 @@ NOTE: 問題 を実行する場合は、を参照して `service servermanager s
 https://docs.netapp.com/us-en/storagegrid-appliances/sg6100/index.html["SGF6112およびSG6160ストレージアプライアンス"^]
 
 https://docs.netapp.com/us-en/storagegrid-appliances/sg6000/index.html["SG6000 ストレージアプライアンス"^]
+
+https://docs.netapp.com/us-en/storagegrid-appliances/sg5800/index.html["SG5800ストレージアプライアンス"^]
 
 https://docs.netapp.com/us-en/storagegrid-appliances/sg5700/index.html["SG5700ストレージアプライアンス"^]
 

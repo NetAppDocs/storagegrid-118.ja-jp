@@ -103,6 +103,7 @@ eth2
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg6100.html["SG6160ストレージアプライアンス"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg6100.html["SGF6112ストレージアプライアンス"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg6000.html["SG6000 ストレージアプライアンス"^]
+* https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg5800.html["SG5800ストレージアプライアンス"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg5700.html["SG5700ストレージアプライアンス"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg110-and-1100.html["SG110およびSG1100サービスアプライアンス"^]
 * https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/hardware-description-sg100-and-1000.html["SG100 および SG1000 サービスアプライアンス"^]
