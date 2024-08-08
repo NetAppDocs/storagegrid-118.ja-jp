@@ -73,6 +73,8 @@ indexpage:
       url: https://www.youtube.com/playlist?list=PLdXI3bZJEw7nh2wGRA65iulXhtXwLiqrY
     - title: ネットアップラーニングサービス
       url: https://www.netapp.com/support-and-training/netapp-university/
+    - title: BlueXPを使用したStorageGRIDの管理
+      url: https://docs.netapp.com/us-en/bluexp-storagegrid/index.html
   - title: リソースの追加
     links:
     - title: StorageGRID のサポートページ

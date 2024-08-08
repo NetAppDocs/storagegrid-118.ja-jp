@@ -385,6 +385,8 @@ sidebar:
       url: "/maintain/how-site-recovery-is-performed-by-technical-support.html"
   - title: StorageGRID を有効にします
     url: "/storagegrid-enable.html"
+  - title: StorageGRIDとBlueXP 
+    url: "/storagegrid-bluexp.html"
   - title: その他のバージョン
     url: "/earlier-versions.html"
   - title: 法的通知
