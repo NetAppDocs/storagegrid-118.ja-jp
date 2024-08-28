@@ -42,6 +42,12 @@ SGF6112の改善点:: StorageGRID 11.8およびStorageGRIDアプライアンス�
 == 構成と管理
 
 グリッド全体での整合性のデフォルト:: を変更できます link:../s3/consistency-controls.html["グリッド全体のデフォルト整合性"] Grid Managerまたはのgrid-configエンドポイントを使用する link:../admin/using-grid-management-api.html["グリッド管理プライベートAPI"]。新しいデフォルト値は、変更後に作成されたバケットに適用されます。
+デフォルトの監査の送信先:: StorageGRID 11.8の新規インストールでは、デフォルトでローカルノードの監査デスティネーションに設定されます。以前は(`/var/local/log/audit.log`、監査メッセージは管理ノードの監査ログにのみ送信されていました。
++
+--
+監査ログの保存先の変更については、を参照してくださいlink:../monitor/configure-audit-messages.html#Select-audit-information-destinations["監査情報の送信先を選択します"]。
+
+--
 ILMポリシータグ:: バケットタグで制御されるバケット単位のILMポリシーを許可します。アクティブなILMポリシーと非アクティブなILMポリシーを同時に複数作成できます。を参照してください link:../ilm/ilm-policy-overview.html["ILMポリシー：概要"]。
 Kafkaエンドポイント:: Kafkaエンドポイントのサポート link:../tenant/understanding-notifications-for-buckets.html["バケットイベント通知"]。
 管理インターフェイストラフィック用のロードバランサ:: 管理ノード上の管理インターフェイスのワークロードを管理するために、ロードバランサエンドポイントを作成します。を参照してください link:../admin/managing-load-balancing.html["ロードバランシングに関する考慮事項"]。この変更により、S3またはSwiftクライアントアクセス用のHTTPSロードバランサエンドポイントを作成する際に、Grid ManagerとTenant Managerのポート443、8443、9443を使用できるようになりました。
