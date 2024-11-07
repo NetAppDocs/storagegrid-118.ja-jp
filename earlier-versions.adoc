@@ -16,6 +16,7 @@ summary: 他のバージョンのNetApp StorageGRIDソフトウェアのドキ�
 [role="lead"]
 他のバージョンのNetApp StorageGRIDソフトウェアのマニュアルは、次のURLから入手できます。
 
+* https://docs.netapp.com/us-en/storagegrid/index.html["StorageGRID 11.9ドキュメント"^]
 * https://docs.netapp.com/us-en/storagegrid-117/index.html["StorageGRID 11.7ドキュメント"^]
 * https://docs.netapp.com/us-en/storagegrid-116/index.html["StorageGRID 11.6のドキュメント"^]
 * https://docs.netapp.com/us-en/storagegrid-115/index.html["StorageGRID 11.5 のドキュメント"^]
