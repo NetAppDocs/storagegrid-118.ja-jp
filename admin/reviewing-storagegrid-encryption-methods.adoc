@@ -45,7 +45,7 @@ StorageGRIDアプライアンスインストーラの[Drive Encryption]ページ
  a| 
 SANtricity System Manager のドライブセキュリティ
  a| 
-SG5700またはSG6000ストレージアプライアンスでドライブセキュリティ機能が有効になっている場合は、を使用できます https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/accessing-and-configuring-santricity-system-manager.html["SANtricity システムマネージャ"^] をクリックしてセキュリティキーを作成および管理します。このキーは、セキュリティ保護されたドライブ上のデータにアクセスするために必要です。
+StorageGRIDアプライアンスでドライブセキュリティ機能が有効になっている場合は、を使用してセキュリティキーを作成および管理できます https://docs.netapp.com/us-en/storagegrid-appliances/installconfig/accessing-and-configuring-santricity-system-manager.html["SANtricity システムマネージャ"^]。このキーは、セキュリティ保護されたドライブ上のデータにアクセスするために必要です。
  a| 
 Full Disk Encryption（FDE）ドライブまたは自己暗号化ドライブを搭載したストレージアプライアンス。セキュリティ保護されたドライブ上のデータは、すべて物理的な損失やデータセンターからの削除から保護されます。一部のストレージアプライアンスまたはサービスアプライアンスでは使用できません。
 
