@@ -120,7 +120,7 @@ NOTE: コマンドでは、オブジェクトファイルパスを常に一重�
 . オブジェクトパスが見つかった場合は、オブジェクトをStorageGRID にリストアします。
 +
 .. 同じストレージノードから、オブジェクトファイルの所有権を変更して StorageGRID で管理できるようにします。入力するコマンド `chown ldr-user:bycast 'file_path_of_object'`
-.. Telnet で localhost 1402 に接続して、 LDR コンソールにアクセスします。入力するコマンド `telnet 0 1402`
+.. SSHを使用して任意のストレージノードにログインします。次に「telnet 0 1402」と入力してLDRコンソールにアクセスします。
 .. 入力するコマンド `cd /proc/STOR`
 .. 入力するコマンド `Object_Found 'file_path_of_object'`
 +
