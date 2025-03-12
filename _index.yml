@@ -1,5 +1,9 @@
 ---
 indexpage:
+  title: StorageGRID 11.8ドキュメント
+  summary: NetApp StorageGRID は、ソフトウェアで定義されるオブジェクトストレージスイートで、パブリック、プライベート、ハイブリッドのマルチクラウド環境での幅広いユースケースに対応します。StorageGRID
+    はAmazon S3 APIをネイティブでサポートし、自動化されたライフサイクル管理などの業界をリードする革新的なテクノロジを提供して、非構造化データを長期にわたってコスト効率よく格納、保護、保持します。
+  keywords: storagegrid 118 documentation
   lead: NetApp StorageGRID は、ソフトウェアで定義されるオブジェクトストレージスイートで、パブリック、プライベート、ハイブリッドのマルチクラウド環境での幅広いユースケースに対応します。StorageGRID
     はAmazon S3 APIをネイティブでサポートし、自動化されたライフサイクル管理などの業界をリードする革新的なテクノロジを提供して、非構造化データを長期にわたってコスト効率よく格納、保護、保持します。
   tiles:
@@ -87,16 +91,8 @@ indexpage:
       url: https://netapp.com/blog/
     - title: ネットアップコミュニティ
       url: https://community.netapp.com/
-  - title: その他のバージョン
+  - title: レガシーバージョン
     links:
-    - title: StorageGRID 11.9ドキュメント
-      url: https://docs.netapp.com/us-en/storagegrid/index.html
-    - title: StorageGRID 11.7ドキュメント
-      url: https://docs.netapp.com/us-en/storagegrid-117/index.html
-    - title: StorageGRID 11.6のドキュメント
-      url: https://docs.netapp.com/us-en/storagegrid-116/index.html
-    - title: StorageGRID 11.5 のドキュメント
-      url: https://docs.netapp.com/us-en/storagegrid-115/index.html
     - title: StorageGRID 11.4 ドキュメント
       url: https://docs.netapp.com/sgws-114/index.jsp
     - title: StorageGRID 11.3ドキュメント
