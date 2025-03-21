@@ -86,7 +86,9 @@ rootとしてログインすると、プロンプトがから変わります `$`
 
 . 監査ログファイルのユーザとグループの設定を更新します。
 +
-`cd /var/local/log` [+]
+`cd /var/local/log`
+
++
 `chown ams-user:bycast *`
 
 . サーバからログアウトします。
