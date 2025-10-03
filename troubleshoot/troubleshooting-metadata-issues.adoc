@@ -191,11 +191,18 @@ Total Events （ SMTT ）アラームは、 Cassandra データベースでメ�
 Cassandra データベースにメモリ不足エラーが発生すると、ヒープダンプが作成され、 Total Events （ SMTT ）アラームがトリガーされて、 Cassandra Heap Out Of Memory Errors のカウントが 1 つ増えます。
 
 .手順
-. イベントを表示するには、 * support * > * Tools * > * Grid topology * > * Configuration * を選択します。
+. イベントを表示:
++
+.. サポート * > * ツール * > * グリッドトポロジ * を選択します。
+.. サイトを展開し、*_grid_node_* を選択します。
+.. *SSM* を選択し、*イベント* > *構成* を選択します。
+
+
 . Cassandra Heap Out Of Memory Errors のカウントが 1 以上であることを確認します。
 +
 可能です link:../monitor/running-diagnostics.html["診断を実行します"] グリッドの現在の状態に関する追加情報 を取得します。
 
+. SSH を使用して選択したノードに「admin」としてログインし、ローカルの root ユーザーに切り替えます。
 . に進みます `/var/local/core/`を圧縮します `Cassandra.hprof` ファイルを保存してテクニカルサポートに送信します。
 . のバックアップを作成します `Cassandra.hprof` ファイルを選択し、から削除します `/var/local/core/ directory`。
 +
