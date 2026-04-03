@@ -1,5 +1,9 @@
 ---
 indexpage:
+  title: StorageGRIDのテナントとクライアントの使用
+  summary: 初期設定が完了すると、StorageGRIDテナントアカウントでバケットを作成し、S3クライアントアプリケーションを使用してオブジェクトの取り込み、読み出し、削除を実行できます。
+  keywords: applications, tenant, ingest, storagegrid systems, monitor, api, management
+  lead: 初期設定が完了すると、StorageGRIDテナントアカウントでバケットを作成し、S3クライアントアプリケーションを使用してオブジェクトの取り込み、読み出し、削除を実行できます。
   tiles:
   - title: テナントの詳細
     links:

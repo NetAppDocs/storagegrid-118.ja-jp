@@ -1,5 +1,11 @@
 ---
 indexpage:
+  title: StorageGRIDシステムの設定と管理
+  summary: 新しいStorageGRID システムで実行する必要がある設定タスクは、グリッドの使用方法によって異なります。少なくとも、システムアクセスのセットアップ、FabricPool
+    ウィザードとS3ウィザードの使用、ストレージとセキュリティのさまざまな設定の管理を行う必要があります。
+  keywords: storagegrid system, configure, manage, security, settings, admin, group
+  lead: 新しいStorageGRID システムで実行する必要がある設定タスクは、グリッドの使用方法によって異なります。少なくとも、システムアクセスのセットアップ、FabricPool
+    ウィザードとS3ウィザードの使用、ストレージとセキュリティのさまざまな設定の管理を行う必要があります。
   tiles:
   - title: はじめに
     links:

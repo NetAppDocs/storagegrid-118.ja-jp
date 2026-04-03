@@ -1,5 +1,9 @@
 ---
 indexpage:
+  title: StorageGRIDシステムの監視とトラブルシューティング
+  summary: システムが起動したら、定期的にアクティビティを監視し、アラートをトラブルシューティングして解決する必要があります。外部syslogサーバの設定、SNMPによる監視、追加データの収集などが必要になる場合もあります。
+  keywords: monitor, troubleshoot, storagegrid system, dashboard, audit, message
+  lead: システムが起動したら、定期的にアクティビティを監視し、アラートをトラブルシューティングして解決する必要があります。外部syslogサーバの設定、SNMPによる監視、追加データの収集などが必要になる場合もあります。
   tiles:
   - title: システムの監視
     links:

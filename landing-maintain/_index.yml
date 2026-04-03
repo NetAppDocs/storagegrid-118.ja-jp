@@ -1,5 +1,11 @@
 ---
 indexpage:
+  title: StorageGRIDシステムの保守
+  summary: ノードやサイトを追加して、システムの容量や機能を拡張することができます。また、さまざまなメンテナンス手順を実行して、障害からリカバリしたり、StorageGRID
+    システムを最新の状態に維持して効率的に実行したりすることもできます。
+  keywords: storagegrid system, maintenance, capacity, grid, remove, maintain, decommission
+  lead: ノードやサイトを追加して、システムの容量や機能を拡張することができます。また、さまざまなメンテナンス手順を実行して、障害からリカバリしたり、StorageGRID
+    システムを最新の状態に維持して効率的に実行したりすることもできます。
   tiles:
   - title: はじめに
     links:

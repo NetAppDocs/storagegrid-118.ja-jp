@@ -1,5 +1,9 @@
 ---
 indexpage:
+  title: StorageGRIDシステムの使用を開始する
+  summary: StorageGRIDシステムを設置して使用する前に、StorageGRIDとは何かを確認してください。
+  keywords: storagegrid system, install, network, topology, data, manage
+  lead: StorageGRIDシステムを設置して使用する前に、StorageGRIDとは何かを確認してください。
   tiles:
   - title: 学習と探索
     links:

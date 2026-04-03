@@ -1,5 +1,10 @@
 ---
 indexpage:
+  title: StorageGRIDのインストール、アップグレード、ホットフィックス
+  summary: StorageGRID システムは、ハードウェアベースとソフトウェアベースの個 々 のノードで構成されます。最初に各アプライアンスノードのハードウェアを設置し、LinuxまたはVMwareホストをそれぞれ設定します。その後、各アプライアンスまたはソフトウェアホストにStorageGRIDソフトウェアをインストールし、ノードをグリッドに接続します。
+  keywords: storagegrid system, appliance hardware, software, install, vmware, red
+    gat, ubuntu, debian, automate
+  lead: StorageGRID システムは、ハードウェアベースとソフトウェアベースの個 々 のノードで構成されます。最初に各アプライアンスノードのハードウェアを設置し、LinuxまたはVMwareホストをそれぞれ設定します。その後、各アプライアンスまたはソフトウェアホストにStorageGRIDソフトウェアをインストールし、ノードをグリッドに接続します。
   tiles:
   - title: クイックスタート
     links:

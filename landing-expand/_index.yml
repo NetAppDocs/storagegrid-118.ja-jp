@@ -1,5 +1,9 @@
 ---
 indexpage:
+  title: グリッドを展開する
+  summary: システムの処理を中断することなく、StorageGRIDシステムの容量や機能を拡張できます。
+  keywords: storagegrid system, capacity, grid, capabilities, operations, expansion
+  lead: システムの処理を中断することなく、StorageGRIDシステムの容量や機能を拡張できます。
   tiles:
   - title: はじめに
     links:

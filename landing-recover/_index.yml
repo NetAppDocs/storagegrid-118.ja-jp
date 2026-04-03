@@ -1,5 +1,9 @@
 ---
 indexpage:
+  title: ノードをリカバリまたは交換
+  summary: グリッドノードで障害が発生した場合は、障害が発生した物理または仮想サーバを交換し、 StorageGRID ソフトウェアを再インストールし、リカバリ可能なデータをリストアすることでリカバリできます。
+  keywords: recover, replace, warnings, grid, node, storagegrid systems
+  lead: グリッドノードで障害が発生した場合は、障害が発生した物理または仮想サーバを交換し、 StorageGRID ソフトウェアを再インストールし、リカバリ可能なデータをリストアすることでリカバリできます。
   tiles:
   - title: はじめに
     links:
