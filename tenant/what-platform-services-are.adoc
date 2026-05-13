@@ -81,7 +81,7 @@ CloudMirror レプリケーション
 
  a| 
 * link:configuring-cloudmirror-replication.html["CloudMirror レプリケーション"]
-* link:../s3/operations-on-buckets.htmll["バケットの処理"]
+* link:../s3/operations-on-buckets.html["バケットの処理"]
 
 
 
@@ -94,7 +94,7 @@ CloudMirror レプリケーション
 
  a| 
 * link:configuring-event-notifications.html["通知"]
-* link:../s3/s3/operations-on-buckets.html["バケットの処理"]
+* link:../s3/operations-on-buckets.html["バケットの処理"]
 
 
 

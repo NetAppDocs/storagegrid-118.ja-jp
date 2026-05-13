@@ -31,7 +31,7 @@ StorageGRID を参照してください link:../network/index.html["ネットワ
 NOTE: StorageGRID 環境でStorageGRID アプライアンス（ハードウェア）ストレージノードを使用しない場合は、バッテリバックアップ式書き込みキャッシュ（BBWC）を備えたハードウェアRAIDストレージを使用する必要があります。StorageGRID は、Virtual Storage Area Network（VSAN;仮想ストレージエリアネットワーク）、ソフトウェアRAID、またはRAID保護なしの使用をサポートしていません。
 
 --
-ノード移行（必要な場合）:: を理解します link:node-container-migration-requirements.html["ノード移行の要件"]（サービスを中断せずに物理ホストで定期的なメンテナンスを実行する場合）。
+ノード移行（必要な場合）:: サービスの中断なしに物理ホストの定期メンテナンスを実行したい場合は、link:../swnodes/node-container-migration-requirements.html["ノード移行の要件"]を理解してください。
 関連情報:: https://imt.netapp.com/matrix/#welcome["NetApp Interoperability Matrix Tool で確認できます"^]
 
 
